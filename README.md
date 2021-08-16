@@ -11,7 +11,7 @@ $ npm start
 ```
 
 ### Env vars
-Prohect uses `dotenv` to handle project specific environment variables. See `.env.example` for an example on how to configure yours for development.
+Project uses `dotenv` to handle project specific environment variables. See `.env.example` for an example on how to configure yours for development.
 
 ### Tests
 
