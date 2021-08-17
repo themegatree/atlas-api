@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       this.SelfAssessments = this.hasMany(models.SelfAssessment, { onDelete: 'cascade' })
+      this.ModuleChallenges = this.hasMany(models.ModuleChallenge, {onDelete: 'cascade'})
     }
   };
   Student.init({
