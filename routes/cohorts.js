@@ -11,7 +11,6 @@ router.get("/", async function (req, res) {
     include: { all: true },
     order: [[sort, order]],
   });
-
   //we use json to pass
   res.json({ cohorts: cohorts });
 });
