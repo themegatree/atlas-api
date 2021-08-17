@@ -4,11 +4,11 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
      await queryInterface.addColumn(
      'Cohorts',
-     'date',
+     'startDate',
       Sequelize.DATE
       )},
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.removeColumn('Cohorts', 'date');
+    await queryInterface.removeColumn('Cohorts', 'startDate');
     }
   };
