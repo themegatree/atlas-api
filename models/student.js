@@ -4,6 +4,7 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Student extends Model {
+<<<<<<< HEAD
 
     static associate(models) {
 
@@ -13,6 +14,9 @@ module.exports = (sequelize, DataTypes) => {
      
 
     }
+=======
+    static associate(models) {}
+>>>>>>> ca888d3 (added student sorting and student database test)
   };
   Student.init({
     firstName: DataTypes.STRING,
