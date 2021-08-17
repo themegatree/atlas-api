@@ -3,16 +3,6 @@ const router = express.Router();
 
 const { Cohort } = require("../models");
 
-router.get("/", async function (req, res) {
-  const cohorts = await Cohort.findAll({
-    include: { all: true },
-    order: [["date", "DESC"]],
-  });
-
-  //we use json to pass
-  res.json({ cohorts: cohorts });
-});
-
 //Update API to handle request to `/api/cohorts?sort=date&order=descending`
 router.get("/", async function (req, res) {
   const sort = req.params.sort;
