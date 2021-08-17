@@ -15,6 +15,13 @@ module.exports = {
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
+  "ci": {
+    "username": "postgres",
+    "password": "postgres",
+    "database": "atlas_ci",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
   "production": {
     "username": "root",
     "password": null,
