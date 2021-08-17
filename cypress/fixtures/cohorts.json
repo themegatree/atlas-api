@@ -1,0 +1,25 @@
+{
+  "cohorts": [
+    {
+      "id": "1",
+      "name": "MOCK cohort name",
+      "createdAt": "12/01/2021",
+      "updatedAt": "12/01/2021",
+      "date": "12/01/2021"
+    },
+    {
+      "id": "2",
+      "name": "MOCK cohort name two",
+      "createdAt": "12/02/2021",
+      "updatedAt": "12/02/2021",
+      "date": "12/02/2021"
+    },
+    {
+      "id": "3",
+      "name": "MOCK cohort name three",
+      "createdAt": "12/03/2021",
+      "updatedAt": "12/03/2021",
+      "date": "12/03/2021"
+    }
+  ]
+}
