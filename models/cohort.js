@@ -14,7 +14,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Cohort.init({
-    name: DataTypes.STRING
+    name: DataTypes.STRING,
+    date: DataTypes.DATE
   }, {
     sequelize,
     modelName: 'Cohort',
