@@ -10,8 +10,9 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      this.SelfAssessments = this.hasMany(models.SelfAssessment, { onDelete: 'cascade' })
       this.ModuleChallenges = this.hasMany(models.ModuleChallenge, {onDelete: 'cascade'})
+      this.SelfAssessments = this.hasMany(models.SelfAssessment, { onDelete: 'cascade' })
+
     }
   };
   Student.init({
