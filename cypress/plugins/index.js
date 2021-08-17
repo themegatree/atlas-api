@@ -23,14 +23,14 @@ module.exports = (on, config) => {
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
   on('task', {
-    taskTruncateTables() {
+    async taskTruncateTables() {
       console.log('running truncateTables task')
-      truncateTables()
+      await truncateTables()
       return null
     },
-    taskCreateCohort() {
+    async taskCreateCohort() {
       console.log('running createCohort task')
-      createCohort()
+      await createCohort()
       return null
     }
   })
