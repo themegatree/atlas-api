@@ -1,9 +1,0 @@
-{
-  "baseUrl": "http://localhost:5000",
-  "reporter": "cypress-mochawesome-reporter",
-  "env": {
-    "url": ""
-  },
-  "video": false,
-  "screenshotOnRunFailure": false
-}
