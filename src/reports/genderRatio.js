@@ -11,12 +11,12 @@ const genderRatio =async (CohortId) => {
 
   const genders = genderQuery.rows.map(row => row.gender)
   
+  const gendersObj = {};
+  genders.forEach(function (gender) { gendersObj[gender] = (gendersObj[gender] || 0) + 1; });
 
-  genders.forEach(function (gender) { gendersArr[gender] = (gendersArr[gender] || 0) + 1; });
+  Object.keys(gendersObj).forEach(function(gender) {gendersObj[gender] = {number: gendersObj[gender], percentage: gendersObj[gender]/total*100} })
 
-  Object.keys(gendersArr).forEach(function(gender) {gendersArr[gender] = {number: gendersArr[gender], percentage: gendersArr[gender]/total*100} })
-
-  return gendersArr
+  return gendersObj
 };
   
 
