@@ -7,11 +7,9 @@ describe('gender ratio test', () => {
   })
 
   it('calculates gender ratio from gender data', async () => {
-    const genderRatio = require('../src/genderRatio');
-
-    const ratios = await genderRatio();
-    
-  
+    const genderRatio = require('../../src/reports/genderRatio');
+    const cohortId = 1;
+    const ratios = await genderRatio(cohortId);
 
     expect(ratios).toEqual([0.25,0.75,0,0]);
 

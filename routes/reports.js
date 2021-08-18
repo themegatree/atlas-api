@@ -1,11 +1,14 @@
 const express = require('express')
 const router = express.Router()
-const { Student } = require('../models')
 
 router.get('/cohorts/:id/report', async function (req, res) {
   
+  // Call function to make the Java Script Report Object
+  //genderRatio(id)
+  
+  //  const report = await createReport(req.params.id)
 
-  res.json({ students: students })
+  res.json({ report: report })
 })
 
 
