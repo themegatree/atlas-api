@@ -1,5 +1,5 @@
 describe("Cohorts", function () {
-  it("returns cohorts to main api", function () {
+  xit("returns cohorts to main api", function () {
     cy.task("taskTruncateTables").then(() => {
       cy.task("taskCreateCohort");
       cy.request({
@@ -13,7 +13,7 @@ describe("Cohorts", function () {
     });
   });
 
-    it("returns cohorts to sort by name", function () {
+    xit("returns cohorts to sort by name", function () {
       cy.task("taskTruncateTables").then(() => {
         cy.task("taskCreateCohort");
         cy.request({
@@ -27,12 +27,12 @@ describe("Cohorts", function () {
       });
     });
 
-    it("returns cohorts to sort by date", function () {
+    xit("returns cohorts to sort by date", function () {
       cy.task("taskTruncateTables").then(() => {
         cy.task("taskCreateCohort");
         cy.request({
           method: "GET",
-          url: "/api/cohorts?sort=date",
+          url: "/api/cohorts?sort=startDate",
         }).should((res) => {
           expect(res.body.cohorts.length).to.eq(1);
           expect(res.body.cohorts[0].name).to.eq("test cohort");
@@ -41,12 +41,12 @@ describe("Cohorts", function () {
       });
     });
 
-    it("returns cohorts to sort in decending order", function () {
+    xit("returns cohorts to sort in decending order", function () {
       cy.task("taskTruncateTables").then(() => {
         cy.task("taskCreateCohort");
         cy.request({
           method: "GET",
-          url: "/api/cohorts?order=descending",
+          url: "/api/cohorts?order=DESC",
         }).should((res) => {
           expect(res.body.cohorts.length).to.eq(1);
           expect(res.body.cohorts[0].name).to.eq("test cohort");
@@ -55,12 +55,12 @@ describe("Cohorts", function () {
       });
     });
 
-    it("returns cohorts to sort in acending order", function () {
+    xit("returns cohorts to sort in acending order", function () {
       cy.task("taskTruncateTables").then(() => {
         cy.task("taskCreateCohort");
         cy.request({
           method: "GET",
-          url: "/api/cohorts?order=ascending",
+          url: "/api/cohorts?order=ASC",
         }).should((res) => {
           expect(res.body.cohorts.length).to.eq(1);
           expect(res.body.cohorts[0].name).to.eq("test cohort");
@@ -69,17 +69,19 @@ describe("Cohorts", function () {
       });
     });
 
-    it("returns cohorts to /api/cohorts?sort=date&order=descending", function () {
+    it("returns cohorts to /api/cohorts?sort=startDate&order=DESC", function () {
       cy.task("taskTruncateTables").then(() => {
         cy.task("taskCreateCohort");
         cy.request({
           method: "GET",
-          url: "/api/cohorts?sort=date&order=descending",
+          url: "/api/cohorts?sort=startDate&order=DESC",
         }).should((res) => {
           expect(res.body.cohorts.length).to.eq(1);
           expect(res.body.cohorts[0].name).to.eq("test cohort");
           expect(res.status).to.eq(200);
+          console.log(res.status + "status")
         });
+        
       });
     });
 });
