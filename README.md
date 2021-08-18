@@ -1,4 +1,4 @@
-# Atlas Frontend
+# Atlas API
 
 ### Quickstart
 
