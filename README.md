@@ -25,5 +25,8 @@ $ npx cypress run --reporter mochawesome --reporter-options "reportDir=cypress/r
 # to run unit tests
 $ npm test
 ```
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 247ca7e (added file checks)
