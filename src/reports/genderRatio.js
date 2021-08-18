@@ -1,49 +1,23 @@
-const {Cohort, Student, sequelize} = require('../../models');
-
-//const cohortSize = (cohortCount.count)
+const { Student } = require('../../models');
 
 const genderRatio =async (CohortId) => {
   
-  const total = await Student.findAndCountAll({
-    where: {
-      CohortId: CohortId
-    }
-  })
-  const total_count = total.count
-
-  const males = await Student.findAndCountAll({
-        where: {
-          gender: 'male',
-          CohortId: CohortId
-        }
-      });  
-
-  const females = await Student.findAndCountAll({
-        where: {
-          gender: 'female',
-          CohortId: CohortId
-        }
-      });   
-
-  const other = await Student.findAndCountAll({     
-    where: {
-      gender: 'other',
-      CohortId: CohortId
-    }
+  genderQuery = await Student.findAndCountAll({
+    raw: true,
+    attributes: ['gender']
   });
 
-  const PNTS = await Student.findAndCountAll({ 
-    where: {
-      gender: 'prefer not to say',
-      CohortId: CohortId
-    }
-  });
+  const total = genderQuery.count
 
-    const counts = [males.count,females.count,other.count,PNTS.count]
-    const ratios = counts.map(count => count/total_count)
+  const genders = genderQuery.rows.map(row => row.gender)
+  
 
-    return ratios
-  };
+  genders.forEach(function (gender) { gendersArr[gender] = (gendersArr[gender] || 0) + 1; });
+
+  Object.keys(gendersArr).forEach(function(gender) {gendersArr[gender] = {number: gendersArr[gender], percentage: gendersArr[gender]/total*100} })
+
+  return gendersArr
+};
   
 
 module.exports = genderRatio;
