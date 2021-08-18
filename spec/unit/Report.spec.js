@@ -8,15 +8,15 @@ describe('Test Report Class', () => {
 
     expect(reportObj).toEqual({
         "report": {
-            "cohortId": "5",
+            "cohortId": "1",
             "gender": {
                 "male": {
-                    "percentage": "50",
-                    "number": "10"
+                    "percentage": "25",
+                    "number": "1"
                 },
                 "female": {
-                    "percentage": "50",
-                    "number": "10"
+                    "percentage": "75",
+                    "number": "3"
                 },
                 "other": {
                     "percentage": "0",
@@ -25,23 +25,23 @@ describe('Test Report Class', () => {
             },
             "background": {
                 "white": {
-                    "percentage": "50",
-                    "number": "10"
-                },
-                "asian": {
                     "percentage": "25",
-                    "number": "5"
+                    "number": "1"
+                },
+                "mexican": {
+                    "percentage": "0",
+                    "number": "0"
                 },
                 "black": {
+                    "percentage": "50",
+                    "number": "1"
+                },
+                "other": {
                     "percentage": "25",
-                    "number": "5"
+                    "number" : "1"
                 }
             },
         }
-    });
-
-  // it('can get only gender stats', ()=> {
-
-  // });
-  
-});
+        });
+    })
+})
