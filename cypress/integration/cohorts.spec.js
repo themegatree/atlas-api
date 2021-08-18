@@ -1,5 +1,5 @@
 describe("Cohorts", function () {
-  xit("returns cohorts to main api", function () {
+  it("returns cohorts to main api", function () {
     cy.task("taskTruncateTables").then(() => {
       cy.task("taskCreateCohort");
       cy.request({
@@ -13,7 +13,7 @@ describe("Cohorts", function () {
     });
   });
 
-    xit("returns cohorts to sort by name", function () {
+    it("returns cohorts to sort by name", function () {
       cy.task("taskTruncateTables").then(() => {
         cy.task("taskCreateCohort");
         cy.request({
@@ -27,7 +27,7 @@ describe("Cohorts", function () {
       });
     });
 
-    xit("returns cohorts to sort by date", function () {
+    it("returns cohorts to sort by date", function () {
       cy.task("taskTruncateTables").then(() => {
         cy.task("taskCreateCohort");
         cy.request({
@@ -41,12 +41,12 @@ describe("Cohorts", function () {
       });
     });
 
-    xit("returns cohorts to sort in decending order", function () {
+    it("returns cohorts to sort in decending order by name", function () {
       cy.task("taskTruncateTables").then(() => {
         cy.task("taskCreateCohort");
         cy.request({
           method: "GET",
-          url: "/api/cohorts?order=DESC",
+          url: "/api/cohorts?sort=name&order=DESC",
         }).should((res) => {
           expect(res.body.cohorts.length).to.eq(1);
           expect(res.body.cohorts[0].name).to.eq("test cohort");
@@ -55,12 +55,12 @@ describe("Cohorts", function () {
       });
     });
 
-    xit("returns cohorts to sort in acending order", function () {
+    it("returns cohorts to sort in acending order by date", function () {
       cy.task("taskTruncateTables").then(() => {
         cy.task("taskCreateCohort");
         cy.request({
           method: "GET",
-          url: "/api/cohorts?order=ASC",
+          url: "/api/cohorts?sort=startDate&order=ASC",
         }).should((res) => {
           expect(res.body.cohorts.length).to.eq(1);
           expect(res.body.cohorts[0].name).to.eq("test cohort");
@@ -79,9 +79,7 @@ describe("Cohorts", function () {
           expect(res.body.cohorts.length).to.eq(1);
           expect(res.body.cohorts[0].name).to.eq("test cohort");
           expect(res.status).to.eq(200);
-          console.log(res.status + "status")
         });
-        
       });
     });
 });

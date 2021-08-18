@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
   };
   Cohort.init({
     name: DataTypes.STRING,
+    startDate: DataTypes.DATE,
   }, {
     sequelize,
     modelName: 'Cohort',
