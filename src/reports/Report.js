@@ -1,31 +1,32 @@
 
 const backgroundRatio = require('./backgroundRatio');
 const genderRatio = require('./genderRatio')
-const gendersArr = async (CohortId) => {
-const Arr = await backgroundRatio(CohortId)
-
-}
-
-
-
-
 
 class Report {
   constructor() {
-    this.reportObj = {report: '' };
+    this.reportObj = {report: {}};
   }
   
   create(CohortId)  {
-    const genderArrayTest = async () => {const genderArray = await gendersArr(CohortId)}
-    this.reportObj += report['gender'] = genderArrayTest()
-    
+    const gendersArr = async () => { 
+    const Arr = await genderRatio()
+    return Arr
+    }
+    const backgroundArr = async () =>{
+    const BGArr = await backgroundRatio()
+    return BGArr
+    }
+    gendersArr(1).then((Arr) => this.reportObj.report['gender'] = Arr)
+    backgroundArr(1).then((BGArr) => this.reportObj.report['background'] = BGArr)
+
     return this.reportObj
   }
 
 }
 
 const report = new Report()
-console.log(report.create(1))
+report.create(1)
+setTimeout(() => console.log(report.reportObj),300)
 
 
 
