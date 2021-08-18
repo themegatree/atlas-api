@@ -11,7 +11,9 @@ module.exports = {
       email: 'dummy1@student.com',
       gender: 'male',
       createdAt: new Date('2021-01-08'),
-      updatedAt: new Date('2021-01-08')
+      updatedAt: new Date('2021-01-08'),
+      background: 'White',
+      CohortId: 1
     }, 
     {
       firstName: 'Dummy2',
@@ -20,7 +22,9 @@ module.exports = {
       email: 'dummy2@student.com',
       gender: 'female',
       createdAt: new Date('2021-01-08'),
-      updatedAt: new Date('2021-01-08')
+      updatedAt: new Date('2021-01-08'),
+      background: 'Black',
+      CohortId: 1
     },
      {
       firstName: 'Dummy3',
@@ -29,7 +33,9 @@ module.exports = {
       email: 'dummy3@student.com',
       gender: 'female',
       createdAt: new Date('2021-01-08'),
-      updatedAt: new Date('2021-01-08')
+      updatedAt: new Date('2021-01-08'),
+      background: 'Black',
+      CohortId: 1
     },
       {
       firstName: 'Dummy4',
@@ -38,7 +44,9 @@ module.exports = {
       email: 'dummy4@student.com',
       gender: 'female',
       createdAt: new Date('2021-01-08'),
-      updatedAt: new Date('2021-01-08')
+      updatedAt: new Date('2021-01-08'),
+      background: 'Other',
+      CohortId: 1
     }
   
   ], {});
