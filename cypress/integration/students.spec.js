@@ -9,11 +9,11 @@ describe("Cohorts", function() {
       method: "GET",
       url: "api/students"
     }).should(res => {
-      expect(res.body.students.length).to.eq(1)
-      expect(res.body.students[0].firstName).to.eq("test")
-      expect(res.body.students[0].lastName).to.eq("student")
-      expect(res.body.students[0].githubUsername).to.eq("teststudentgit")
-      expect(res.body.students[0].email).to.eq("test@email.com")
+      expect(res.body.students.length).to.eq(4)
+      expect(res.body.students[0].firstName).to.eq("Alice")
+      expect(res.body.students[0].lastName).to.eq("Williams")
+      expect(res.body.students[0].githubUsername).to.eq("alicewilliamsgit")
+      expect(res.body.students[0].email).to.eq("awilliams@email.com")
       expect(res.status).to.eq(200)
     })
   })
