@@ -10,6 +10,7 @@ const backgroundRatio = async (CohortId) => {
   });
 
   const total = backgroundQuery.count 
+  
   const backgrounds = backgroundQuery.rows.map(row => row.background)
   const backgroundObj = [];
  

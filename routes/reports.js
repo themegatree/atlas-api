@@ -8,7 +8,7 @@ router.get('/', async function (req, res) {
   // Call function to make the Java Script Report Object
   //genderRatio(id)
   
-  const report = Report(req.params.id)
+  const report = new Report(req.params.id)
 
   res.json({ report: await report.create() })
 })

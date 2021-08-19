@@ -5,6 +5,7 @@ const student = require("../models/student");
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.bulkInsert('Students', [{
+      id:1,
       firstName: 'Dummy1',
       lastName: 'Student',
       githubUsername: 'dummy-student1',
@@ -16,6 +17,7 @@ module.exports = {
       CohortId: 1
     }, 
     {
+      id:2,
       firstName: 'Dummy2',
       lastName: 'Student',
       githubUsername: 'dummy-student2',
@@ -27,6 +29,7 @@ module.exports = {
       CohortId: 1
     },
      {
+       id:3,
       firstName: 'Dummy3',
       lastName: 'Student',
       githubUsername: 'dummy-student3',
@@ -38,6 +41,7 @@ module.exports = {
       CohortId: 1
     },
       {
+        id:4,
       firstName: 'Dummy4',
       lastName: 'Student',
       githubUsername: 'dummy-student4',
