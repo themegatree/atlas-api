@@ -5,6 +5,7 @@ const cors = require('cors')
 
 const cohortsRouter = require('./routes/cohorts.js')
 const studentsRouter = require('./routes/students.js')
+const reportsRouter = require('./routes/report.js')
 
 app.use(cors())
 app.use(express.json())
@@ -12,6 +13,7 @@ app.use(express.urlencoded({ extended: true }))
 
 app.use('/api/cohorts', cohortsRouter)
 app.use('/api/students', studentsRouter)
+app.use('/api/cohorts/:id/reports', reportsRouter)
 
 app.listen(port, () => {
   "listening on port: ${port}"

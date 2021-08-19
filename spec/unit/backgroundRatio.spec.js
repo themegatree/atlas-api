@@ -2,7 +2,7 @@ require('dotenv').config();
 
 describe('background ratio test', () => {
 
-  it('calculates background ratio from background data', async () => {
+  fit('calculates background ratio from background data', async () => {
     const backgroundRatio = require('../../src/reports/backgroundRatio');
 
     const CohortId = 1;
