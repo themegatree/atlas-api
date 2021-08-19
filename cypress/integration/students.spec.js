@@ -8,11 +8,12 @@ describe("Students", function() {
           url: "api/students"
         }).should(res => {
           expect(res.body.students.length).to.eq(4)
-          expect(res.body.students[0].firstName).to.eq("Alice")
-          expect(res.body.students[0].lastName).to.eq("Williams")
-          expect(res.body.students[0].githubUsername).to.eq("alicewilliamsgit")
-          expect(res.body.students[0].email).to.eq("awilliams@email.com")
-          expect(res.status).to.eq(200)
+          cy.get(res.body.students).each((item,index) => {
+            cy.wrap(item.firstName).should('contain', res.body.students[index].firstName)
+            cy.wrap(item.lastName).should('contain', res.body.students[index].lastName)
+            cy.wrap(item.githubUsername).should('contain', res.body.students[index].githubUsername)
+            cy.wrap(item.email).should('contain', res.body.students[index].email)
+          })
       })
     })
   })
