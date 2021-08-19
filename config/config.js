@@ -5,6 +5,7 @@ module.exports = {
     "username": process.env.ATLAS_DATABASE_USER,
     "password": process.env.ATLAS_DATABASE_PASSWORD,
     "database": "atlas_development",
+    "seederStorage": "json",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
@@ -12,6 +13,7 @@ module.exports = {
     "username": process.env.ATLAS_DATABASE_USER,
     "password": process.env.ATLAS_DATABASE_PASSWORD,
     "database": "atlas_test",
+    //"seederStorage": "json",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
@@ -19,6 +21,7 @@ module.exports = {
     "username": "postgres",
     "password": "postgres",
     "database": "atlas_ci",
+    //"seederStorage": "json"
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
