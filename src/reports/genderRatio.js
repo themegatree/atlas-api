@@ -1,23 +1,39 @@
+
+
 const { Student } = require('../../models');
 
-const genderRatio =async (CohortId) => {
-  
+const genderRatio = async (CohortId) => {
   genderQuery = await Student.findAndCountAll({
     raw: true,
-    attributes: ['gender']
+    attributes: ['gender'],
+    where :{
+      CohortId : CohortId
+    }
   });
 
-  const total = genderQuery.count
-
+  const total = genderQuery.count 
   const genders = genderQuery.rows.map(row => row.gender)
-  
-  const gendersObj = {};
-  genders.forEach(function (gender) { gendersObj[gender] = (gendersObj[gender] || 0) + 1; });
-
-  Object.keys(gendersObj).forEach(function(gender) {gendersObj[gender] = {number: gendersObj[gender], percentage: gendersObj[gender]/total*100} })
-
-  return gendersObj
+  const genderObj = [];
+ 
+  const uniquegenders = genders.filter((gender, index) => {
+    return genders.indexOf(gender) === index;
+  });
+ 
+  const genderArr = [];
+  uniquegenders.forEach((gender,index) => {genderArr[index] = {type: gender, count: 0, percentage: 0} });
+ 
+  genders.forEach(function (gender) { genderObj[gender] = (genderObj[gender] || 0) + 1; });
+  for (i = 0; i < genderArr.length; i++){
+    
+    if (Object.keys(genderObj)[i] === genderArr[i].type){
+      genderArr[i].count = Object.values(genderObj)[i] 
+      genderArr[i].percentage = 100 * Object.values(genderObj)[i] / total
+      
+    }
+    
+  }
+  console.log(genderArr)
+    return genderObj
 };
-  
-
+genderRatio(1)
 module.exports = genderRatio;
