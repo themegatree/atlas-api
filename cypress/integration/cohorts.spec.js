@@ -69,4 +69,17 @@ describe('Cohorts', function () {
       });
     });
 
+        it('returns cohorts to default query when passing invalid query inputs', function () {
+      cy.task('taskTruncateTables').then(() => {
+        cy.task('taskCreateCohort');
+        cy.request({
+          method: 'GET',
+          url: '/api/cohorts?sort=XYZ&order=ABC',
+        }).should((res) => {
+          expect(res.body.cohorts).to.eq(undefined);
+          expect(res.status).to.eq(200);
+        });
+      });
+    });
+
 });

@@ -9,9 +9,13 @@ router.get('/', async function (req, res) {
   const cohorts = await Cohort.findAll({
     include: { all: true },
     order: [[sort, order]],
-  });
-  res.json({ cohorts: cohorts });
-});
+  }).then(cohorts =>{
+    res.json({ cohorts: cohorts })
+  }).catch(errors => {
+    res.json({ errors: "Sorry invalid query parameters" })
+  })
+ 
+})
 
 module.exports = router;
 
