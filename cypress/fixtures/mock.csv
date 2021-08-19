@@ -1,0 +1,9 @@
+StudentId,challengeName,language,studentScore,coachScore,dueDate,submissionDate
+1,RPS,nodejs,extended,extended,2021-08-16,2021-08-16
+4,RPS,nodejs,complete,complete,2021-08-16,2021-08-16
+
+
+connections if we run both servers does it allow us to use react with the api
+or how do we do that
+
+can we push the front end part of AT-13 cos theres

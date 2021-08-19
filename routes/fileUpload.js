@@ -8,14 +8,17 @@ router.post("/", async (req, res) => {
   res.json({ response: errors });
 });
 
-<<<<<<< HEAD
-=======
 router.post("/history", async (req, res) => {
   const history = await UploadHistory.findAll({});
 
+<<<<<<< HEAD
+=======
+    let status = ""
+    if(fileUploader.errors.length === 0)status = "Success"
+    else status = "Failure"
+>>>>>>> d609f17 (Fixing bugs)
 
   res.json({history:history});
 });
 
->>>>>>> 26d8c9c (Added some changes)
 module.exports = router;

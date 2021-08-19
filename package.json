@@ -24,9 +24,14 @@
     "sequelize-cli": "^6.2.0"
   },
   "devDependencies": {
+<<<<<<< HEAD
     "cypress": "^8.3.0",
     "eslint": "^7.32.0",
     "eslint-plugin-cypress": "^2.11.3",
     "jasmine": "^3.9.0"
+=======
+    "cypress-file-upload": "^5.0.8",
+    "express": "^4.17.1"
+>>>>>>> 6b7b3a9 (committing on AT-34)
   }
 }

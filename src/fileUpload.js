@@ -5,6 +5,7 @@ class FileUploader {
     this.database = this.dbCheck(database)
     this.data = this.fileConvertor(csvFile)
     this.errors = []
+    this.history = database
   }
 
   fileConvertor (csvFile) {
@@ -68,12 +69,13 @@ class FileUploader {
       attributes: ['id']
     })
 
+    let arr = [];
+
+    students.forEach((student) => {arr.push(student.id)})
+
     this.data.forEach(dataObject => {
       counter++
-      if (!students.includes(dataObject.StudentId)) {
-        this.errors.push(`Student id: ${dataObject.StudentId} does not exist, on line ${counter}`)
-      }
-
+      if (!(arr.includes(parseInt(dataObject.StudentId))))this.errors.push(`Student id: ${dataObject.StudentId} does not exist, on line ${counter}`)
       this.learningScoreCheck(dataObject.confidenceScore, dataObject.overallScore, counter)
       this.dateCheck(dataObject.dueDate, dataObject.submissionDate)
     })
@@ -81,14 +83,24 @@ class FileUploader {
 
   async moduleDataCheck () {
     const students = await Student.findAll({
-      attributes: ['id']
+      attributes: ['id'],
+      include: {
+      all: true
+    }
     })
+
+    let arr = [];
+
+    students.forEach((student) => {arr.push(student.id)})
+
+    console.log(arr)
 
     let counter = 0
 
     this.data.forEach(dataObject => {
       counter++
-      if (!students.includes(dataObject.StudentId)) this.errors.push(`Student id: ${dataObject.StudentId} does not exist, on line ${counter}`)
+      console.log(dataObject.StudentId)
+      if (!(arr.includes(parseInt(dataObject.StudentId))))this.errors.push(`Student id: ${dataObject.StudentId} does not exist, on line ${counter}`)
       this.projectCheck(dataObject.challengeName, dataObject.language, counter)
       this.dateCheck(dataObject.dueDate, dataObject.submissionDate, counter)
       this.scoreCheck(dataObject.studentScore, dataObject.coachScore, counter)
