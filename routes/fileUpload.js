@@ -4,9 +4,10 @@ const FileUploader = require('../src/fileUpload.js')
 
 
 router.post('/', async  (req,  res) => {
-    const fileUploader = new FileUploader(req.files.upload.data, req.body.assessmentType)
-    const errors = await fileUploader.dataChecks()
-    console.log(errors)
+    const fileUploader = new FileUploader(req.files.myFile.data, req.body.assessmentType)
+    await fileUploader.dataChecks()
+    const response = await fileUploader.addToDatabase()
+    res.json(response)
 })
 
 

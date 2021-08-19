@@ -1,6 +1,6 @@
 const { SelfAssessment, Student, ModuleChallenge } = require('../models')
 
-class fileUploader {
+class FileUploader {
   constructor (csvFile, database) {
     this.database = this.dbCheck(database)
     this.data = this.fileConvertor(csvFile)
@@ -42,7 +42,7 @@ class fileUploader {
       return this.errors
     } else if (this.database === SelfAssessment) {
       await this.learningDataCheck()
-      return this.errors
+      // return this.errors
     } else if (this.database === Student) {
 
     } else {
@@ -51,7 +51,15 @@ class fileUploader {
   }
 
   async addToDatabase () {
-    
+    if(this.errors.length === 0){
+        await this.database.bulkCreate(this.data,  {
+          returning : true
+        })
+        return ["Updated the database successfully."]
+    }
+    else{
+      return this.errors
+    }
 }
 
   async learningDataCheck () {
@@ -66,7 +74,7 @@ class fileUploader {
         this.errors.push(`Student id: ${dataObject.StudentId} does not exist, on line ${counter}`)
       }
 
-      this.learningScoreCheck(dataObject.confidenceScore, data.overallScore, counter)
+      this.learningScoreCheck(dataObject.confidenceScore, dataObject.overallScore, counter)
       this.dateCheck(dataObject.dueDate, dataObject.submissionDate)
     })
   }
@@ -131,4 +139,4 @@ class fileUploader {
   }
 }
 
-module.exports = fileUploader
+module.exports = FileUploader
