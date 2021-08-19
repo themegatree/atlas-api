@@ -12,7 +12,7 @@ router.get('/', async function (req, res) {
   }).then(cohorts =>{
     res.json({ cohorts: cohorts })
   }).catch(errors => {
-    res.json({ errors: "Sorry invalid query parameters" })
+    res.json({ errors: ["Sorry invalid query parameters"] })
   })
  
 })

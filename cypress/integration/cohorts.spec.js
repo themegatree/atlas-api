@@ -76,7 +76,7 @@ describe('Cohorts', function () {
           method: 'GET',
           url: '/api/cohorts?sort=XYZ&order=ABC',
         }).should((res) => {
-          expect(res.body.cohorts).to.eq(undefined);
+          expect(res.body.errors[0]).to.eq("Sorry invalid query parameters");
           expect(res.status).to.eq(200);
         });
       });
