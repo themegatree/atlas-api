@@ -6,11 +6,13 @@ describe('gender ratio test', () => {
     const genderRatio = require('../../src/reports/genderRatio');
     
     const CohortId = 1;
-    const gendersObj = await genderRatio(CohortId);
+    const gendersArr = await genderRatio(CohortId);
+    console.log("Genders Array");
+    console.log(gendersArr)
   
-    expect(gendersObj.female.number).toEqual(3)
-    expect(gendersObj.male.number).toEqual(1)
-    expect(gendersObj.male.percentage).toEqual(25)
+    expect(gendersArr[1].type).toEqual('female')
+    expect(gendersArr[1].number).toEqual(3)
+    expect(gendersArr[0].percentage).toEqual(25)
 
   });
   

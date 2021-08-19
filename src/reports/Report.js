@@ -7,17 +7,19 @@ class Report {
     this.reportObj = {report: {}};
   }
   
-  create(CohortId)  {
-    const gendersArr = async () => { 
-    const Arr = await genderRatio()
-    return Arr
-    }
-    const backgroundArr = async () =>{
-    const BGArr = await backgroundRatio()
-    return BGArr
-    }
-    gendersArr(1).then((Arr) => this.reportObj.report['gender'] = Arr)
-    backgroundArr(1).then((BGArr) => this.reportObj.report['background'] = BGArr)
+  async create(CohortId)  {
+    // const gendersArr = async () => { 
+    // const Arr = await genderRatio(CohortId)
+    // return Arr
+    // }
+    // const backgroundArr = async () =>{
+    // const BGArr = await backgroundRatio(CohortId)
+    // return BGArr
+    // }
+
+
+    await genderRatio(CohortId).then((Arr) => this.reportObj.report['gender'] = Arr)
+    await backgroundRatio(CohortId).then((BGArr) => this.reportObj.report['background'] = BGArr)
 
     return this.reportObj
   }
@@ -26,7 +28,7 @@ class Report {
 
 const report = new Report()
 report.create(1)
-setTimeout(() => console.log(report.reportObj),300)
+setTimeout(() => console.log(report.reportObj),500)
 
 
 
