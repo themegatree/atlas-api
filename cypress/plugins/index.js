@@ -16,7 +16,7 @@
  * @type {Cypress.PluginConfig}
  */
 // eslint-disable-next-line no-unused-vars
-const truncateTables = require('../../test/truncate-tables.js')
+const truncateTables = require('../../test/ReportGroupTests/truncate-tables.js')
 const createCohort = require('../../test/create-cohort.js')
 
 module.exports = (on, config) => {
