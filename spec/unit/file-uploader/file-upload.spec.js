@@ -3,26 +3,6 @@ const { SelfAssessment, Student, ModuleChallenge } = require('../../../models')
 
 
 describe('Testing all functions in fileUploader class ,', () => { 
-    const moduleMockData = [{
-        StudentId: 1,
-        challengeName: 'RPS',
-        language: 'nodejs',
-        studentScore: 'extended',
-        coachScore: 'extended',
-        dueDate: '08/17/2021 15:45',
-        submissionDate: '08/17/2021 15:45'
-    }]
-    const learningMockData = [{
-        StudentId : 1,
-        confidenceScore : 3,
-        overallScore : 3,
-        studentReason : "No reason",
-        studentFeedback : "No Feedback",
-        dueDate : "08/17/21 14:35",
-        submissionDate : "08/17/21 14:35",
-    }]
-
-
     describe('ModuleCheck functions ', () => {
         it ('checking the projectCheck method works with no erros', async () => {
             const fileUpload = new FileUploader("No file", 'moduleChallenge')
@@ -82,13 +62,22 @@ describe('Testing all functions in fileUploader class ,', () => {
     })
     
     describe('Learning data check ', () =>{ 
-
+        beforeEach(()=>{
+         learningMockData = [{
+            StudentId : 1,
+            confidenceScore : 3,
+            overallScore : 3,
+            studentReason : "No reason",
+            studentFeedback : "No Feedback",
+            dueDate : "08/17/21 14:35",
+            submissionDate : "08/17/21 14:35",
+            }]
+        })
         it("Works with no errors", async  () => {
             const fileUpload = new FileUploader("No file", 'selfAssessment')
             spyOn(fileUpload, 'findAllStudents').and.returnValue([{id: 1}, {id: 2}])
             fileUpload.data = learningMockData
             await fileUpload.learningDataCheck()  
-
             expect(fileUpload.errors).toEqual([])      
         })
         it("Works with errors", async () => {
@@ -101,6 +90,17 @@ describe('Testing all functions in fileUploader class ,', () => {
         })
     })
     describe('Module data check ',  () => { 
+        beforeEach(()=>{
+         moduleMockData = [{
+            StudentId: 1,
+            challengeName: 'RPS',
+            language: 'nodejs',
+            studentScore: 'extended',
+            coachScore: 'extended',
+            dueDate: '08/17/2021 15:45',
+            submissionDate: '08/17/2021 15:45'
+        }]
+    })
         it("Works with no errors", async () => {
             const fileUpload = new FileUploader("No file", 'moduleChallenge')
             spyOn(fileUpload, 'findAllStudents').and.returnValue([{id: 1}, {id: 2}])
