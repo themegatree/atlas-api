@@ -1,12 +1,21 @@
-const express = require('express')
-const router = express.Router()
-
-const { Cohort } = require('../models')
+const express = require('express');
+const router = express.Router();
+const { Cohort } = require('../models');
 
 router.get('/', async function (req, res) {
-  const cohorts = await Cohort.findAll({ include: { all: true }})
+  const sort = req.query.sort || "startDate"
+  const order = req.query.order || "ASC"
 
-  res.json({ cohorts: cohorts })
+  const cohorts = await Cohort.findAll({
+    include: { all: true },
+    order: [[sort, order]],
+  }).then(cohorts =>{
+    res.json({ cohorts: cohorts })
+  }).catch(errors => {
+    res.json({ errors: ["Sorry invalid query parameters"] })
+  })
+ 
 })
 
-module.exports = router
+module.exports = router;
+
