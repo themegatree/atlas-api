@@ -1,7 +1,7 @@
 require('dotenv').config();
-const truncateTables = require('../../test/truncate-tables') 
-const createCohorts = require('../../test/create-cohorts')
-const createStudents = require('../../test/create-students')
+const truncateTables = require('../../test/ReportGroupTests/truncate-tables') 
+const createCohorts = require('../../test/ReportGroupTests/create-cohorts')
+const createStudents = require('../../test/ReportGroupTests/create-students')
 describe('gender ratio test', () => {
 
   beforeEach( async () => { 

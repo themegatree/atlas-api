@@ -1,4 +1,4 @@
-const { Cohort } = require('../models')
+const { Cohort } = require('../../models')
 
 const createCohorts = async () => {
   console.log('creating cohort')

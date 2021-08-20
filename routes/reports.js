@@ -4,14 +4,9 @@ const router = express.Router()
 const Report = require('../src/reports/Report.js')
 
 router.get('/', async function (req, res) {
-  
-  // Call function to make the Java Script Report Object
-  //genderRatio(id)
-  
   const report = new Report(req.params.id)
-
-  res.json({ report: await report.create() })
+  const completeReport = await report.create()
+  res.json({ report:  completeReport})
 })
-
 
 module.exports = router

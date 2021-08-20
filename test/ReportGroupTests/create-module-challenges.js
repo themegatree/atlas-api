@@ -1,5 +1,4 @@
-const { ModuleChallenge } = require('../models')
-
+const { ModuleChallenge } = require('../../models')
 const createModuleChallenges = async () => {
     console.log('creating student')
     await ModuleChallenge.bulkCreate( [{

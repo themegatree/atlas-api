@@ -1,8 +1,8 @@
 require('dotenv').config();
-const truncateTables = require('../../test/truncate-tables') 
-const createCohorts = require('../../test/create-cohorts')
-const createStudents = require('../../test/create-students')
-const createModuleChallenges = require('../../test/create-module-challenges')
+const truncateTables = require('../../test/ReportGroupTests/truncate-tables') 
+const createCohorts = require('../../test/ReportGroupTests/create-cohorts')
+const createStudents = require('../../test/ReportGroupTests/create-students')
+const createModuleChallenges = require('../../test/ReportGroupTests/create-module-challenges')
 
 describe('background ratio test', () => {
 
@@ -17,9 +17,6 @@ describe('background ratio test', () => {
     const challengeRatio = require('../../src/reports/challengeRatio');
     const CohortId = 1;
     const challengeArr = await challengeRatio(CohortId);
-
-    console.log(challengeArr)
-
     expect(challengeArr[1].type).toBe("Chitter")
   })
 })
