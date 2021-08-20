@@ -34,9 +34,9 @@ module.exports = (on, config) => {
       await createCohort()
       return null
     },
-    taskCreateStudent() {
-      console.log('running createStudent task')
-      createStudent()
+    async taskCreateStudents() {
+      console.log('running createStudents task')
+      await createStudents()
       return null
     }
   })

@@ -93,4 +93,4 @@ class FileUploader {
   }
 }
 
-module.exports = FileUploader
+module.exports = FileUploader;
