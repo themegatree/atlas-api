@@ -26,12 +26,11 @@ const backgroundRatio = async (CohortId) => {
     
     if (Object.keys(backgroundObj)[i] === backgroundArr[i].type){
       backgroundArr[i].number = Object.values(backgroundObj)[i] 
-      backgroundArr[i].percentage = 100 * Object.values(backgroundObj)[i] / total
+      backgroundArr[i].percentage = (100 * Object.values(backgroundObj)[i] / total).toFixed(2)
       
     }
     
   }
-  console.log(backgroundArr)
     return backgroundArr
 };
 

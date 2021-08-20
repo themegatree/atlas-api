@@ -27,15 +27,13 @@ const genderRatio = async (CohortId) => {
     
     if (Object.keys(genderObj)[i] === genderArr[i].type){
       genderArr[i].number = Object.values(genderObj)[i] 
-      genderArr[i].percentage = 100 * Object.values(genderObj)[i] / total
+      genderArr[i].percentage = (100 * Object.values(genderObj)[i] / total).toFixed(2)
       
     }
     
   }
-  console.log(genderArr)
     return genderArr;
 };
 
-console.log(genderRatio(1))
 
 module.exports = genderRatio;

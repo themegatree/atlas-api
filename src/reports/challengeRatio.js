@@ -9,27 +9,34 @@ const challengeRatio = async (CohortId) => {
       })
       
   const studentIdList = totalStudentsQuery.rows.map(row => row.id)
-  console.log("studentlist")
-  console.log(studentIdList)
-    // we need challengeName and we need studentscore.
-
-    // to calculate completion we need total count of students - incomplete (value)
-
-    //we just need to pass challengename to become a key in json
-
-    //In the end we will have an Array of objects, with [{type:"bank", percentage : 50}]
     challengeQuery = await ModuleChallenge.findAndCountAll({
         raw: true,
-        attributes: ['challengeName'],
+        attributes: ['challengeName', 'studentScore'],
         where :{
             StudentId: studentIdList
         }
       });
-      const challengeList = challengeQuery
-      console.log("challengeList")
-      console.log(challengeList)
+    
+      const challengeRows = challengeQuery.rows
+      const challengeList = challengeQuery.rows.map(row => row.challengeName )
 
-        
+      const uniqueChallenges = challengeList.filter((challenge, index) => {
+        return challengeList.indexOf(challenge) === index;
+      });
 
+      const challengeArr = [];
+      uniqueChallenges.forEach((challenge,index) => {challengeArr[index] = {type: challenge, percentage: 0} });
+
+      for (let i=0; i< uniqueChallenges.length;i++){
+        currentChallenge = uniqueChallenges[i]
+
+        currentChallengeTotal = challengeRows.filter(row => row.challengeName === currentChallenge)
+        currentChallengeComplete = currentChallengeTotal.filter(row => row.studentScore != 'incomplete')
+        challengeArr[i].percentage = (100*currentChallengeComplete.length/currentChallengeTotal.length).toFixed(2)
+      }
+
+      return challengeArr
+  
 }
-challengeRatio(1)
+
+module.exports = challengeRatio
