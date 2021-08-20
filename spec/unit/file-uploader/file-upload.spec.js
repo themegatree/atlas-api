@@ -1,6 +1,5 @@
 const FileUploader = require('../../../src/fileUpload.js')
-const { SelfAssessment, Student, ModuleChallenge } = require('../../../models')
-
+const moment =require('moment')
 
 describe('Testing all functions in fileUploader class ,', () => { 
     describe('ModuleCheck functions ', () => {
@@ -37,6 +36,8 @@ describe('Testing all functions in fileUploader class ,', () => {
             expect(fileUpload.errors).toEqual([])
         })
         it ('shows errors for values after current date', async () => {
+            jasmine.clock().install();
+            jasmine.clock().mockDate(moment.tz("2017-03-23 10:00:00", "Europe/Paris").toDate())
             const fileUpload = new FileUploader("No file", 'moduleChallenge')
             fileUpload.dateCheck("08/17/2098 15:45 GMT+0100", "08/17/2099 15:45 GMT+0100", 5)        
             expect(fileUpload.errors).toEqual(['Due date: Sun Aug 17 2098 15:45:00 GMT+0100 (British Summer Time) is invalid, on line 5','Submission date: Mon Aug 17 2099 15:45:00 GMT+0100 (British Summer Time) is invalid, on line 5'])
@@ -63,14 +64,14 @@ describe('Testing all functions in fileUploader class ,', () => {
     
     describe('Learning data check ', () =>{ 
         beforeEach(()=>{
-         learningMockData = [{
-            StudentId : 1,
-            confidenceScore : 3,
-            overallScore : 3,
-            studentReason : "No reason",
-            studentFeedback : "No Feedback",
-            dueDate : "08/17/21 14:35",
-            submissionDate : "08/17/21 14:35",
+            learningMockData = [{
+                StudentId : 1,
+                confidenceScore : 3,
+                overallScore : 3,
+                studentReason : "No reason",
+                studentFeedback : "No Feedback",
+                dueDate : "08/17/21 14:35",
+                submissionDate : "08/17/21 14:35",
             }]
         })
         it("Works with no errors", async  () => {
@@ -81,6 +82,8 @@ describe('Testing all functions in fileUploader class ,', () => {
             expect(fileUpload.errors).toEqual([])      
         })
         it("Works with errors", async () => {
+            jasmine.clock().install();
+            jasmine.clock().mockDate(moment.tz("2017-03-23 10:00:00", "Europe/Paris").toDate())
             const fileUpload = new FileUploader("No file", 'selfAssessment')
             spyOn(fileUpload, 'findAllStudents').and.returnValue([{id: 1}, {id: 2}])
             learningMockData[0].confidenceScore = 20
