@@ -26,9 +26,4 @@ $ npx cypress run --reporter mochawesome --reporter-options "reportDir=cypress/r
 $ npm test
 ```
 
-### Unit Tests
-
-To run unit tests for backgroundratio, genderratio, and report plz do.
-
-$ npx sequelize-cli db:seed:all
 

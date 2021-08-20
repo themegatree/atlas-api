@@ -7,7 +7,7 @@ class Report {
     this.reportObj = {report: {}};
   }
   
-  async createReport(CohortId)  {
+  async create(CohortId)  {
 
     await genderRatio(CohortId).then((Arr) => this.reportObj.report['gender'] = Arr)
     await backgroundRatio(CohortId).then((BGArr) => this.reportObj.report['background'] = BGArr)
@@ -18,6 +18,6 @@ class Report {
 
 }
 const report = new Report()
-result = report.createReport(1)
+result = report.create(1)
 setTimeout(() => console.log(result) , 5000)
 module.exports = Report;

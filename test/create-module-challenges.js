@@ -1,8 +1,8 @@
-'use strict';
+const { ModuleChallenge } = require('../models')
 
-module.exports = {
-  up: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkInsert('ModuleChallenges', [{
+const createModuleChallenges = async () => {
+    console.log('creating student')
+    await ModuleChallenge.bulkCreate( [{
     StudentId: 1,
     challengeName: "bank",
     language: "node",
@@ -68,9 +68,6 @@ module.exports = {
     createdAt:new Date('2021-01-08'),
     updatedAt:new Date('2021-01-08')
     }]
-    )},
+)}
 
-  down: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkDelete('ModuleChallenges', null, {})
-  }
-};
+module.exports = createModuleChallenges

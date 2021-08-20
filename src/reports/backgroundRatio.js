@@ -31,6 +31,7 @@ const backgroundRatio = async (CohortId) => {
     }
     
   }
+    console.log(backgroundArr)
     return backgroundArr
 };
 
