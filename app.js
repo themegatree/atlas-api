@@ -5,7 +5,7 @@ const cors = require('cors')
 
 const cohortsRouter = require('./routes/cohorts.js')
 const studentsRouter = require('./routes/students.js')
-const reportsRouter = require('./routes/report.js')
+const reportsRouter = require('./routes/reports.js')
 
 app.use(cors())
 app.use(express.json())
