@@ -38,7 +38,7 @@ describe('Testing all functions in fileUploader class ,', () => {
         })
         it ('shows errors for values after current date', async () => {
             const fileUpload = new FileUploader("No file", 'moduleChallenge')
-            fileUpload.dateCheck("08/17/2098 15:45", "08/17/2099 15:45", 5)        
+            fileUpload.dateCheck("08/17/2098 15:45 GMT+0100", "08/17/2099 15:45 GMT+0100", 5)        
             expect(fileUpload.errors).toEqual(['Due date: Sun Aug 17 2098 15:45:00 GMT+0100 (British Summer Time) is invalid, on line 5','Submission date: Mon Aug 17 2099 15:45:00 GMT+0100 (British Summer Time) is invalid, on line 5'])
         })
     })
