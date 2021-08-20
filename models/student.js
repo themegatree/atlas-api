@@ -9,6 +9,8 @@ module.exports = (sequelize, DataTypes) => {
 
       this.ModuleChallenges = this.hasMany(models.ModuleChallenge, {onDelete: 'cascade'})
       this.SelfAssessments = this.hasMany(models.SelfAssessment, { onDelete: 'cascade' })
+      this.Cohort = this.belongsTo(models.Cohort)
+     
 
     }
   };

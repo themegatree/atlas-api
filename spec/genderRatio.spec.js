@@ -10,10 +10,10 @@ describe('gender ratio test', () => {
     const genderRatio = require('../src/genderRatio');
 
     const ratios = await genderRatio();
-    console.log(ratios);
+    
   
 
-    expect(ratios).toEqual([0.25,0.75]);
+    expect(ratios).toEqual([0.25,0.75,0,0]);
 
   });
   
