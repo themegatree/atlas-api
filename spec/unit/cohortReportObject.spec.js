@@ -6,18 +6,18 @@ const Report = require('../../src/reports/Report');
 
 describe('Test Report Class', () => {
     
-    
+    let cohortId
     beforeEach( async () => {
       await truncateTables()
       await createCohorts()
       await createStudents()
       await createModuleChallenges()
+      cohortId = 1;
     })
 
   it('can get genders', async () => {
-    const CohortId = 1;
     const report = new Report();
-    const conpleteReport = await report.create(CohortId);  
+    const conpleteReport = await report.create(cohortId);  
 
     expect(conpleteReport.gender).toEqual([
       { type: 'male', number: 1, percentage: '25.00' },
@@ -26,9 +26,8 @@ describe('Test Report Class', () => {
     })
 
     it('can get backgrounds', async () => {
-      const CohortId = 1;
       const report = new Report();
-      const conpleteReport = await report.create(CohortId); 
+      const conpleteReport = await report.create(cohortId); 
 
       expect(conpleteReport.background).toEqual([
         { type: 'White', number: 1, percentage: '25.00' },
@@ -38,9 +37,8 @@ describe('Test Report Class', () => {
     });
 
     it('can get challenges', async () => {
-      const CohortId = 1;
       const report = new Report();
-      const conpleteReport = await report.create(CohortId); 
+      const conpleteReport = await report.create(cohortId); 
 
       expect(conpleteReport.challengeCompletion).toEqual([
         { type: 'bank', percentage: '100.00' },
