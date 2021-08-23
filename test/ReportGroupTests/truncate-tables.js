@@ -1,4 +1,4 @@
-const db = require('../models')
+const db = require('../../models')
 
 const truncateTables = async () => {
   console.log('truncating tables')

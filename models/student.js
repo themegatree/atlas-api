@@ -9,6 +9,8 @@ module.exports = (sequelize, DataTypes) => {
 
       this.ModuleChallenges = this.hasMany(models.ModuleChallenge, {onDelete: 'cascade'})
       this.SelfAssessments = this.hasMany(models.SelfAssessment, { onDelete: 'cascade' })
+      this.Cohort = this.belongsTo(models.Cohort)
+     
 
     }
   };
@@ -16,7 +18,9 @@ module.exports = (sequelize, DataTypes) => {
     firstName: DataTypes.STRING,
     lastName: DataTypes.STRING,
     githubUsername: DataTypes.STRING,
-    email: DataTypes.STRING
+    email: DataTypes.STRING,
+    background: DataTypes.STRING,
+    gender: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Student',
