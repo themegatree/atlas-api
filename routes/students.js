@@ -4,9 +4,18 @@ const { Student } = require('../models')
 
 router.get('/', async function (req, res) {
   const students = await Student.findAll({ include: { all: true }})
-
   res.json({ students: students })
 })
 
+router.get('/:id', async function (req, res) {
+  const student = await Student.findOne({
+    where: {
+      id: req.params.id
+    }
+  })
+  delete student.dataValues.avatarURL
+
+  res.json({student: student})
+})
 
 module.exports = router
