@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 describe('File upload page feature tests: ', function () {
   beforeEach(() => {
     cy.task('taskTruncateTables')
@@ -248,79 +249,127 @@ describe('File upload page feature tests: ', function () {
   
 =======
 import 'cypress-file-upload';
+=======
+require('cypress-file-upload');
+const fs = require('fs');
+const { ConsoleReporter } = require('jasmine');
+
+function blobCreator(fileContent, moduleType) {
+	const blob = new Blob([ fileContent ], { type: 'text/csv' });
+	const formData = new FormData();
+	formData.append('myFile', blob, blob.name);
+	formData.append('assessmentType', moduleType);
+	return formData;
+}
+
+>>>>>>> bc9ff93 (refactored and updated cypress tests)
 describe('File upload page', function() {
 	beforeEach(() => {
 		cy.task('taskTruncateTables');
 		cy.task('taskCreateStudents');
 	});
 
-	it('Shows successfully uploaded module challenges', function() {
-		cy.visit('http://localhost:3000/assessments/upload');
-		cy.get('#choose-file').should('exist');
+	it('Ollies attempt', () => {
+		let formData;
 		cy.fixture('/csv-files/ModuleChallenges/passingmock.csv').then(fileContent => {
-			cy.get('input[type="file"]').attachFile({
-				fileContent : fileContent,
-				fileName    : 'passingmock.csv',
-				mimeType    : '.csv'
-			});
-		});
-		cy.get('select').select('Module Challenge');
-		cy.get('#upload').click();
-		cy.get('#errors').should('contain', 'Updated the database successfully.');
-	});
+			// formData = blobCreator(fileContent, 'moduleChallenge');
 
-	it('Shows all types of errors for moduleChallenges', function() {
-		cy.visit('http://localhost:3000/assessments/upload');
-		cy.get('#choose-file').should('exist');
-		cy.fixture('csv-files/ModuleChallenges/failingmock.csv').then(fileContent => {
-			cy.get('input[type="file"]').attachFile({
-				fileContent : fileContent,
-				fileName    : 'mock.csv',
-				mimeType    : '.csv'
-			});
+			const blob = new Blob([ fileContent ], { type: 'text/csv' });
+			const formData = new FormData();
+			formData.append('myFile', blob, blob.name);
+			formData.append('assessmentType', 'moduleChallenge');
+			// return formData;
+
+			cy
+				.request({
+					method : 'POST',
+					url    : 'api/fileUpload',
+					body   : formData
+				})
+				.should(res => {
+					var enc = new TextDecoder('utf-8');
+					const text = enc.decode(res.body);
+					console.log(text);
+					expect(text).to.eq('{"response":["Updated the database successfully."]}');
+				});
+			// .should(res => console.log(res.data.response));
+			// .then(data => console.log(data));
 		});
-		cy.get('select').select('Module Challenge');
-		cy.get('#upload').click();
-        cy.get('#error-1').should('contain', 'Student id: 99 does not exist, on line 1')
-        cy.get('#error-2').should('contain', 'You have entered an incorrect challenge name on line 2')
-        cy.get('#error-3').should('contain', 'You have entered an incorrect language on line 3')
-        cy.get('#error-4').should('contain', 'Due date: 08/17/35 14:35 is invalid, on line 4')
-        cy.get('#error-5').should('contain', 'Submission date: 08/17/35 14:35 is invalid, on line 5')
-    });
-    
-	it('Shows successfully uploaded for selfAssessment', function() {
-		cy.visit('http://localhost:3000/assessments/upload');
-		cy.get('#choose-file').should('exist');
-		cy.fixture('csv-files/SelfAssessments/passingmock.csv').then(fileContent => {
-			cy.get('input[type="file"]').attachFile({
-				fileContent : fileContent,
-				fileName    : 'mock.csv',
-				mimeType    : '.csv'
-			});
-		});
-		cy.get('select').select('Self Assessment');
-		cy.get('#upload').click();
-		cy.get('#errors').should('contain' , 'Updated the database successfully.');
 	});
-	it('Shows all types of errors for selfAssessment', function() {
-		cy.visit('http://localhost:3000/assessments/upload');
-		cy.get('#choose-file').should('exist');
-		cy.fixture('csv-files/SelfAssessments/failingmock.csv').then(fileContent => {
-			cy.get('input[type="file"]').attachFile({
-				fileContent : fileContent,
-				fileName    : 'mock.csv',
-				mimeType    : '.csv'
-			});
-		});
-		cy.get('#upload').should('exist');
-		cy.get('select').select('Self Assessment');
-		cy.get('#upload').click();
-        cy.get('#error-1').should('contain', 'Student id: 65 does not exist, on line 1')
-        cy.get('#error-2').should('contain', 'The score: 7 on line 2 does not exist or is not within the limits for confidence score.')
-        cy.get('#error-3').should('contain', 'The score: 9 on line 3 does not exist or is not within the limits for overall score.')
-        cy.get('#error-4').should('contain', 'Submission date: 08/17/26 14:35 is invalid, on line 4')
-        cy.get('#error-5').should('contain', 'Due date: 08/17/26 14:35 is invalid, on line 5')
-       
-        });
 });
+<<<<<<< HEAD
 >>>>>>> de6942e (added tests and fixed relating bugs)
+=======
+
+// xit('Shows successfully uploaded module challenges', function() {
+// 	cy.visit('/assessments/upload');
+// 	cy.get('#choose-file').should('exist');
+// 	cy.fixture('/csv-files/ModuleChallenges/passingmock.csv').then(fileContent => {
+// 		cy.get('input[type="file"]').attachFile({
+// 			fileContent : fileContent,
+// 			fileName    : 'passingmock.csv',
+// 			mimeType    : '.csv'
+// 		});
+// 	});
+// 	cy.get('select').select('Module Challenge');
+// 	cy.get('#upload').click();
+// 	cy.get('#errors').should('contain', 'Updated the database successfully.');
+// });
+
+// xit('Shows all types of errors for moduleChallenges', function() {
+// 	cy.visit('http://localhost:3000/assessments/upload');
+// 	cy.get('#choose-file').should('exist');
+// 	cy.fixture('csv-files/ModuleChallenges/failingmock.csv').then(fileContent => {
+// 		cy.get('input[type="file"]').attachFile({
+// 			fileContent : fileContent,
+// 			fileName    : 'mock.csv',
+// 			mimeType    : '.csv'
+// 		});
+// 	});
+// 	cy.get('select').select('Module Challenge');
+// 	cy.get('#upload').click();
+// 	cy.get('#error-1').should('contain', 'Student id: 99 does not exist, on line 1');
+// 	cy.get('#error-2').should('contain', 'You have entered an incorrect challenge name on line 2');
+// 	cy.get('#error-3').should('contain', 'You have entered an incorrect language on line 3');
+// 	cy.get('#error-4').should('contain', 'Due date: 08/17/35 14:35 is invalid, on line 4');
+// 	cy.get('#error-5').should('contain', 'Submission date: 08/17/35 14:35 is invalid, on line 5');
+// });
+
+// xit('Shows successfully uploaded for selfAssessment', function() {
+// 	cy.visit('http://localhost:3000/assessments/upload');
+// 	cy.get('#choose-file').should('exist');
+// 	cy.fixture('csv-files/SelfAssessments/passingmock.csv').then(fileContent => {
+// 		cy.get('input[type="file"]').attachFile({
+// 			fileContent : fileContent,
+// 			fileName    : 'mock.csv',
+// 			mimeType    : '.csv'
+// 		});
+// 	});
+// 	cy.get('select').select('Self Assessment');
+// 	cy.get('#upload').click();
+// 	cy.get('#errors').should('contain', 'Updated the database successfully.');
+// });
+// xit('Shows all types of errors for selfAssessment', function() {
+// 	cy.visit('http://localhost:3000/assessments/upload');
+// 	cy.get('#choose-file').should('exist');
+// 	cy.fixture('csv-files/SelfAssessments/failingmock.csv').then(fileContent => {
+// 		cy.get('input[type="file"]').attachFile({
+// 			fileContent : fileContent,
+// 			fileName    : 'mock.csv',
+// 			mimeType    : '.csv'
+// 		});
+// 	});
+// 	cy.get('#upload').should('exist');
+// 	cy.get('select').select('Self Assessment');
+// 	cy.get('#upload').click();
+// 	cy.get('#error-1').should('contain', 'Student id: 65 does not exist, on line 1');
+// 	cy
+// 		.get('#error-2')
+// 		.should('contain', 'The score: 7 on line 2 does not exist or is not within the limits for confidence score.');
+// 	cy
+// 		.get('#error-3')
+// 		.should('contain', 'The score: 9 on line 3 does not exist or is not within the limits for overall score.');
+// 	cy.get('#error-4').should('contain', 'Submission date: 08/17/26 14:35 is invalid, on line 4');
+// 	cy.get('#error-5').should('contain', 'Due date: 08/17/26 14:35 is invalid, on line 5');
+// });
+>>>>>>> bc9ff93 (refactored and updated cypress tests)

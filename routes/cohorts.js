@@ -32,5 +32,9 @@ router.get('/', async function (req, res) {
   res.json({ cohorts: cohorts })
 })
 
+<<<<<<< HEAD
 module.exports = router
 >>>>>>> 247ca7e (added file checks)
+=======
+module.exports = router
+>>>>>>> d6f4b5f (refactored and updated cypress tests)
