@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const { Cohort } = require('../models');
+const Report = require('../src/reports/Report.js')
+
 
 router.get('/', async function (req, res) {
   const sort = req.query.sort || "startDate"
@@ -15,6 +17,13 @@ router.get('/', async function (req, res) {
     res.json({ errors: ["Sorry invalid query parameters"] })
   })
  
+})
+
+router.get('/:id/reports', async function (req, res) {
+  const report = new Report()
+  console.log(req.params.id)
+  const completeReport = await report.create(req.params.id)
+  res.json({ report:  completeReport})
 })
 
 module.exports = router;

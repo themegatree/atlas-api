@@ -15,6 +15,13 @@ const createCohorts = async () => {
     createdAt: new Date('2020-12-31'),
     updatedAt: new Date('2020-12-31')
   })
+
+  await Cohort.create({
+    id: 3,
+    name: 'Richard Cohort 2',
+    createdAt: new Date('2020-12-31'),
+    updatedAt: new Date('2020-12-31')
+  })
 }
 
 module.exports = createCohorts
