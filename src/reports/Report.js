@@ -8,9 +8,9 @@ class Report {
   }
   
   async create(CohortId)  {
-    await genderRatio(CohortId).then((Arr) => this.completeReport['gender'] = Arr)
-    await backgroundRatio(CohortId).then((BGArr) => this.completeReport['background'] = BGArr)
-    await challengeRatio(CohortId).then((ComArr) => this.completeReport['challengeCompletion'] = ComArr)
+    await genderRatio(CohortId).then((genderReport) => this.completeReport['gender'] = genderReport)
+    await backgroundRatio(CohortId).then((backgroundReport) => this.completeReport['background'] = backgroundReport)
+    await challengeRatio(CohortId).then((challengeReport) => this.completeReport['challengeCompletion'] = challengeReport)
     return this.completeReport
   }
 
