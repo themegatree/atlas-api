@@ -15,12 +15,20 @@ describe('challenge ratio test', () => {
     await createModuleChallenges()
     challengeArr = await challengeRatio();
    })
+
+   it('first challenge type is Bank', async () => {
+    expect(challengeArr[0].type).toBe("bank")
+  })
    
-  it('second challenge is Chitter', async () => {
+  it('second challenge type is Chitter', async () => {
     expect(challengeArr[1].type).toBe("Chitter")
   })
 
-  it('calculates challenge completion percentage from challenge data', async () => {
-    expect(challengeArr[1].percentage).toBe("HELLO")
+  it('calculates chitter challenge completion percentage from challenge data', async () => {
+    expect(challengeArr[1].percentage).toBe('66.67')
+  })
+
+  it('calculates bank challenge completion percentage from challenge data', async () => {
+    expect(challengeArr[0].percentage).toBe('100.00')
   })
 })
