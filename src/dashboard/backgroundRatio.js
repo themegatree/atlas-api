@@ -16,7 +16,7 @@ const backgroundRatio = async () => {
   backgroundArr.forEach(background => {
     const currentBackground = background.type;
     const numberOfCurrentBackground = backgrounds.filter(background => background === currentBackground);
-    background.number = numberOfCurrentBackground
+    background.number = numberOfCurrentBackground.length
     background.percentage = (numberOfCurrentBackground.length/total*100).toFixed(2).toString();
   })
 
