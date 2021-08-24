@@ -3,28 +3,39 @@ const SelfAssessmentChecker = require('./selfAssessment.js')
 const ModuleChallengeChecker = require('./moduleChallenge.js')
 
 class FileUploader {
-  constructor (csvFile, table) {
+  constructor (table, csvFile) {
+	this.errors = []
+	this.validFile = true
     this.table = this.dbCheck(table)
     this.data = this.fileConvertor(csvFile)
-    this.errors = []
     this.history = table
-    this.validFile = true
+  }
+
+
+  checkArraysAreEqual(arr1, arr2) {
+    if (arr1.length !== arr2.length) return false 
+    for (let i = 0; i < arr1.length; i++) {
+      if (arr1[i] !== arr2[i]) return false 
+    }
+    return true
   }
 
   headerChecker(headers) {
     const headersForSelfAssessment = ['StudentId', 'confidenceScore', 'overallScore', 'studentReason', 'studentFeedback', 'dueDate', 'submissionDate']
     const headersForModuleChallenge = ['StudentId', 'challengeName', 'language', 'studentScore', 'coachScore', 'dueDate', 'submissionDate']
-
-    if (this.table === selfAssessment) {
-      if (headers === headersForSelfAssessment) {this.validFile = true}
-      else if (headers === headersForModuleChallenge) this.errors.push("Looks like you've tried to upload a module challenge")
-      else this.errors.push(`Headers: ${headers} do not match Headers for Self Assessment: ${headersForSelfAssessment}`)
+	
+    if (this.table === SelfAssessment) {
+      if (this.checkArraysAreEqual(headers, headersForSelfAssessment)) { this.validFile = true }
+      else if (this.checkArraysAreEqual(headers, headersForModuleChallenge)) { this.errors = ["Looks like you've tried to upload a module challenge"]; this.validFile = false }
+      else { this.errors.push(`Headers: [${headers}] do not match Headers for Self Assessment: [${headersForSelfAssessment}]`); this.validFile = false }
     }
-
-    if (this.table === ModuleChallenge) {
-      if (headers === headersForModuleChallenge) { this.validFile = true}
-      else if (headers === headersForSelfAssessment) this.errors.push("Looks like you've tried to upload a self assessment")
-      else this.errors.push(`Headers: ${headers} do not match Headers for Module Challenge: ${headersForModuleChallenge}`)
+        if (this.table === ModuleChallenge) {
+        if (this.checkArraysAreEqual(headers, headersForModuleChallenge)) { this.validFile = true }
+         else if (this.checkArraysAreEqual(headers, headersForSelfAssessment)) { this.errors = ["Looks like you've tried to upload a self assessment"]; this.validFile = false }
+        else { 
+			this.errors.push(`Headers: [${headers}] do not match Headers for Module Challenge: [${headersForModuleChallenge}]`); 
+			this.validFile = false
+		}
      }
   }
 

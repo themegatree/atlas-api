@@ -17,8 +17,8 @@
  */
 // eslint-disable-next-line no-unused-vars
 const truncateTables = require('../../test/ReportGroupTests/truncate-tables.js')
-const createCohort = require('../../test/create-cohort.js')
-const createStudent = require('../../test/create-student')
+const createCohort = require('../../test/ReportGroupTests/create-cohorts.js')
+const createStudents = require('../../test/ReportGroupTests/create-students.js')
 
 module.exports = (on, config) => {
   // `on` is used to hook into various events Cypress emits

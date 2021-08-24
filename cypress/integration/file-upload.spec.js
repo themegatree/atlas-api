@@ -1,8 +1,9 @@
 describe('File upload page feature tests: ', function () {
   beforeEach(() => {
     cy.task('taskTruncateTables')
+	cy.task('taskCreateCohort')
     cy.task('taskCreateStudents')
-  })
+    })
 
   it('Testing that the Module-challenge runs and updates successfully.', () => {
     cy.fixture('/csv-files/ModuleChallenges/passingmock.csv').then(fileContent => {
@@ -73,6 +74,7 @@ describe('File upload page feature tests: ', function () {
         })
     })
   })
+
   it('Testing that the Self Assessments has errors', () => {
     cy.fixture('/csv-files/SelfAssessments/failingmock.csv').then(fileContent => {
       const blob = new Blob([fileContent], { type: 'text/csv' })
@@ -99,4 +101,145 @@ describe('File upload page feature tests: ', function () {
         })
     })
   })
+
+  it('Testing that the Module Challenge has error for Malformed header', () => {
+    cy.fixture('/csv-files/ModuleChallenges/malformed.csv').then(fileContent => {
+      const blob = new Blob([fileContent], { type: 'text/csv' })
+      const formData = new FormData()
+
+      formData.append('myFile', blob, blob.name)
+      formData.append('assessmentType', 'moduleChallenge')
+
+      cy
+        .request({
+          method: 'POST',
+          url: 'api/fileUpload',
+          body: formData
+        })
+        .should(res => {
+          const enc = new TextDecoder('utf-8')
+          const text = enc.decode(res.body)
+          const parsedData = JSON.parse(text)
+          expect(parsedData.response[0]).to.eq(`Headers: [challengeName,language,studentScore,coachScore,dueDate] do not match Headers for Module Challenge: [StudentId,challengeName,language,studentScore,coachScore,dueDate,submissionDate]`)
+        })
+    })
+  })
+
+  it('Testing that the Module Challenge has error for no headers', () => {
+    cy.fixture('/csv-files/ModuleChallenges/empty.csv').then(fileContent => {
+      const blob = new Blob([fileContent], { type: 'text/csv' })
+      const formData = new FormData()
+
+      formData.append('myFile', blob, blob.name)
+      formData.append('assessmentType', 'moduleChallenge')
+
+      cy
+        .request({
+          method: 'POST',
+          url: 'api/fileUpload',
+          body: formData
+        })
+        .should(res => {
+          const enc = new TextDecoder('utf-8')
+          const text = enc.decode(res.body)
+          const parsedData = JSON.parse(text)
+          expect(parsedData.response[0]).to.eq(`Headers: [99,RPS,nodejs,extended,extended,08/17/21 14:35,08/17/21 14:35] do not match Headers for Module Challenge: [StudentId,challengeName,language,studentScore,coachScore,dueDate,submissionDate]`)
+        })
+    })
+  })
+
+  it('Testing that the Module Challenge has error for self assessment', () => {
+    cy.fixture('/csv-files/ModuleChallenges/selfassessment.csv').then(fileContent => {
+      const blob = new Blob([fileContent], { type: 'text/csv' })
+      const formData = new FormData()
+
+      formData.append('myFile', blob, blob.name)
+      formData.append('assessmentType', 'moduleChallenge')
+
+      cy
+        .request({
+          method: 'POST',
+          url: 'api/fileUpload',
+          body: formData
+        })
+        .should(res => {
+          const enc = new TextDecoder('utf-8')
+          const text = enc.decode(res.body)
+          const parsedData = JSON.parse(text)
+          expect(parsedData.response[0]).to.eq(`Looks like you've tried to upload a self assessment`)
+        })
+    })
+  })
+
+  it('Testing that the Self Assessment has error for Malformed header', () => {
+    cy.fixture('/csv-files/SelfAssessments/malformed.csv').then(fileContent => {
+      const blob = new Blob([fileContent], { type: 'text/csv' })
+      const formData = new FormData()
+
+      formData.append('myFile', blob, blob.name)
+      formData.append('assessmentType', 'selfAssessment')
+
+      cy
+        .request({
+          method: 'POST',
+          url: 'api/fileUpload',
+          body: formData
+        })
+        .should(res => {
+          const enc = new TextDecoder('utf-8')
+          const text = enc.decode(res.body)
+          const parsedData = JSON.parse(text)
+          expect(parsedData.response[0]).to.eq(`Headers: [confidenceScore,overallScore,studentReason,studentFeedback,submissionsDate,dueDate] do not match Headers for Self Assessment: [StudentId,confidenceScore,overallScore,studentReason,studentFeedback,dueDate,submissionDate]`)
+        })
+    })
+  })
+
+  it('Testing that the Self Assessment has error for no headers', () => {
+    cy.fixture('/csv-files/SelfAssessments/empty.csv').then(fileContent => {
+      const blob = new Blob([fileContent], { type: 'text/csv' })
+      const formData = new FormData()
+
+      formData.append('myFile', blob, blob.name)
+      formData.append('assessmentType', 'selfAssessment')
+
+      cy
+        .request({
+          method: 'POST',
+          url: 'api/fileUpload',
+          body: formData
+        })
+        .should(res => {
+          const enc = new TextDecoder('utf-8')
+          const text = enc.decode(res.body)
+          const parsedData = JSON.parse(text)
+          expect(parsedData.response[0]).to.eq(`Headers: [65,1,2,No reason,No Feedback,08/17/21 14:35,08/17/21 14:35] do not match Headers for Self Assessment: [StudentId,confidenceScore,overallScore,studentReason,studentFeedback,dueDate,submissionDate]`)
+        })
+    })
+  })
+
+  it('Testing that the Self Assessment has error for self assessment', () => {
+    cy.fixture('/csv-files/SelfAssessments/modulechallenge.csv').then(fileContent => {
+      const blob = new Blob([fileContent], { type: 'text/csv' })
+      const formData = new FormData()
+
+      formData.append('myFile', blob, blob.name)
+      formData.append('assessmentType', 'selfAssessment')
+
+      cy
+        .request({
+          method: 'POST',
+          url: 'api/fileUpload',
+          body: formData
+        })
+        .should(res => {
+          const enc = new TextDecoder('utf-8')
+          const text = enc.decode(res.body)
+          const parsedData = JSON.parse(text)
+          expect(parsedData.response[0]).to.eq(`Looks like you've tried to upload a module challenge`)
+        })
+    })
+    })
 })
+
+
+  
