@@ -30,10 +30,20 @@ class SelfAssessmentChecker {
       if (!arr.includes(parseInt(dataObject.StudentId))) {
         this.errors.push(`Student id: ${dataObject.StudentId} does not exist, on line ${counter}`)
       }
+      this.feedbackChecker(dataObject.studentReason, dataObject.studentFeedback, counter)
       this.learningScoreCheck(dataObject.confidenceScore, dataObject.overallScore, counter)
       this.errors = this.errors.concat(dateCheck(dataObject.dueDate, dataObject.submissionDate, counter))
     })
     return this.errors
+  }
+
+  feedbackChecker(reason, feedback, counter) { 
+    if (reason.length > 255) {
+      this.errors.push(`The studentReason on line ${counter} exceeds character length 255.`)
+    }
+    if (feedback.length > 255 ){
+      this.errors.push(`The studentFeedback on line ${counter} exceeds character length 255.`)
+    }
   }
 
   learningScoreCheck (confidenceScore, overallScore, counter) {
