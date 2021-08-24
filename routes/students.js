@@ -13,7 +13,6 @@ router.get('/:id', async function (req, res) {
       id: req.params.id
     }
   })
-  delete student.dataValues.avatarURL
 
   res.json({student: student})
 })
