@@ -251,8 +251,8 @@ describe('File upload page feature tests: ', function () {
 import 'cypress-file-upload';
 =======
 require('cypress-file-upload');
-const fs = require('fs');
-const { ConsoleReporter } = require('jasmine');
+// const fs = require('fs');
+// const { ConsoleReporter } = require('jasmine');
 
 function blobCreator(fileContent, moduleType) {
 	const blob = new Blob([ fileContent ], { type: 'text/csv' });
@@ -271,15 +271,13 @@ describe('File upload page', function() {
 
 	it('Ollies attempt', () => {
 		let formData;
-		cy.fixture('/csv-files/ModuleChallenges/passingmock.csv').then(fileContent => {
-			// formData = blobCreator(fileContent, 'moduleChallenge');
-
-			const blob = new Blob([ fileContent ], { type: 'text/csv' });
+		cy.fixture('/csv-files/ModuleChallenges/passingmock.csv', 'base64').then(fileContent => {
+			console.log(fileContent)
+			const blob = new Cypress.Blob.base64StringToBlob([ fileContent ], { type: 'text/csv' });
 			const formData = new FormData();
 			formData.append('myFile', blob, blob.name);
 			formData.append('assessmentType', 'moduleChallenge');
-			// return formData;
-
+			
 			cy
 				.request({
 					method : 'POST',
@@ -287,6 +285,7 @@ describe('File upload page', function() {
 					body   : formData
 				})
 				.should(res => {
+					console.log(res)
 					var enc = new TextDecoder('utf-8');
 					const text = enc.decode(res.body);
 					console.log(text);
@@ -296,10 +295,84 @@ describe('File upload page', function() {
 			// .then(data => console.log(data));
 		});
 	});
+	it("Ollie test2 ", () => {
+		const fileName = "csv-files/ModuleChallenges/passingmock.csv"
+		const method = "POST"
+		const url = "api/fileUpload"
+		const fileType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+		const inputContent2 = "moduleChallenge"
+		const expectedAnswer = ["You have updated the database successfully."]
+
+		cy.fixture(fileName, 'binary').then((excelBin) => {
+			Cypress.Blob.binaryStringToBlob(excelBin).then((blob) => {
+				const formData = new FormData()
+				formData.set('myFile', blob, fileName)
+				formData.set('assessmentType', inputContent2)
+				cy.form_request(method,url,formData,function(response) { 
+					expect(response.status).to.eq(200)
+					expect(expectedAnswer).to.eq(response.response)
+				})
+			})
+		})
+    })
+    
+	xit("ok", () => {
+		const fileName = "csv-files/ModuleChallenges/passingmock.csv"
+		const method = "POST"
+		const url = "api/fileUpload"
+		const fileType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+		const inputContent2 = "moduleChallenge"
+		const expectedAnswer = ["You have updated the database successfully."]
+
+		
+	})
+
+	xit("GRANT ", async () => {
+		const fileName = "csv-files/ModuleChallenges/passingmock.csv"
+		const method = "POST"
+		const url = "api/fileUpload"
+		const fileType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+		const inputContent2 = "moduleChallenge"
+		const expectedAnswer = ["You have updated the database successfully."]
+
+		await cy.fixture(fileName, 'binary').then(async (excelBin) => {
+			const blob = await Cypress.Blob.binaryStringToBlob(excelBin,fileType)
+			const formData = new FormData()
+			formData.set('myFile', blob, fileName)
+			formData.set('assessmentType', inputContent2)
+			cy.form_request(method,url,formData,function(response) { 
+				expect(response.status).to.eq(200)
+				expect(expectedAnswer).to.eq(response.response)
+			})
+			})
+		})
+	
+
+
+	xit("works i swear", () => {
+		const fileName = "csv-files/ModuleChallenges/passingmock.csv"
+		const method = "POST"
+		const url = "api/fileUpload"
+		const fileType = "text/csv"
+		const inputContent2 = "moduleChallenge"
+		const expectedAnswer = ["You have updated the database successfully."]
+
+		cy.fixture(fileName).then((excelBin) => {
+			const blob = Cypress.Blob.base64StringToBlob(excelBin, fileType)
+			const formData = new FormData()
+			formData.set('file', blob, fileName)
+			formData.set('assessmentType', inputContent2)
+			cy.form_request(method,url,formData,function(response) { 
+				expect(response.status).to.eq(200)
+				expect(expectedAnswer).to.eq(response.response)
+			})
+		})
+	})
 });
 <<<<<<< HEAD
 >>>>>>> de6942e (added tests and fixed relating bugs)
 =======
+
 
 // xit('Shows successfully uploaded module challenges', function() {
 // 	cy.visit('/assessments/upload');
