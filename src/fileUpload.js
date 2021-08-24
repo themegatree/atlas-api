@@ -8,7 +8,24 @@ class FileUploader {
     this.data = this.fileConvertor(csvFile)
     this.errors = []
     this.history = table
-    this.status = ''
+    this.validFile = true
+  }
+
+  headerChecker(headers) {
+    const headersForSelfAssessment = ['StudentId', 'confidenceScore', 'overallScore', 'studentReason', 'studentFeedback', 'dueDate', 'submissionDate']
+    const headersForModuleChallenge = ['StudentId', 'challengeName', 'language', 'studentScore', 'coachScore', 'dueDate', 'submissionDate']
+
+    if (this.table === selfAssessment) {
+      if (headers === headersForSelfAssessment) {this.validFile = true}
+      else if (headers === headersForModuleChallenge) this.errors.push("Looks like you've tried to upload a module challenge")
+      else this.errors.push(`Headers: ${headers} do not match Headers for Self Assessment: ${headersForSelfAssessment}`)
+    }
+
+    if (this.table === ModuleChallenge) {
+      if (headers === headersForModuleChallenge) { this.validFile = true}
+      else if (headers === headersForSelfAssessment) this.errors.push("Looks like you've tried to upload a self assessment")
+      else this.errors.push(`Headers: ${headers} do not match Headers for Module Challenge: ${headersForModuleChallenge}`)
+     }
   }
 
   fileConvertor (csvFile) {
@@ -17,6 +34,7 @@ class FileUploader {
       csvData.pop()
     }
     const headers = csvData[0].split(',')
+    this.headerChecker(headers)
     const arrayObj = []
     for (let i = 1; i < csvData.length; i++) {
       const obj = {}
@@ -46,11 +64,9 @@ class FileUploader {
     if (this.table === ModuleChallenge) {
       const moduleCheck = new ModuleChallengeChecker()
       this.errors = await moduleCheck.check(this.data)
-      return this.errors
     } else if (this.table === SelfAssessment) {
       const learningChecker = new SelfAssessmentChecker()
       this.errors = await learningChecker.check(this.data)
-      return this.errors
     }
   }
 
@@ -59,10 +75,8 @@ class FileUploader {
       await this.table.bulkCreate(this.data, {
         returning: true
       })
-      this.status = 'Success'
       return ['Updated the database successfully.']
     } else {
-      this.status = 'Failure'
       return this.errors
     }
   }

@@ -22,9 +22,5 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'ModuleChallenge',
   });
   return ModuleChallenge;
-<<<<<<< HEAD
 };
 
-=======
-};
->>>>>>> 247ca7e (added file checks)

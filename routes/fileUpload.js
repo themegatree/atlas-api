@@ -7,9 +7,12 @@ router.post('/', async (req, res) => {
     res.json({ response: 'A file must be uploaded' })
   }
   const fileUploader = new FileUploader(req.files.myFile.data, req.body.assessmentType)
-  await fileUploader.dataChecks()
-  const response = await fileUploader.addToDatabase()
-  res.json({ response: response })
+  if (fileUploader.validFile) {
+    await fileUploader.dataChecks()
+    const response = await fileUploader.addToDatabase()
+    res.json({ response: response })
+  }
+  else res.json({ response: fileUploader.errors })
 })
 
 module.exports = router
