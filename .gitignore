@@ -1,4 +1,4 @@
 node_modules
 .env
 cypress/report
-
+.eslintrc.js
