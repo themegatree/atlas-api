@@ -18,7 +18,7 @@ describe('background ratio test', () => {
     expect(backgroundArr[1].percentage).toEqual('40.00');
   });
 
-  it('calculates background ratio from background data', async () => {
+  it('determines the number of students with a given background', async () => {
     expect(backgroundArr[0].number).toEqual(1);
     expect(backgroundArr[1].number).toEqual(2);
   });
