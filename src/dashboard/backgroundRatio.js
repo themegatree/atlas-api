@@ -23,6 +23,4 @@ const backgroundRatio = async () => {
   return backgroundArr
 }
 
-backgroundRatio();
-
 module.exports = backgroundRatio;
