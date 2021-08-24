@@ -14,18 +14,16 @@
 			];
 		});
 		it('Works with no errors', async () => {
-			const selfAssessmentChecker = new SelfAssessmentCheckerer();
+			const selfAssessmentChecker = new SelfAssessmentChecker();
 			spyOn(selfAssessmentChecker, 'findAllStudents').and.returnValue([ { id: 1 }, { id: 2 } ]);
-			selfAssessmentChecker.data = learningMockData;
-			await selfAssessmentChecker.learningDataCheck();
+			await selfAssessmentChecker.check(learningMockData);
 			expect(selfAssessmentChecker.errors).toEqual([]);
 		});
 		it('Works with errors', async () => {
-			const selfAssessmentChecker = new SelfAssessmentCheckerer();
+			const selfAssessmentChecker = new SelfAssessmentChecker();
 			spyOn(selfAssessmentChecker, 'findAllStudents').and.returnValue([ { id: 1 }, { id: 2 } ]);
 			learningMockData[0].confidenceScore = 20;
-			selfAssessmentChecker.data = learningMockData;
-			await selfAssessmentChecker.learningDataCheck();
+			await selfAssessmentChecker.check(learningMockData);
 			expect(selfAssessmentChecker.errors).toEqual([
 				'The score: 20 on line 1 does not exist or is not within the limits for confidence score.'
 			]);

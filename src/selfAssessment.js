@@ -6,18 +6,22 @@ class SelfAssessmentChecker {
 		this.errors = [];
 	}
 
+	async findAllStudents() {
+		return await Student.findAll({
+			attributes: ['id'],
+			include: {
+				all: true
+			}
+		})
+	} 
+
 	async check(data) {
 		let counter = 0;
-		const students = await Student.findAll({
-            attributes: ['id'],
-            include: {
-                all: true
-            }
-        })
+		const students = await this.findAllStudents()
 
 		let arr = [];
 
-		students.forEach(student => { //what's this now? GW
+		students.forEach(student => {
 			arr.push(student.id);
 		});
 
@@ -27,7 +31,7 @@ class SelfAssessmentChecker {
 				this.errors.push(`Student id: ${dataObject.StudentId} does not exist, on line ${counter}`);
 			}
 			this.learningScoreCheck(dataObject.confidenceScore, dataObject.overallScore, counter);
-			this.errors = this.errors.concat(dateCheck(dataObject.dueDate, dataObject.submissionDate))
+			this.errors = this.errors.concat(dateCheck(dataObject.dueDate, dataObject.submissionDate, counter))
 		});
 		return this.errors;
 	}

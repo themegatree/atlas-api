@@ -6,17 +6,21 @@ class ModuleChallengeChecker{
         this.errors = [];
     }
 
+    async findAllStudents() {
+		return await Student.findAll({
+			attributes: ['id'],
+			include: {
+				all: true
+			}
+		})
+	} 
+
     async check(data) {
-        const students = await Student.findAll({
-            attributes: ['id'],
-            include: {
-                all: true
-            }
-        })
+        const students = await this.findAllStudents()
 
         let arr = [];
 
-        students.forEach((student) => { arr.push(student.id) })
+        students.forEach(student => { arr.push(student.id) })
 
         let counter = 0
 
