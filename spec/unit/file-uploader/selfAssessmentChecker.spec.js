@@ -14,14 +14,14 @@
 			];
 		});
 		it('Works with no errors', async () => {
-			const selfAssessmentChecker = new SelfAssessmentCheckerer('No file', 'selfAssessment');
+			const selfAssessmentChecker = new SelfAssessmentCheckerer();
 			spyOn(selfAssessmentChecker, 'findAllStudents').and.returnValue([ { id: 1 }, { id: 2 } ]);
 			selfAssessmentChecker.data = learningMockData;
 			await selfAssessmentChecker.learningDataCheck();
 			expect(selfAssessmentChecker.errors).toEqual([]);
 		});
 		it('Works with errors', async () => {
-			const selfAssessmentChecker = new selfAssessmentCheckerer('No file', 'selfAssessment');
+			const selfAssessmentChecker = new SelfAssessmentCheckerer();
 			spyOn(selfAssessmentChecker, 'findAllStudents').and.returnValue([ { id: 1 }, { id: 2 } ]);
 			learningMockData[0].confidenceScore = 20;
 			selfAssessmentChecker.data = learningMockData;
