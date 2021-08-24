@@ -1,4 +1,4 @@
-describe('File upload page', function () {
+describe('File upload page feature tests: ', function () {
   beforeEach(() => {
     cy.task('taskTruncateTables')
     cy.task('taskCreateStudents')

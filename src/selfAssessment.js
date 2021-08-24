@@ -1,4 +1,4 @@
-const { SelfAssessment, Student } = require('../models')
+const {Student} = require('../models')
 const dateCheck = require('./dateCheck.js')
 
 class SelfAssessmentChecker {

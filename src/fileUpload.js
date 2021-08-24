@@ -1,7 +1,6 @@
 const { SelfAssessment, Student, ModuleChallenge } = require('../models')
 const SelfAssessmentChecker = require('./selfAssessment.js')
 const ModuleChallengeChecker = require('./moduleChallenge.js')
-// const StudentChecker = require('./students.js')
 
 class FileUploader {
   constructor (csvFile, table) {
