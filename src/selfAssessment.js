@@ -9,21 +9,25 @@ class SelfAssessmentChecker {
 	async check(data) {
 		let counter = 0;
 		const students = await Student.findAll({
-			attributes : [ 'id' ]
-		});
+            attributes: ['id'],
+            include: {
+                all: true
+            }
+        })
 
 		let arr = [];
 
-		students.forEach(student => {
+		students.forEach(student => { //what's this now? GW
 			arr.push(student.id);
 		});
 
 		data.forEach(dataObject => {
 			counter++;
-			if (!arr.includes(parseInt(dataObject.StudentId)))
-			this.errors.push(`Student id: ${dataObject.StudentId} does not exist, on line ${counter}`);
+			if (!arr.includes(parseInt(dataObject.StudentId))) {
+				this.errors.push(`Student id: ${dataObject.StudentId} does not exist, on line ${counter}`);
+			}
 			this.learningScoreCheck(dataObject.confidenceScore, dataObject.overallScore, counter);
-			this.errors.push(dateCheck(dataObject.dueDate, dataObject.submissionDate))
+			this.errors = this.errors.concat(dateCheck(dataObject.dueDate, dataObject.submissionDate))
 		});
 		return this.errors;
 	}
@@ -31,12 +35,12 @@ class SelfAssessmentChecker {
 	learningScoreCheck(confidenceScore, overallScore, counter) {
 		if (confidenceScore < 1 || confidenceScore > 5) {
 			this.errors.push(
-				`The score on line ${counter} does not exist or is not within the limits for confidence score.`
+				`The score: ${confidenceScore} on line ${counter} does not exist or is not within the limits for confidence score.`
 			);
 		}
 		if (overallScore < 1 || overallScore > 5) {
 			this.errors.push(
-				`The score on line ${counter} does not exist or is not within the limits for overall score.`
+				`The score: ${overallScore} on line ${counter} does not exist or is not within the limits for overall score.`
 			);
 		}
 	}

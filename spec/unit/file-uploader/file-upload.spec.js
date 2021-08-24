@@ -118,6 +118,7 @@ const FileUploader = require('../../../src/fileUpload.js');
 const { SelfAssessment, Student, ModuleChallenge } = require('../../../models');
 
 describe('Testing all functions in fileUploader class ,', () => {
+<<<<<<< HEAD
 	describe('ModuleCheck functions ', () => {
 		it('checking the projectCheck method works with no erros', async () => {
 			const fileUpload = new FileUploader('No file', 'moduleChallenge');
@@ -218,6 +219,9 @@ describe('Testing all functions in fileUploader class ,', () => {
 			]);
 		});
 	});
+=======
+	
+>>>>>>> c0faf57 (added more testing)
 	describe('Module data check ', () => {
 		beforeEach(() => {
 			moduleMockData = [

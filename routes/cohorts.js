@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 const express = require('express');
 const router = express.Router();
 const { Cohort } = require('../models');
@@ -20,21 +19,3 @@ router.get('/', async function (req, res) {
 
 module.exports = router;
 
-=======
-const express = require('express')
-const router = express.Router()
-
-const { Cohort } = require('../models')
-
-router.get('/', async function (req, res) {
-  const cohorts = await Cohort.findAll({ include: { all: true }})
-
-  res.json({ cohorts: cohorts })
-})
-
-<<<<<<< HEAD
-module.exports = router
->>>>>>> 247ca7e (added file checks)
-=======
-module.exports = router
->>>>>>> d6f4b5f (refactored and updated cypress tests)

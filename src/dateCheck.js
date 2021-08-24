@@ -4,7 +4,7 @@ module.exports = function dateCheck(dueDate, submissionDate, counter) {
     const newDueDate = new Date(dueDate);
     const newSubmissionDate = new Date(submissionDate);
     if (newDueDate > currentDate) {
-        errors.push( `Due date: ${dueDate} is invalid, on line ${counter}`);
+        errors.push(`Due date: ${dueDate} is invalid, on line ${counter}`);
     }
     if (newSubmissionDate > currentDate) {
         errors.push(`Submission date: ${submissionDate} is invalid, on line ${counter}`);

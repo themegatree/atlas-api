@@ -269,11 +269,9 @@ describe('File upload page', function() {
 		cy.task('taskCreateStudents');
 	});
 
-	it('Ollies attempt', () => {
-		let formData;
-		cy.fixture('/csv-files/ModuleChallenges/passingmock.csv', 'base64').then(fileContent => {
-			console.log(fileContent)
-			const blob = new Cypress.Blob.base64StringToBlob([ fileContent ], { type: 'text/csv' });
+	it('Testing that the Module-challenge runs and updates successfully.', () => {
+		cy.fixture('/csv-files/ModuleChallenges/passingmock.csv').then(fileContent => {
+			const blob = new Blob([ fileContent ], { type: 'text/csv' });
 			const formData = new FormData();
 			formData.append('myFile', blob, blob.name);
 			formData.append('assessmentType', 'moduleChallenge');
@@ -286,87 +284,59 @@ describe('File upload page', function() {
 				})
 				.should(res => {
 					console.log(res)
-					var enc = new TextDecoder('utf-8');
+					const enc = new TextDecoder('utf-8');
 					const text = enc.decode(res.body);
-					console.log(text);
 					expect(text).to.eq('{"response":["Updated the database successfully."]}');
 				});
-			// .should(res => console.log(res.data.response));
-			// .then(data => console.log(data));
 		});
-	});
-	it("Ollie test2 ", () => {
+	})
+	it("Testing that the module challenges has errors", () => { 
+		const expectedAnswer = '{"response":["Student id: 99 does not exist, on line 1", "You have entered an incorrect challenge name on line 2", "You have entered an incorrect language on line 3", "Due date: 08/17/35 14:35 is invalid, on line 4", "Submission date: 08/17/35 14:35 is invalid, on line 5"]}'
+		cy.fixture('/csv-files/ModuleChallenges/failingmock.csv').then(fileContent => {
+			const blob = new Blob([ fileContent ], { type: 'text/csv' });
+			const formData = new FormData();
+			
+			formData.append('myFile', blob, blob.name);
+			formData.append('assessmentType', 'moduleChallenge');
+			
+			cy
+				.request({
+					method : 'POST',
+					url    : 'api/fileUpload',
+					body   : formData
+				})
+				.should(res => {
+					console.log(res)
+					const enc = new TextDecoder('utf-8');
+					const text = enc.decode(res.body);
+					expect(text).to.eq(expectedAnswer);
+				});
+		})
+	})
+	
+	xit("Ollie test2 ", () => {
 		const fileName = "csv-files/ModuleChallenges/passingmock.csv"
 		const method = "POST"
-		const url = "api/fileUpload"
-		const fileType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+		const url = "http://localhost:5000/api/fileUpload"
 		const inputContent2 = "moduleChallenge"
-		const expectedAnswer = ["You have updated the database successfully."]
+		const expectedAnswer = '{"response":["Student id: 99 does not exist, on line 1", "You have entered an incorrect challenge name on line 2", "You have entered an incorrect language on line 3", "Due date: 08/17/35 14:35 is invalid, on line 4", "Submission date: 08/17/35 14:35 is invalid, on line 5"]}'
 
-		cy.fixture(fileName, 'binary').then((excelBin) => {
-			Cypress.Blob.binaryStringToBlob(excelBin).then((blob) => {
+		cy.fixture(fileName, 'binary').then( async (excelBin) => {
+			const blob = await new Cypress.Blob.binaryStringToBlob([ excelBin ], { type: 'text/csv' }) 
+			// Cypress.Blob.binaryStringToBlob(excelBin).then((blob) => {
 				const formData = new FormData()
 				formData.set('myFile', blob, fileName)
 				formData.set('assessmentType', inputContent2)
-				cy.form_request(method,url,formData,function(response) { 
-					expect(response.status).to.eq(200)
-					expect(expectedAnswer).to.eq(response.response)
-				})
+				cy.form_request(method,url,formData, (res) => {
+
+				}).then((data) => {
+					console.log(data)
+					expect(data.status).to.eq(200)
+					expect(expectedAnswer).to.eq(data.response)
+				}) 
 			})
 		})
-    })
-    
-	xit("ok", () => {
-		const fileName = "csv-files/ModuleChallenges/passingmock.csv"
-		const method = "POST"
-		const url = "api/fileUpload"
-		const fileType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-		const inputContent2 = "moduleChallenge"
-		const expectedAnswer = ["You have updated the database successfully."]
-
-		
-	})
-
-	xit("GRANT ", async () => {
-		const fileName = "csv-files/ModuleChallenges/passingmock.csv"
-		const method = "POST"
-		const url = "api/fileUpload"
-		const fileType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-		const inputContent2 = "moduleChallenge"
-		const expectedAnswer = ["You have updated the database successfully."]
-
-		await cy.fixture(fileName, 'binary').then(async (excelBin) => {
-			const blob = await Cypress.Blob.binaryStringToBlob(excelBin,fileType)
-			const formData = new FormData()
-			formData.set('myFile', blob, fileName)
-			formData.set('assessmentType', inputContent2)
-			cy.form_request(method,url,formData,function(response) { 
-				expect(response.status).to.eq(200)
-				expect(expectedAnswer).to.eq(response.response)
-			})
-			})
-		})
-	
-
-
-	xit("works i swear", () => {
-		const fileName = "csv-files/ModuleChallenges/passingmock.csv"
-		const method = "POST"
-		const url = "api/fileUpload"
-		const fileType = "text/csv"
-		const inputContent2 = "moduleChallenge"
-		const expectedAnswer = ["You have updated the database successfully."]
-
-		cy.fixture(fileName).then((excelBin) => {
-			const blob = Cypress.Blob.base64StringToBlob(excelBin, fileType)
-			const formData = new FormData()
-			formData.set('file', blob, fileName)
-			formData.set('assessmentType', inputContent2)
-			cy.form_request(method,url,formData,function(response) { 
-				expect(response.status).to.eq(200)
-				expect(expectedAnswer).to.eq(response.response)
-			})
-		})
+<<<<<<< HEAD
 	})
 });
 <<<<<<< HEAD
@@ -446,3 +416,6 @@ describe('File upload page', function() {
 // 	cy.get('#error-5').should('contain', 'Due date: 08/17/26 14:35 is invalid, on line 5');
 // });
 >>>>>>> bc9ff93 (refactored and updated cypress tests)
+=======
+})
+>>>>>>> a9091f7 (added more testing)

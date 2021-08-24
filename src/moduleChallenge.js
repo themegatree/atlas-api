@@ -22,7 +22,9 @@ class ModuleChallengeChecker{
 
         data.forEach(dataObject => {
             counter++
-            if (!(arr.includes(parseInt(dataObject.StudentId)))) this.errors.push(`Student id: ${dataObject.StudentId} does not exist, on line ${counter}`)
+            if (!(arr.includes(parseInt(dataObject.StudentId)))) {
+                this.errors.push(`Student id: ${dataObject.StudentId} does not exist, on line ${counter}`)
+            }
             this.projectCheck(dataObject.challengeName, dataObject.language, counter)
             this.errors = this.errors.concat(dateCheck(dataObject.dueDate, dataObject.submissionDate, counter))
             this.scoreCheck(dataObject.studentScore, dataObject.coachScore, counter)
