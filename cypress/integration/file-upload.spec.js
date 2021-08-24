@@ -1,7 +1,7 @@
 describe('File upload page feature tests: ', function () {
   beforeEach(() => {
     cy.task('taskTruncateTables')
-	cy.task('taskCreateCohort')
+	cy.task('taskCreateCohorts')
     cy.task('taskCreateStudents')
     })
 

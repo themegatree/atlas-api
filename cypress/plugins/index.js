@@ -17,8 +17,10 @@
  */
 // eslint-disable-next-line no-unused-vars
 const truncateTables = require('../../test/ReportGroupTests/truncate-tables.js')
-const createCohort = require('../../test/ReportGroupTests/create-cohorts.js')
+const createCohorts = require('../../test/ReportGroupTests/create-cohorts.js')
 const createStudents = require('../../test/ReportGroupTests/create-students.js')
+const createStudent = require('../../test/create-student.js')
+const createCohort = require('../../test/create-cohort.js')
 
 module.exports = (on, config) => {
   // `on` is used to hook into various events Cypress emits
@@ -29,14 +31,24 @@ module.exports = (on, config) => {
       await truncateTables()
       return null
     },
-    async taskCreateCohort() {
-      console.log('running createCohort task')
-      await createCohort()
+    async taskCreateCohorts() {
+      console.log('running createCohorts task')
+      await createCohorts()
       return null
     },
     async taskCreateStudents() {
       console.log('running createStudents task')
       await createStudents()
+      return null
+    },
+    async taskCreateStudent() {
+      console.log('running createStudents task')
+      await createStudent()
+      return null
+    },
+    async taskCreateCohort() {
+      console.log('running createStudents task')
+      await createCohort()
       return null
     }
   })
