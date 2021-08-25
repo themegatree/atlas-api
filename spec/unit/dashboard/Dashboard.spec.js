@@ -1,4 +1,4 @@
-const truncateTables = require('../../../test/ReportGroupTests/truncate-tables') 
+const truncateTables = require('../../../test/truncate-tables') 
 const createCohorts = require('../../../test/ReportGroupTests/create-cohorts')
 const createStudents = require('../../../test/ReportGroupTests/create-students')
 const createModuleChallenges = require('../../../test/ReportGroupTests/create-module-challenges')
@@ -7,7 +7,7 @@ const Dashboard = require('../../../src/dashboard/Dashboard');
 
 describe('Test Dashboard Class', () => {
     let dashboard
-    let completeDashboard
+    let dashboardData
 
     beforeEach( async () => {
       await truncateTables()
@@ -15,19 +15,19 @@ describe('Test Dashboard Class', () => {
       await createStudents()
       await createModuleChallenges()
       dashboard = new Dashboard();
-      completeDashboard = await dashboard.create();
+      dashboardData = await dashboard.create();
     })
 
   it('returns total number of students', async () => {
-    expect(completeDashboard.studentTotal).toEqual(5)
+    expect(dashboardData.studentTotal).toEqual(5)
   })  
 
   it('returns total number of students', async () => {
-    expect(completeDashboard.cohortsTotal).toEqual(2)
+    expect(dashboardData.cohortsTotal).toEqual(2)
   })  
 
   it('creates genders array', async () => {
-    expect(completeDashboard.gender).toEqual(
+    expect(dashboardData.gender).toEqual(
 			[
       	{ type: 'male', number: 1, percentage: '20.00' },
       	{ type: 'female', number: 4, percentage: '80.00' }
@@ -36,7 +36,7 @@ describe('Test Dashboard Class', () => {
 	})
 
   it('creates backgrounds array', async () => {
-    expect(completeDashboard.background).toEqual(
+    expect(dashboardData.background).toEqual(
 			[
 				{ type: 'White', number: 1, percentage: '20.00' },
 				{ type: 'Black', number: 2, percentage: '40.00' },
@@ -46,7 +46,7 @@ describe('Test Dashboard Class', () => {
   });
 
   it('creates challenges array', async () => {
-    expect(completeDashboard.challenges).toEqual(
+    expect(dashboardData.challenges).toEqual(
 			[
 				{ type: 'bank', percentage: '100.00' },
 				{ type: 'Chitter', percentage: '66.67' },

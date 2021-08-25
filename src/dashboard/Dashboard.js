@@ -1,22 +1,22 @@
 const backgroundRatio = require("./backgroundRatio")
 const genderRatio = require("./genderRatio")
 const challengeRatio = require('./challengeRatio')
-const totalCohorts = require('./totalCohorts')
-const totalStudents = require('./totalStudents')
+const countCohorts = require('./countCohorts')
+const countStudents = require('./countStudents')
 
 class Dashboard {
     constructor() {
-        this.completeDashboard = {}
+        this.data = {}
     }
 
     async create() {
-        await totalStudents().then((students) => this.completeDashboard['studentTotal'] = students)
-        await totalCohorts().then((cohorts) => this.completeDashboard['cohortsTotal'] = cohorts)
-        await genderRatio().then((genderDashboard) => this.completeDashboard['gender'] = genderDashboard)
-        await backgroundRatio().then((backgroundDashboard) => this.completeDashboard['background'] = backgroundDashboard)
-        await challengeRatio().then((challengeDashboard) => this.completeDashboard['challenges'] = challengeDashboard)
+        await countStudents().then((studentCount) => this.data['studentTotal'] = studentCount)
+        await countCohorts().then((cohortCount) => this.data['cohortsTotal'] = cohortCount)
+        await genderRatio().then((genderData) => this.data['gender'] = genderData)
+        await backgroundRatio().then((backgroundData) => this.data['background'] = backgroundData)
+        await challengeRatio().then((challengeData) => this.data['challenges'] = challengeData)
         
-        return this.completeDashboard
+        return this.data
     }
 }
 
