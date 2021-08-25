@@ -1,3 +1,4 @@
+const { rest } = require('cypress/types/lodash');
 const express = require('express');
 const router = express.Router();
 const { Cohort } = require('../models');
@@ -18,9 +19,25 @@ router.get('/', async function (req, res) {
 })
 
 router.get('/:id/reports', async function (req, res) {
-  const report = new Report()
-  const completeReport = await report.create(req.params.id)
-  res.json({ report:  completeReport})
+
+  await Cohort.count({
+    where: {id: req.params.id}
+  }).then( count => {if(count !== 0) {
+
+    const report = new Report()
+    const completeReport = await report.create(req.params.id)
+    res.status(200)
+    res.json({ report:  completeReport})
+  } else {
+    res.status(404)
+    res.json({ errors: ["Sorry invalid cohort id parameter, cohort id does not exist"] })
+  })
+
+  // const report = new Report()
+  // const completeReport = await report.create(req.params.id)
+  // res.json({ report:  completeReport})
+
+
 })
 
 module.exports = router;
