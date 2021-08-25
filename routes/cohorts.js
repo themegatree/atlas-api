@@ -7,7 +7,6 @@ const Report = require('../src/reports/Report.js')
 router.get('/', async function (req, res) {
   const sort = req.query.sort || "startDate"
   const order = req.query.order || "ASC"
-
   const cohorts = await Cohort.findAll({
     include: { all: true },
     order: [[sort, order]],
@@ -16,12 +15,10 @@ router.get('/', async function (req, res) {
   }).catch(errors => {
     res.json({ errors: ["Sorry invalid query parameters"] })
   })
- 
 })
 
 router.get('/:id/reports', async function (req, res) {
   const report = new Report()
-  console.log(req.params.id)
   const completeReport = await report.create(req.params.id)
   res.json({ report:  completeReport})
 })
