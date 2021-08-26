@@ -19,6 +19,7 @@
 const truncateTables = require('../../test/ReportGroupTests/truncate-tables.js')
 const createCohorts = require('../../test/ReportGroupTests/create-cohorts.js')
 const createStudents = require('../../test/ReportGroupTests/create-students.js')
+const createModuleChallenges = require('../../test/ReportGroupTests/create-module-challenges.js')
 const createStudent = require('../../test/create-student.js')
 const createCohort = require('../../test/create-cohort.js')
 
@@ -39,6 +40,11 @@ module.exports = (on, config) => {
     async taskCreateStudents() {
       console.log('running createStudents task')
       await createStudents()
+      return null
+    },
+    async taskCreateModuleChallenges() {
+      console.log('running createModulesChallenges task')
+      await createModuleChallenges()
       return null
     },
     async taskCreateStudent() {
