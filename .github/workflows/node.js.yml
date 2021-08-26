@@ -38,6 +38,7 @@ jobs:
     - run: npm ci
     - run: npm install cypress-mochawesome-reporter
     - run: npx sequelize-cli db:migrate
+    - run: npx eslint . --fix
     - name: Cypress tests
       uses: cypress-io/github-action@v2
       with:

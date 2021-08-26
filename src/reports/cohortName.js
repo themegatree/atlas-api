@@ -1,4 +1,4 @@
-const { Cohort } = require('../../models');
+const { Cohort } = require("../../models");
 const cohortName = async (cohortId) => {
   const cohort = await Cohort.findOne({
     raw: true,
@@ -6,7 +6,7 @@ const cohortName = async (cohortId) => {
       id : cohortId
     }
   });
-  return cohort.name
+  return cohort.name;
 };
 
 module.exports = cohortName;
