@@ -6,7 +6,6 @@ const fileupload = require("express-fileupload");
 
 const cohortsRouter = require('./routes/cohorts.js')
 const studentsRouter = require('./routes/students.js')
-const reportsRouter = require('./routes/reports.js')
 const fileRouter = require('./routes/fileUpload.js')
 const dashboardRouter = require('./routes/dashboard.js')
 
@@ -17,7 +16,6 @@ app.use(express.urlencoded({ extended: true }))
 
 app.use('/api/cohorts', cohortsRouter)
 app.use('/api/students', studentsRouter)
-app.use('/api/cohorts/:id/reports', reportsRouter)
 app.use('/api/fileUpload', fileRouter)
 app.use('/api/dashboard', dashboardRouter)
 

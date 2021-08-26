@@ -1,4 +1,4 @@
-/// <reference types="cypress" />
+// <reference types="cypress" />
 // ***********************************************************
 // This example plugins/index.js can be used to load plugins
 //
@@ -22,7 +22,7 @@ const createStudents = require('../../test/ReportGroupTests/create-students.js')
 const createModuleChallenges = require('../../test/ReportGroupTests/create-module-challenges.js')
 const createStudent = require('../../test/create-student.js')
 const createCohort = require('../../test/create-cohort.js')
-
+const createModuleChallenges = require('../../test/ReportGroupTests/create-module-challenges')
 module.exports = (on, config) => {
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
@@ -55,6 +55,11 @@ module.exports = (on, config) => {
     async taskCreateCohort() {
       console.log('running createStudents task')
       await createCohort()
+      return null
+    },
+    async taskCreateModuleChallenges(){
+      console.log('running createModuleChallenges task')
+      await createModuleChallenges()
       return null
     }
   })
