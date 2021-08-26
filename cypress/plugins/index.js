@@ -56,11 +56,7 @@ module.exports = (on, config) => {
       console.log('running createStudents task')
       await createCohort()
       return null
-    },
-    async taskCreateModuleChallenges(){
-      console.log('running createModuleChallenges task')
-      await createModuleChallenges()
-      return null
     }
+    
   })
 }
