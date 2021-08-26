@@ -22,8 +22,8 @@ describe('Test Dashboard Class', () => {
     expect(dashboardData.studentTotal).toEqual(5)
   })  
 
-  it('returns total number of students', async () => {
-    expect(dashboardData.cohortsTotal).toEqual(2)
+  it('returns total number of cohorts', async () => {
+    expect(dashboardData.cohortsTotal).toEqual(3)
   })  
 
   it('creates genders array', async () => {
