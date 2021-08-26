@@ -1,7 +1,9 @@
-const { Cohort } = require('../../models') 
+const { Cohort } = require('../../models')
 
 const countCohorts = async () => {
-    return await Cohort.count()
+    return {
+      cohortsTotal: await Cohort.count()
+    }
 }
 
 module.exports = countCohorts

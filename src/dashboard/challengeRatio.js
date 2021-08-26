@@ -24,7 +24,9 @@ const challengeRatio = async () => {
         challenge.percentage = (challengeComplete.length / totalChallenge.length * 100).toFixed(2).toString()
     })
 
-    return challengeArr
+    return {
+      challenges: challengeArr
+    }
 }
 
 module.exports = challengeRatio

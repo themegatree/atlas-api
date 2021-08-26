@@ -7,7 +7,7 @@ const backgroundRatio = async () => {
   });
 
   const total = backgroundQuery.count;
-  const backgrounds = backgroundQuery.rows.map(row => row.background);    
+  const backgrounds = backgroundQuery.rows.map(row => row.background);
   const uniqueBackground = backgrounds.filter((background, index) => {return index === backgrounds.indexOf(background)});
   const backgroundArr = [];
 
@@ -20,7 +20,9 @@ const backgroundRatio = async () => {
     background.percentage = (numberOfCurrentBackground.length/total*100).toFixed(2).toString();
   })
 
-  return backgroundArr
+  return {
+    background: backgroundArr
+  }
 }
 
 module.exports = backgroundRatio;

@@ -20,7 +20,9 @@ const genderRatio = async () => {
         gender.percentage = (numberOfCurrentGender.length / total * 100).toFixed(2).toString();
     })
 
-    return genderArr
+    return {
+      gender: genderArr
+    }
 }
 
 module.exports = genderRatio
