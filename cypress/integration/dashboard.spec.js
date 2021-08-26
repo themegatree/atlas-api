@@ -11,7 +11,7 @@ describe('Dashboard Router Test', () => {
   it('returns dashboard object', () => {
     cy.request('GET', '/api/dashboard').then(
       (res) => {
-        expect(res.body).to.have.property('dashboard') 
+        expect(res.body).to.have.property('dashboard')
       }
     )
   });
@@ -32,13 +32,13 @@ describe('Dashboard Router Test', () => {
   it('returns correct students total', () => {
     cy.request('GET', '/api/dashboard').then( (res) => {
       expect(res.body.dashboard.studentTotal).to.eq(5)
-    })    
+    })
   })
 
   it('returns correct cohorts total', () => {
     cy.request('GET', '/api/dashboard').then( (res) => {
       expect(res.body.dashboard.cohortsTotal).to.eq(3)
-    })    
+    })
   })
 
    it('returns correct gender object', () => {
@@ -46,7 +46,7 @@ describe('Dashboard Router Test', () => {
       expect(res.body.dashboard.gender.length).to.eq( 2);
       expect(res.body.dashboard.gender[0]).to.deep.eq({type: 'male', number: 1, percentage: '20.00'})
       expect(res.body.dashboard.gender[1]).to.deep.eq({type: 'female', number: 4, percentage: '80.00'})
-    })    
+    })
   })
 
   it('returns correct background object', () => {
@@ -54,8 +54,8 @@ describe('Dashboard Router Test', () => {
       expect(res.body.dashboard.background.length).to.eq( 3)
       expect(res.body.dashboard.background[0]).to.deep.eq({type: 'White', number: 1, percentage: '20.00'})
       expect(res.body.dashboard.background[1]).to.deep.eq({type: 'Black', number: 2, percentage: '40.00'})
-      expect(res.body.dashboard.background[2]).to.deep.eq({type: 'Other', number: 2, percentage: '40.00'})  
-    })    
+      expect(res.body.dashboard.background[2]).to.deep.eq({type: 'Other', number: 2, percentage: '40.00'})
+    })
   })
 
   it('returns correct challenges object', () => {
@@ -67,5 +67,5 @@ describe('Dashboard Router Test', () => {
   })
 
 
-  
+
 });

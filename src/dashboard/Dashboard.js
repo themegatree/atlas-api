@@ -16,6 +16,7 @@ class Dashboard {
         .then(values => {
           values.forEach(value => Object.assign(this.data, value))
         })
+      console.log(this.data)
       return this.data
     }
 }
