@@ -1,6 +1,6 @@
 const { Student } = require('../../models');
 const genderRatio = async (cohortId) => {
-  const genderQuery = await Student.findAndCountAll({
+  genderQuery = await Student.findAndCountAll({
     raw: true,
     attributes: ['gender'],
     where :{
@@ -29,7 +29,5 @@ const genderRatio = async (cohortId) => {
   }
     return genderArr;
 };
-
-genderRatio(1)
 
 module.exports = genderRatio;
