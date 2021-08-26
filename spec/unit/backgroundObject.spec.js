@@ -3,6 +3,7 @@ const truncateTables = require('../../test/ReportGroupTests/truncate-tables')
 const createCohorts = require('../../test/ReportGroupTests/create-cohorts')
 const createStudents = require('../../test/ReportGroupTests/create-students')
 const backgroundRatio = require('../../src/reports/backgroundRatio');
+const nodataStudents = require('../../test/ReportGroupTests/create-students-nodata')
 describe('background ratio test', () => {
   let cohortId
   let backgroundArr
@@ -18,3 +19,19 @@ describe('background ratio test', () => {
     expect(backgroundArr[1].percentage).toEqual('50.00');
   });
 });
+describe('testing students with no data', function() {
+  let cohortId
+  let backgroundArr
+  beforeEach( async () => { 
+    await truncateTables()
+    await createCohorts()
+    await nodataStudents()
+    cohortId = 1;
+    backgroundArr = await backgroundRatio(cohortId);
+   })
+  it('calculates background ratio from background data when one student has no background data', async () => {
+    expect(backgroundArr[1].type).toEqual('no data')
+    expect(backgroundArr[1].number).toEqual(1)
+    expect(backgroundArr[1].percentage).toEqual('50.00')
+  });
+})

@@ -1,6 +1,6 @@
 const { Student } = require('../../models');
 const genderRatio = async (cohortId) => {
-  genderQuery = await Student.findAndCountAll({
+  const genderQuery = await Student.findAndCountAll({
     raw: true,
     attributes: ['gender'],
     where :{
@@ -9,6 +9,11 @@ const genderRatio = async (cohortId) => {
   });
   const total = genderQuery.count 
   const genders = genderQuery.rows.map(row => row.gender)
+  for (let i=0; i < genders.length; i++) {
+    if (genders[i] === null) {
+      genders[i] = 'no data'
+    }
+  }
   const genderObj = [];
   const uniquegenders = genders.filter((gender, index) => {
     return genders.indexOf(gender) === index;
@@ -24,5 +29,7 @@ const genderRatio = async (cohortId) => {
   }
     return genderArr;
 };
+
+genderRatio(1)
 
 module.exports = genderRatio;
