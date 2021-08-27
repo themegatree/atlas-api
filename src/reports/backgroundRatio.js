@@ -9,12 +9,8 @@ const backgroundRatio = async (cohortId) => {
     }
   });
   const total = backgroundQuery.count 
-  const backgrounds = backgroundQuery.rows.map(row => row.background)
-  for (let i=0; i < backgrounds.length; i++) {
-    if (backgrounds[i] === null) {
-      backgrounds[i] = 'no data'
-    }
-  }
+  let backgrounds = backgroundQuery.rows.map(row => row.background)
+  backgrounds = backgrounds.map(background => (background === null) ? 'no data' : background)
   const backgroundObj = [];
   const uniquebackgrounds = backgrounds.filter((background, index) => {
     return backgrounds.indexOf(background) === index;
