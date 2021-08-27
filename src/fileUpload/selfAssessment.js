@@ -23,7 +23,7 @@ class SelfAssessmentChecker {
     students.forEach(student => {
       arr.push(student.id)
     })
-    
+
     data.forEach(dataObject => {
       if (!arr.includes(parseInt(dataObject.StudentId))) {
         this.errors.push(`Student id: ${dataObject.StudentId} does not exist, on line ${dataObject.counter}`)
@@ -35,7 +35,7 @@ class SelfAssessmentChecker {
     return this.errors
   }
 
-  feedbackChecker(obj) { 
+  feedbackChecker (obj) {
     if (obj.studentReason.length > 255) {
       this.errors.push(`The studentReason on line ${obj.counter} exceeds character length 255.`)
     }
