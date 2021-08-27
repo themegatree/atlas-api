@@ -6,7 +6,7 @@ const Report = require('../src/reports/Report.js')
 router.get('/', async function (req, res) {
   const report = new Report()
   const completeReport = await report.create(req.params.id)
-  res.json({ report: completeReport })
+  res.json({ report:  completeReport})
 })
 
 module.exports = router
