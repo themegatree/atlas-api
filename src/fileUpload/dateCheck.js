@@ -1,29 +1,13 @@
-<<<<<<< HEAD:src/dateCheck.js
-module.exports = function dateCheck (dueDate, submissionDate, counter) {
-  const errors = [];
-  const currentDate = Date.now();
-  const newDueDate = new Date(dueDate);
-  const newSubmissionDate = new Date(submissionDate);
-  if (newDueDate > currentDate) {
-    errors.push(`Due date: ${dueDate} is invalid, on line ${counter}`);
-  }
-  if (newSubmissionDate > currentDate) {
-    errors.push(`Submission date: ${submissionDate} is invalid, on line ${counter}`);
-  }
-  return errors;
-};
-=======
-module.exports = function dateCheck (dueDate, submissionDate, counter) {
+module.exports = function dateCheck (obj) {
   const errors = []
   const currentDate = Date.now()
-  const newDueDate = new Date(dueDate)
-  const newSubmissionDate = new Date(submissionDate)
+  const newDueDate = new Date(obj.dueDate)
+  const newSubmissionDate = new Date(obj.submissionDate)
   if (newDueDate > currentDate) {
-    errors.push(`Due date: ${dueDate} is invalid, on line ${counter}`)
+    errors.push(`Due date: ${obj.dueDate} is invalid, on line ${obj.counter}`)
   }
   if (newSubmissionDate > currentDate) {
-    errors.push(`Submission date: ${submissionDate} is invalid, on line ${counter}`)
+    errors.push(`Submission date: ${obj.submissionDate} is invalid, on line ${obj.counter}`)
   }
   return errors
 }
->>>>>>> 3766703 (Added student upload, some Cypress tests and refactored some code):src/fileUpload/dateCheck.js

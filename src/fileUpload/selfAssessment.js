@@ -16,46 +16,44 @@ class SelfAssessmentChecker {
   }
 
   async check (data) {
-    let counter = 0;
-    const students = await this.findAllStudents();
+    const students = await this.findAllStudents()
 
     const arr = [];
 
     students.forEach(student => {
-      arr.push(student.id);
-    });
-
+      arr.push(student.id)
+    })
+    
     data.forEach(dataObject => {
-      counter++;
       if (!arr.includes(parseInt(dataObject.StudentId))) {
-        this.errors.push(`Student id: ${dataObject.StudentId} does not exist, on line ${counter}`);
+        this.errors.push(`Student id: ${dataObject.StudentId} does not exist, on line ${dataObject.counter}`)
       }
-      this.feedbackChecker(dataObject.studentReason, dataObject.studentFeedback, counter);
-      this.learningScoreCheck(dataObject.confidenceScore, dataObject.overallScore, counter);
-      this.errors = this.errors.concat(dateCheck(dataObject.dueDate, dataObject.submissionDate, counter));
-    });
-    return this.errors;
+      this.feedbackChecker(dataObject)
+      this.learningScoreCheck(dataObject)
+      this.errors = this.errors.concat(dateCheck(dataObject))
+    })
+    return this.errors
   }
 
-  feedbackChecker(reason, feedback, counter) { 
-    if (reason.length > 255) {
-      this.errors.push(`The studentReason on line ${counter} exceeds character length 255.`);
+  feedbackChecker(obj) { 
+    if (obj.studentReason.length > 255) {
+      this.errors.push(`The studentReason on line ${obj.counter} exceeds character length 255.`)
     }
-    if (feedback.length > 255 ){
-      this.errors.push(`The studentFeedback on line ${counter} exceeds character length 255.`);
+    if (obj.studentFeedback.length > 255) {
+      this.errors.push(`The studentFeedback on line ${obj.counter} exceeds character length 255.`)
     }
   }
 
-  learningScoreCheck (confidenceScore, overallScore, counter) {
-    if (confidenceScore < 1 || confidenceScore > 5) {
+  learningScoreCheck (obj) {
+    if (obj.confidenceScore < 1 || obj.confidenceScore > 5) {
       this.errors.push(
-        `The score: ${confidenceScore} on line ${counter} does not exist or is not within the limits for confidence score.`
-      );
+				`The score: ${obj.confidenceScore} on line ${obj.counter} does not exist or is not within the limits for confidence score.`
+      )
     }
-    if (overallScore < 1 || overallScore > 5) {
+    if (obj.overallScore < 1 || obj.overallScore > 5) {
       this.errors.push(
-        `The score: ${overallScore} on line ${counter} does not exist or is not within the limits for overall score.`
-      );
+				`The score: ${obj.overallScore} on line ${obj.counter} does not exist or is not within the limits for overall score.`
+      )
     }
   }
 }
