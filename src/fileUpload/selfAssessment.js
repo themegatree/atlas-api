@@ -47,12 +47,12 @@ class SelfAssessmentChecker {
   learningScoreCheck (obj) {
     if (obj.confidenceScore < 1 || obj.confidenceScore > 5) {
       this.errors.push(
-        `The score: ${obj.confidenceScore} on line ${obj.counter} does not exist or is not within the limits for confidence score.`
+				`The score: ${obj.confidenceScore} on line ${obj.counter} does not exist or is not within the limits for confidence score.`
       )
     }
     if (obj.overallScore < 1 || obj.overallScore > 5) {
       this.errors.push(
-        `The score: ${obj.overallScore} on line ${obj.counter} does not exist or is not within the limits for overall score.`
+				`The score: ${obj.overallScore} on line ${obj.counter} does not exist or is not within the limits for overall score.`
       )
     }
   }

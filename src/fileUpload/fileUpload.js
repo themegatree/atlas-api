@@ -15,8 +15,8 @@ class FileUploader {
     this.history = ""  
     this.data = ""
     this.headers = "" 
-    this.errors = []
-    this.validFile = true
+	  this.errors = []
+	  this.validFile = true
   }
 
     async process(fileType, csvFile) {

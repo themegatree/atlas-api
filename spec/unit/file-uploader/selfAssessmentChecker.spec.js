@@ -4,16 +4,16 @@ describe('Self Assessments ', () => {
   let learningMockData = []
   beforeEach(() => {
     learningMockData = [
-        {
-              StudentId: 1,
-              confidenceScore: 3,
-              overallScore: 3,
-              studentReason: 'No reason',
-              studentFeedback: 'No Feedback',
-              dueDate: '08/17/21 14:35',
-              submissionDate: '08/17/21 14:35',
-              counter: 1
-          }
+		   {
+			   StudentId: 1,
+			   confidenceScore: 3,
+			   overallScore: 3,
+			   studentReason: 'No reason',
+			   studentFeedback: 'No Feedback',
+			   dueDate: '08/17/21 14:35',
+			   submissionDate: '08/17/21 14:35',
+			   counter: 1
+		   }
 	   ]
   })
   describe('Self Assessments check ', () => {
