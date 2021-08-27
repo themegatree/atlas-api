@@ -7,12 +7,11 @@ const languages = ['nodejs', 'javascript', 'java']
 
 
 class ModuleChallengeChecker {
-    constructor() {
+  constructor () {
     this.errors = []
-      }
+  }
 
-     async check(data) {
-          
+  async check (data) {
     const students = await this.findAllStudents()
 
     const arr = students.map(student => student.id)
@@ -26,17 +25,16 @@ class ModuleChallengeChecker {
       this.scoreCheck(dataObject)
     })
     return this.errors
-      }
-    
-    async findAllStudents() {
-        return await Student.findAll({
-            attributes: ['id'],
-            include: {
-                all: true
-            }
-        })
-    }
+  }
 
+  async findAllStudents () {
+    return await Student.findAll({
+      attributes: ['id'],
+      include: {
+        all: true
+      }
+    })
+  }
 
   scoreCheck (obj) {
     if (!scores.includes(obj.studentScore)) {

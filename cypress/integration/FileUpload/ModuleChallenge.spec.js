@@ -1,9 +1,9 @@
 describe('Module Challenge upload feature tests : ', function () {
   beforeEach(() => {
     cy.task('taskTruncateTables')
-	cy.task('taskCreateCohorts')
+    cy.task('taskCreateCohorts')
     cy.task('taskCreateStudents')
-    })
+  })
 
   it('Testing that the Module challenge runs and updates successfully.', () => {
     cy.fixture('/csv-files/ModuleChallenges/passingmock.csv').then(fileContent => {
@@ -52,8 +52,6 @@ describe('Module Challenge upload feature tests : ', function () {
     })
   })
 
-  
-
   it('Testing that the Module Challenge has error for Malformed header', () => {
     cy.fixture('/csv-files/ModuleChallenges/malformed.csv').then(fileContent => {
       const blob = new Blob([fileContent], { type: 'text/csv' })
@@ -72,7 +70,7 @@ describe('Module Challenge upload feature tests : ', function () {
           const enc = new TextDecoder('utf-8')
           const text = enc.decode(res.body)
           const parsedData = JSON.parse(text)
-          expect(parsedData.response[0]).to.eq(`Headers: [challengeName,language,studentScore,coachScore,dueDate] does not match any valid headers`)
+          expect(parsedData.response[0]).to.eq('Headers: [challengeName,language,studentScore,coachScore,dueDate] does not match any valid headers')
         })
     })
   })
@@ -95,7 +93,7 @@ describe('Module Challenge upload feature tests : ', function () {
           const enc = new TextDecoder('utf-8')
           const text = enc.decode(res.body)
           const parsedData = JSON.parse(text)
-          expect(parsedData.response[0]).to.eq(`Headers: [99,RPS,nodejs,extended,extended,08/17/21 14:35,08/17/21 14:35] does not match any valid headers`)
+          expect(parsedData.response[0]).to.eq('Headers: [99,RPS,nodejs,extended,extended,08/17/21 14:35,08/17/21 14:35] does not match any valid headers')
         })
     })
   })
@@ -116,11 +114,8 @@ describe('Module Challenge upload feature tests : ', function () {
           const enc = new TextDecoder('utf-8')
           const text = enc.decode(res.body)
           const parsedData = JSON.parse(text)
-          expect(parsedData.response[0]).to.eq(`Looks like you've tried to upload a self assessment`)
+          expect(parsedData.response[0]).to.eq('Looks like you\'ve tried to upload a self assessment')
         })
     })
   })
 })
-
-
-  

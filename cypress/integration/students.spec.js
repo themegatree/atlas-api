@@ -4,8 +4,8 @@ describe("Students", function() {
       .then(() => {
         cy.task("taskCreateStudent");
         cy.request({
-          method: "GET",
-          url: "api/students"
+          method: 'GET',
+          url: 'api/students'
         }).should(res => {
           expect(res.body.students.length).to.eq(4);
           cy.get(res.body.students).each((item,index) => {

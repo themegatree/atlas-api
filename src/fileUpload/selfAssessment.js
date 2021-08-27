@@ -18,12 +18,8 @@ class SelfAssessmentChecker {
   async check (data) {
     const students = await this.findAllStudents()
 
-    const arr = [];
+    const arr = students.map(student => student.id)
 
-    students.forEach(student => {
-      arr.push(student.id)
-    })
-    
     data.forEach(dataObject => {
       if (!arr.includes(parseInt(dataObject.StudentId))) {
         this.errors.push(`Student id: ${dataObject.StudentId} does not exist, on line ${dataObject.counter}`)
@@ -35,7 +31,7 @@ class SelfAssessmentChecker {
     return this.errors
   }
 
-  feedbackChecker(obj) { 
+  feedbackChecker (obj) {
     if (obj.studentReason.length > 255) {
       this.errors.push(`The studentReason on line ${obj.counter} exceeds character length 255.`)
     }
@@ -47,12 +43,12 @@ class SelfAssessmentChecker {
   learningScoreCheck (obj) {
     if (obj.confidenceScore < 1 || obj.confidenceScore > 5) {
       this.errors.push(
-				`The score: ${obj.confidenceScore} on line ${obj.counter} does not exist or is not within the limits for confidence score.`
+          `The score: ${obj.confidenceScore} on line ${obj.counter} does not exist or is not within the limits for confidence score.`
       )
     }
     if (obj.overallScore < 1 || obj.overallScore > 5) {
       this.errors.push(
-				`The score: ${obj.overallScore} on line ${obj.counter} does not exist or is not within the limits for overall score.`
+        `The score: ${obj.overallScore} on line ${obj.counter} does not exist or is not within the limits for overall score.`
       )
     }
   }
