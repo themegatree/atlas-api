@@ -5,24 +5,24 @@ const createCohorts = require('../../../test/ReportGroupTests/create-cohorts')
 const createStudents = require('../../../test/ReportGroupTests/create-students')
 const createModuleChallenges = require('../../../test/ReportGroupTests/create-module-challenges')
 
-const transformData = require('../../../src/reports/transformData')
+const TransformData = require('../../../src/reports/transformData')
 
 fdescribe('Transform raw query data', () => {
 
-  let rawData;
+  let transformData
+  const cohortId = 1;
 
   beforeEach( async () => {
       await truncateTables()
       await createCohorts()
       await createStudents()
       await createModuleChallenges()
-      const cohortId = 1;
-      transform = new transformData(cohortId)
+      transformData = new TransformData()
   })
 
-  it('can count number of unique student ids', () => {
-    const count = new transformData.getUniqueStudents();
-    expect(count).toEqual(4)
+  it('can count number of unique student ids', async () => {
+    const transformedData = await transformData.build(cohortId);
+    expect(transformedData).toEqual([1,2,3,4])
   });
   
 });
