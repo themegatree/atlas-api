@@ -13,6 +13,16 @@ module.exports = (sequelize, DataTypes) => {
      
 
     }
+
+    static async queryBy(opts){
+      return await this.findAndCountAll({
+        raw:true,
+        include:[{ all:true}],
+        attributes: ["id","gender", "background"],
+        where: opts
+      } 
+      );}
+  
   }
   Student.init({
     firstName: DataTypes.STRING,

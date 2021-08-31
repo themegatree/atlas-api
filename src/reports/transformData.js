@@ -1,69 +1,58 @@
-const Query = require("./query");
-const cohortId = 1;
-
-const queryClass = new Query();
-
-// async function createWebPage(url) {
-//   const webPage = new WebPage(url);
-//   await webPage.initialize();
-//   return webPage;
-// }
-
-
 class TransformData {
-
   constructor() {
-    this.transformedData = {}
-    // this.studentIds = [];
-    // this.uniqueStudents = [];
-    // this.challengeName = [];
-    // this.studentScore = [];
+    this.challengeData = [];
+    this.challengeName = [];
+    this.studentScore = [];
     this.gender = [];
-    this.uniqueData = [];
+    this.background = [];
+  };
+
+  selectByKey(data, key) {
+    const values = data.map(obj => obj[key]);
+    return values;
+  };
+
+  pickKeys (obj, keys) {
+  Object.keys(obj)
+  .filter(i => keys.includes(i))
+  .reduce((acc, key) => {
+    acc[key] = obj[key];
+    return acc;
+  }, {})
+  };
+
+  simplifyData (data, keys) {
+    return data.map(obj => this.pickKeys(obj,keys));
   }
 
-  async init (cohortId) {
-    const rawData = await queryClass.getQuery(cohortId);
-    return rawData.rows
-  }
+  // selectByMultipleKeys(data, keys){
   
-  getUniqueStudents(rawData) {
-    const studentIds = rawData.map(student => student.id);
-    const uniqueIds = studentIds.filter((data, index) => studentIds.indexOf(data) === index);
-    return uniqueIds
-  }
 
-  selectByKey(rawData, key) {
-    const values = rawData.map(data => data[key])
-
-    return values
-  }
-  
-  getUnique(rawData) {
-    const uniqueData = [rawData[0]];
-    rawData.forEach(data => {
-        if (uniqueData[uniqueData.length - 1].id !== data.id) {
-          uniqueData.push(data);
-        }
+  //   const values = data.map(obj => {
+  //     keys.mapobj[key]
+      
+  //   });
+  //   return values;
+  // }; 
+  getUnique(cohortData) {
+    const uniqueData = [cohortData[0]];
+    cohortData.forEach(data => {
+      if (uniqueData[uniqueData.length - 1].id !== data.id) {
+        uniqueData.push(data);
       }
-    )
-    return uniqueData
+    }
+    );
+    return uniqueData;
   }
-
-  // Method calls all other methods
-  async build(cohortId) {
-    const rawData = await this.init(cohortId)
-    this.transformedData.challengeName = this.selectByKey(rawData,['ModuleChallenges.challengeName'])
-    this.transformedData.studentScore = this.selectByKey(rawData,['ModuleChallenges.studentScore'])
-    this.uniqueData = this.getUnique(rawData);
-    //this.studentIds = this.getUniqueStudents(rawData);
-    
-    return this.transformedData;
-  }
+  build(cohortData) { 
+    this.challengeName = this.selectByKey(cohortData,"ModuleChallenges.challengeName");
+    console.log(this.challengeName);
+    this.studentScore = this.selectByKey(cohortData,"ModuleChallenges.studentScore");
+    const uniqueData = this.getUnique(cohortData);
+    this.gender = this.selectByKey(uniqueData,"gender");
+    console.log(this.gender);
+    this.background = this.selectByKey(uniqueData,"background");
+  };
 
 }
-
-transformData = new TransformData()
-transformData.build(1)
-
 module.exports = TransformData;

@@ -1,51 +1,107 @@
-require('dotenv').config();
+<<<<<<< HEAD
+require("dotenv").config();
 
-const truncateTables = require('../../../test/ReportGroupTests/truncate-tables') 
-const createCohorts = require('../../../test/ReportGroupTests/create-cohorts')
-const createStudents = require('../../../test/ReportGroupTests/create-students')
-const createModuleChallenges = require('../../../test/ReportGroupTests/create-module-challenges')
+const truncateTables = require("../../../test/ReportGroupTests/truncate-tables"); 
+const createCohorts = require("../../../test/ReportGroupTests/create-cohorts");
+const createStudents = require("../../../test/ReportGroupTests/create-students");
+const createModuleChallenges = require("../../../test/ReportGroupTests/create-module-challenges");
+const { Student } = require("../../../models");
 
-const TransformData = require('../../../src/reports/transformData')
+const TransformData = require("../../../src/reports/transformData");
 
-describe('Transform raw query data', () => {
+describe("Test transformData:", () => {
 
-  let transformData
-  let cohortId 
+  let transformData;
+  let cohortData;
 
   beforeEach( async () => {
-      await truncateTables()
-      await createCohorts()
-      await createStudents()
-      await createModuleChallenges()
-      cohortId = 1;
-      transformData = new TransformData()
-  })
-
-  it('can count number of unique student ids', async () => {
-    const transformedData = await transformData.build(cohortId);
-    expect(transformedData).toEqual([1,2,3,4])
+    await truncateTables();
+    await createCohorts();
+    await createStudents();
+    await createModuleChallenges();
+    cohortData = await Student.queryBy({CohortId: 1});
+    transformData = new TransformData();
+    transformData.build(cohortData.rows);
   });
 
-  fit('get unique student entries', async () => {
-    const transformedData = await transformData.build(cohortId);
-    console.log(transformedData);
-    
-    expect(transformData.uniqueData.length).toEqual(4)
-    expect(transformData.uniqueData.map(student => student.id)).toEqual([1,2,3,4])
-  })
+  it("get unique student entries", () => {
+    expect(transformData.uniqueData.length).toEqual(4);
+    expect(transformData.uniqueData.map(student => student.id)).toEqual([1,2,3,4]);
+  });
   
+  it("get student challenge names", async () => {
+    expect(transformData.challengeName).toEqual(["bank","Chitter","bank","Chitter","bank","Chitter",null]);
+  });
+
+  it("get student score", () => {
+    expect(transformData.studentScore).toEqual(["complete","complete","complete","complete","complete","incomplete",null]);
+  });
+
+  it("get student background", () => {
+    expect(transformData.background).toEqual(["White","Black","Black","Other"]);
+  });
+
+  it("get student gender", () => {
+    expect(transformData.gender).toEqual(["male","female","female","female"]);
+  });
+
 });
+=======
+require("dotenv").config();
 
-// 1 - count number of students
-// const total = backgroundQuery.count 
+const truncateTables = require("../../../test/ReportGroupTests/truncate-tables"); 
+const createCohorts = require("../../../test/ReportGroupTests/create-cohorts");
+const createStudents = require("../../../test/ReportGroupTests/create-students");
+const createModuleChallenges = require("../../../test/ReportGroupTests/create-module-challenges");
+const { Student } = require("../../../models");
 
-//2 - Put background/gender into array
-// const backgrounds = backgroundQuery.rows.map(row => row.background)
+const TransformData = require("../../../src/reports/transformData");
+const constants = require("../../../constants");
 
-// const backgroundObj = [];
-// const uniquebackgrounds = backgrounds.filter((background, index) => {
-//   return backgrounds.indexOf(background) === index;
-// });
+describe("Test transformData:", () => {
 
-// const backgroundArr = [];
-// uniquebackgrounds.forEach((background,index) => {backgroundArr[index] = {type: background, number: 0, percentage: 0} });
+  let transformData;
+  let cohortData;
+
+  beforeEach( async () => {
+    await truncateTables();
+    await createCohorts();
+    await createStudents();
+    await createModuleChallenges();
+    cohortData = await Student.queryBy({CohortId: 1});
+    transformData = new TransformData();
+    transformData.build(cohortData.rows);
+  });
+
+  it("get unique student entries", () => {
+    const uniqueData = transformData.getUnique(cohortData.rows);
+    expect(uniqueData.length).toEqual(4);
+    expect(uniqueData.map(student => student.id)).toEqual([1,2,3,4]);
+  });
+  
+  it("get student challenge names", async () => {
+    console.log("Raw Data")
+    console.log(cohortData);
+    console.log("Challenges")
+    console.log(transformData.challengeName);
+    expect(transformData.challengeName).toEqual([constants.challenge.bank,constants.challenge.chitter,constants.challenge.bank,constants.challenge.chitter,constants.challenge.bank,constants.challenge.chitter,null]);
+  });
+
+  it("get student score", () => {
+    expect(transformData.studentScore).toEqual(["complete","complete","complete","complete","complete","incomplete",null]);
+  });
+
+  it("get student background", () => {
+    expect(transformData.background).toEqual([constants.background.white,constants.background.black,constants.background.black,constants.background.other]);
+  });
+
+  it("get student gender", () => {
+    expect(transformData.gender).toEqual([constants.gender.male,constants.gender.female,constants.gender.female,constants.gender.female]);
+  });
+
+  // it("get challenge data", () => {
+
+  // });
+
+});
+>>>>>>> 0bf1c04 (added challenge class, refactored existing tests)
