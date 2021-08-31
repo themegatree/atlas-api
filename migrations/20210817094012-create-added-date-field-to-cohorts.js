@@ -1,14 +1,14 @@
-'use strict';
+"use strict";
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-     await queryInterface.addColumn(
-     'Cohorts',
-     'startDate',
+    await queryInterface.addColumn(
+      "Cohorts",
+      "startDate",
       Sequelize.DATE
-      )},
+    );},
 
-  down: async (queryInterface, Sequelize) => {
-    await queryInterface.removeColumn('Cohorts', 'startDate');
-    }
-  };
+  down: async (queryInterface) => {
+    await queryInterface.removeColumn("Cohorts", "startDate");
+  }
+};

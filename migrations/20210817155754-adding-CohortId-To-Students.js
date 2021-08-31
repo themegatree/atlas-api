@@ -1,19 +1,19 @@
-'use strict';
+"use strict";
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.addColumn('Students','CohortId', {
+    await queryInterface.addColumn("Students","CohortId", {
       type:Sequelize.INTEGER,
       references: {
         model: {
-            tableName: 'Cohorts'
+          tableName: "Cohorts"
         },
-        key: 'id'
-    }
-    })
+        key: "id"
+      }
+    });
   },
 
-  down: async (queryInterface, Sequelize) => {
-    await queryInterface.removeColumn('Students','CohortId')
+  down: async (queryInterface) => {
+    await queryInterface.removeColumn("Students","CohortId");
   }
 };

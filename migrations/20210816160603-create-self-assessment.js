@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('SelfAssessments', {
+    await queryInterface.createTable("SelfAssessments", {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -10,14 +10,14 @@ module.exports = {
       },
       StudentId: {
         type: Sequelize.INTEGER,
-            references: {
-                model: {
-                    tableName: 'Students'
-                },
-                key: 'id'
-            },
-            allowNull: false,
-            onDelete: 'cascade',
+        references: {
+          model: {
+            tableName: "Students"
+          },
+          key: "id"
+        },
+        allowNull: false,
+        onDelete: "cascade",
       },
       learningConfidence: {
         type: Sequelize.INTEGER
@@ -47,7 +47,7 @@ module.exports = {
       }
     });
   },
-  down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('SelfAssessments');
+  down: async (queryInterface) => {
+    await queryInterface.dropTable("SelfAssessments");
   }
 };
