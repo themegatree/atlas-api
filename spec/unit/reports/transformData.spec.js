@@ -7,16 +7,17 @@ const createModuleChallenges = require('../../../test/ReportGroupTests/create-mo
 
 const TransformData = require('../../../src/reports/transformData')
 
-fdescribe('Transform raw query data', () => {
+describe('Transform raw query data', () => {
 
   let transformData
-  const cohortId = 1;
+  let cohortId 
 
   beforeEach( async () => {
       await truncateTables()
       await createCohorts()
       await createStudents()
       await createModuleChallenges()
+      cohortId = 1;
       transformData = new TransformData()
   })
 
@@ -24,6 +25,14 @@ fdescribe('Transform raw query data', () => {
     const transformedData = await transformData.build(cohortId);
     expect(transformedData).toEqual([1,2,3,4])
   });
+
+  fit('get unique student entries', async () => {
+    const transformedData = await transformData.build(cohortId);
+    console.log(transformedData);
+    
+    expect(transformData.uniqueData.length).toEqual(4)
+    expect(transformData.uniqueData.map(student => student.id)).toEqual([1,2,3,4])
+  })
   
 });
 

@@ -13,11 +13,13 @@ const queryClass = new Query();
 class TransformData {
 
   constructor() {
-    this.studentIds = [];
-  
-    this.challengeName = [];
-    this.studentScore = [];
+    this.transformedData = {}
+    // this.studentIds = [];
+    // this.uniqueStudents = [];
+    // this.challengeName = [];
+    // this.studentScore = [];
     this.gender = [];
+    this.uniqueData = [];
   }
 
   async init (cohortId) {
@@ -26,7 +28,6 @@ class TransformData {
   }
   
   getUniqueStudents(rawData) {
-
     const studentIds = rawData.map(student => student.id);
     const uniqueIds = studentIds.filter((data, index) => studentIds.indexOf(data) === index);
     return uniqueIds
@@ -38,26 +39,31 @@ class TransformData {
     return values
   }
   
-  correctGender(rawData) {
-    
-    const uniqueIds = rawData.filter((data, index) => rawData.indexOf(data.id) === index)
-    console.log( uniqueIds)
-    return uniqueIds
+  getUnique(rawData) {
+    const uniqueData = [rawData[0]];
+    rawData.forEach(data => {
+        if (uniqueData[uniqueData.length - 1].id !== data.id) {
+          uniqueData.push(data);
+        }
+      }
+    )
+    return uniqueData
   }
-
 
   // Method calls all other methods
   async build(cohortId) {
     const rawData = await this.init(cohortId)
-    this.challengeName = this.selectByKey(rawData,['ModuleChallenges.challengeName'])
-    this.studentScore = this.selectByKey(rawData,['ModuleChallenges.studentScore'])
-    this.gender = this.correctGender(rawData)
-    this.studentIds = this.getUniqueStudents(rawData);
+    this.transformedData.challengeName = this.selectByKey(rawData,['ModuleChallenges.challengeName'])
+    this.transformedData.studentScore = this.selectByKey(rawData,['ModuleChallenges.studentScore'])
+    this.uniqueData = this.getUnique(rawData);
+    //this.studentIds = this.getUniqueStudents(rawData);
     
-    return this.studentIds
+    return this.transformedData;
   }
 
 }
 
+transformData = new TransformData()
+transformData.build(1)
 
 module.exports = TransformData;
