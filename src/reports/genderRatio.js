@@ -8,11 +8,10 @@ const genderRatio = async (cohortId) => {
     }
   });
   const total = genderQuery.count 
-  const genders = genderQuery.rows.map(row => row.gender)
+  let genders = genderQuery.rows.map(row => row.gender)
+  genders = genders.map(gender => (gender === null) ? 'no data' : gender)
   const genderObj = [];
-  const uniquegenders = genders.filter((gender, index) => {
-    return genders.indexOf(gender) === index;
-  });
+  const uniquegenders = genders.filter((gender, index) => genders.indexOf(gender) === index);
   const genderArr = [];
   uniquegenders.forEach((gender,index) => {genderArr[index] = {type: gender, number: 0, percentage: 0} });
   genders.forEach(function (gender) { genderObj[gender] = (genderObj[gender] || 0) + 1; });
