@@ -13,6 +13,8 @@ describe("Students", function() {
             cy.wrap(item.lastName).should("contain", res.body.students[index].lastName);
             cy.wrap(item.githubUsername).should("contain", res.body.students[index].githubUsername);
             cy.wrap(item.email).should("contain", res.body.students[index].email);
+            cy.wrap(item.gender).should("contain", res.body.students[index].gender);
+            cy.wrap(item.background).should("contain", res.body.students[index].background);
           });
         });
       });
