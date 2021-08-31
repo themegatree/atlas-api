@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const FileUploader = require("../src/fileUpload/fileUpload.js");
+const {UploadHistory } = require("../models");
 
 router.post("/", async (req, res) => {
   const fileUploader = new FileUploader();
@@ -11,12 +12,6 @@ router.post("/", async (req, res) => {
 router.post("/history", async (req, res) => {
   const history = await UploadHistory.findAll({});
 
-<<<<<<< HEAD
-=======
-    let status = ""
-    if(fileUploader.errors.length === 0)status = "Success"
-    else status = "Failure"
->>>>>>> d609f17 (Fixing bugs)
 
   res.json({history:history});
 });
