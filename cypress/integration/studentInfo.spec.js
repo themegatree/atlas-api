@@ -12,78 +12,37 @@ describe("Retrieves module challenges data of students", function(){
             method: 'GET',
             url: '/api/students/1'
         }).should((res) => {
-            expect(res.body.student.ModuleChallenges[0].challengeName).to.eq('bank')
-            expect(res.body.student.ModuleChallenges[0].language).to.eq('node')
-            expect(res.body.student.ModuleChallenges[0].studentScore).to.eq('complete')
-            expect(res.body.student.ModuleChallenges[0].coachScore).to.eq('complete')
-            expect(res.body.student.ModuleChallenges[0].dueDate).to.contain('2021-01-08')
-            expect(res.body.student.ModuleChallenges[0].submissionDate).to.contain('2021-01-08')
-            expect(res.body.student.ModuleChallenges[0].createdAt).to.contain('2021-01-08')
-            expect(res.body.student.ModuleChallenges[0].updatedAt).to.contain('2021-01-08')
+            const bankChallenge = res.body.student.ModuleChallenges[0]
+            const chitterChallenge = res.body.student.ModuleChallenges[1]
 
-            expect(res.body.student.ModuleChallenges[1].challengeName).to.eq('Chitter')
-            expect(res.body.student.ModuleChallenges[1].language).to.eq('node')
-            expect(res.body.student.ModuleChallenges[1].studentScore).to.eq('complete')
-            expect(res.body.student.ModuleChallenges[1].coachScore).to.eq('complete')
-            expect(res.body.student.ModuleChallenges[1].dueDate).to.contain('2021-01-08')
-            expect(res.body.student.ModuleChallenges[1].submissionDate).to.contain('2021-01-08')
-            expect(res.body.student.ModuleChallenges[1].createdAt).to.contain('2021-01-08')
-            expect(res.body.student.ModuleChallenges[1].updatedAt).to.contain('2021-01-08')
+            expect(bankChallenge.challengeName).to.eq('bank')
+            expect(bankChallenge.language).to.eq('node')
+            expect(bankChallenge.studentScore).to.eq('complete')
+            expect(bankChallenge.coachScore).to.eq('complete')
+            expect(bankChallenge.dueDate).to.contain('2021-01-08')
+            expect(bankChallenge.submissionDate).to.contain('2021-01-08')
+            expect(bankChallenge.createdAt).to.contain('2021-01-08')
+            expect(bankChallenge.updatedAt).to.contain('2021-01-08')
+
+            expect(chitterChallenge.challengeName).to.eq('Chitter')
+            expect(chitterChallenge.language).to.eq('node')
+            expect(chitterChallenge.studentScore).to.eq('complete')
+            expect(chitterChallenge.coachScore).to.eq('complete')
+            expect(chitterChallenge.dueDate).to.contain('2021-01-08')
+            expect(chitterChallenge.submissionDate).to.contain('2021-01-08')
+            expect(chitterChallenge.createdAt).to.contain('2021-01-08')
+            expect(chitterChallenge.updatedAt).to.contain('2021-01-08')
             
             expect(res.status).eq(200)
         })
     })
 
-    it('Retrieves data for a student with an id of 2', function(){
+    it('Student does not exist', function(){
         cy.request({
             method: 'GET',
-            url: '/api/students/2'
+            url: '/api/students/9'
         }).should((res) => {
-            expect(res.body.student.ModuleChallenges[0].challengeName).to.eq('bank')
-            expect(res.body.student.ModuleChallenges[0].language).to.eq('node')
-            expect(res.body.student.ModuleChallenges[0].studentScore).to.eq('complete')
-            expect(res.body.student.ModuleChallenges[0].coachScore).to.eq('complete')
-            expect(res.body.student.ModuleChallenges[0].dueDate).to.contain('2021-01-08')
-            expect(res.body.student.ModuleChallenges[0].submissionDate).to.contain('2021-01-08')
-            expect(res.body.student.ModuleChallenges[0].createdAt).to.contain('2021-01-08')
-            expect(res.body.student.ModuleChallenges[0].updatedAt).to.contain('2021-01-08')
-
-            expect(res.body.student.ModuleChallenges[1].challengeName).to.eq('Chitter')
-            expect(res.body.student.ModuleChallenges[1].language).to.eq('node')
-            expect(res.body.student.ModuleChallenges[1].studentScore).to.eq('complete')
-            expect(res.body.student.ModuleChallenges[1].coachScore).to.eq('complete')
-            expect(res.body.student.ModuleChallenges[1].dueDate).to.contain('2021-01-08')
-            expect(res.body.student.ModuleChallenges[1].submissionDate).to.contain('2021-01-08')
-            expect(res.body.student.ModuleChallenges[1].createdAt).to.contain('2021-01-08')
-            expect(res.body.student.ModuleChallenges[1].updatedAt).to.contain('2021-01-08')
-            
-            expect(res.status).eq(200)
-        })
-    })
-
-    it('Retrieves data for a student with an id of 3', function(){
-        cy.request({
-            method: 'GET',
-            url: '/api/students/3'
-        }).should((res) => {
-            expect(res.body.student.ModuleChallenges[0].challengeName).to.eq('bank')
-            expect(res.body.student.ModuleChallenges[0].language).to.eq('node')
-            expect(res.body.student.ModuleChallenges[0].studentScore).to.eq('complete')
-            expect(res.body.student.ModuleChallenges[0].coachScore).to.eq('complete')
-            expect(res.body.student.ModuleChallenges[0].dueDate).to.contain('2021-01-08')
-            expect(res.body.student.ModuleChallenges[0].submissionDate).to.contain('2021-01-08')
-            expect(res.body.student.ModuleChallenges[0].createdAt).to.contain('2021-01-08')
-            expect(res.body.student.ModuleChallenges[0].updatedAt).to.contain('2021-01-08')
-
-            expect(res.body.student.ModuleChallenges[1].challengeName).to.eq('Chitter')
-            expect(res.body.student.ModuleChallenges[1].language).to.eq('node')
-            expect(res.body.student.ModuleChallenges[1].studentScore).to.eq('incomplete')
-            expect(res.body.student.ModuleChallenges[1].coachScore).to.eq('complete')
-            expect(res.body.student.ModuleChallenges[1].dueDate).to.contain('2021-01-08')
-            expect(res.body.student.ModuleChallenges[1].submissionDate).to.contain('2021-01-08')
-            expect(res.body.student.ModuleChallenges[1].createdAt).to.contain('2021-01-08')
-            expect(res.body.student.ModuleChallenges[1].updatedAt).to.contain('2021-01-08')
-
+            expect(res.body.student).to.eq(null)
             expect(res.status).eq(200)
         })
     })
