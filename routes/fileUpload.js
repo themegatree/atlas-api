@@ -8,4 +8,14 @@ router.post("/", async (req, res) => {
   res.json({ response: errors });
 });
 
+<<<<<<< HEAD
+=======
+router.post("/history", async (req, res) => {
+  const history = await UploadHistory.findAll({});
+
+
+  res.json({history:history});
+});
+
+>>>>>>> 26d8c9c (Added some changes)
 module.exports = router;
