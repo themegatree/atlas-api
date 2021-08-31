@@ -1,7 +1,7 @@
-const { Student } = require('../../models') 
+const { Student } = require("../../models"); 
 
 const countStudents = async () => {
-    return await Student.count()
-}
+  return await Student.count();
+};
 
-module.exports = countStudents
+module.exports = countStudents;
