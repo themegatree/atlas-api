@@ -27,23 +27,22 @@ describe('Student data check ', () => {
   })
   it('Checks email address', () => {
     const studentChecker = new StudentChecker()
-    spyOn(studentChecker, 'isEmailUnique').and.returnValue(true)
-    studentChecker.validateEmail(StudentMockData)
-    expect(studentChecker.isEmailUnique).toHaveBeenCalled()
+    const emailMockArray = ["UniqueEmaiAddress"]
+    studentChecker.validateEmail(StudentMockData, emailMockArray)
     expect(studentChecker.errors).toEqual([])
   })
   it('Checks email address fails', async () => {
     const studentChecker = new StudentChecker()
-    spyOn(studentChecker, 'isEmailUnique').and.returnValue(false)
+    const emailMockArray = ["TestEmail@test.com"]
     StudentMockData.email = 'TestEmail@test.com'
-    await studentChecker.validateEmail(StudentMockData)
-    expect(studentChecker.isEmailUnique).toHaveBeenCalled()
+    studentChecker.validateEmail(StudentMockData, emailMockArray)
     expect(studentChecker.errors).toEqual(['Email: TestEmail@test.com already exists on line 1'])
   })
   it('Checks email address fails with invalid address', () => {
     const studentChecker = new StudentChecker()
+    const emailMockArray = ["notAnEmail"]
     StudentMockData.email = 'notanemail'
-    studentChecker.validateEmail(StudentMockData)
+    studentChecker.validateEmail(StudentMockData, emailMockArray)
     expect(studentChecker.errors).toEqual(['Email: notanemail is invalid on line 1'])
   })
   it('Checks background check comes back with no errors', () => {
