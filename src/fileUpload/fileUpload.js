@@ -4,12 +4,13 @@ const ModuleChallengeChecker = require('./moduleChallenge.js')
 const StudentChecker = require('./students.js')
 const headerChecker = require('./headerCheck.js')
 
-class FileUploader {
-  fileTypes = {
-    moduleChallenge: { model: ModuleChallenge, class: ModuleChallengeChecker },
-    selfAssessment: { model:  SelfAssessment, class: SelfAssessmentChecker },
-    student: { model: Student, class: StudentChecker }
+const fileTypes = {
+  moduleChallenge: { model: ModuleChallenge, class: ModuleChallengeChecker },
+  selfAssessment: { model:  SelfAssessment, class: SelfAssessmentChecker },
+  student: { model: Student, class: StudentChecker }
 }
+
+class FileUploader {
     constructor() {
     this.table = ""
     this.history = ""  
@@ -41,7 +42,7 @@ class FileUploader {
     }
 
     dbCheck(fileType) {
-        const assessmentClass = this.fileTypes[fileType]
+        const assessmentClass = fileTypes[fileType]
         if (assessmentClass === undefined) {
             return 'invalid table selected'
         } else return assessmentClass

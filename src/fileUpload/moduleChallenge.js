@@ -14,10 +14,10 @@ class ModuleChallengeChecker {
   async check (data) {
     const students = await this.findAllStudents()
 
-    const arr = students.map(student => student.id)
+    const studentIds = students.map(student => student.id)
 
     data.forEach(dataObject => {
-      if (!(arr.includes(parseInt(dataObject.StudentId)))) {
+      if (!(studentIds.includes(parseInt(dataObject.StudentId)))) {
         this.errors.push(`Student id: ${dataObject.StudentId} does not exist, on line ${dataObject.counter}`)
       }
       this.projectCheck(dataObject)

@@ -1,7 +1,7 @@
 const dateCheck = require("../../../src/dateCheck");
 
 describe('DateCheck', () => {
-  dateMockObject = {}
+  let dateMockObject = {}
   beforeEach(() => {
     dateMockObject =
         {

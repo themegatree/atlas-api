@@ -1,9 +1,9 @@
 const StudentChecker = require('../../../src/fileUpload/students.js')
 
 describe('Student data check ', () => {
-  let StudentMockData = {}
+  let studentMockData = {}
   beforeEach(() => {
-    StudentMockData =
+    studentMockData =
         {
           firstName: 'test',
           lastName: 'testerson',
@@ -17,54 +17,54 @@ describe('Student data check ', () => {
   })
   it('Checks cohortCheck works with no errors', async () => {
     const studentChecker = new StudentChecker()
-    await studentChecker.cohortCheck([1, 2], StudentMockData)
+    await studentChecker.cohortCheck([1, 2], studentMockData)
     expect(studentChecker.errors).toEqual([])
   })
   it('Checks cohortCheck works with errors', async () => {
     const studentChecker = new StudentChecker()
-    await studentChecker.cohortCheck([6, 7], StudentMockData)
+    await studentChecker.cohortCheck([6, 7], studentMockData)
     expect(studentChecker.errors).toEqual(['Cohort id: 1 does not exist, on line 1'])
   })
   it('Checks email address', () => {
     const studentChecker = new StudentChecker()
     const emailMockArray = ["UniqueEmaiAddress"]
-    studentChecker.validateEmail(StudentMockData, emailMockArray)
+    studentChecker.validateEmail(studentMockData, emailMockArray)
     expect(studentChecker.errors).toEqual([])
   })
   it('Checks email address fails', async () => {
     const studentChecker = new StudentChecker()
     const emailMockArray = ["TestEmail@test.com"]
-    StudentMockData.email = 'TestEmail@test.com'
-    studentChecker.validateEmail(StudentMockData, emailMockArray)
+    studentMockData.email = 'TestEmail@test.com'
+    studentChecker.validateEmail(studentMockData, emailMockArray)
     expect(studentChecker.errors).toEqual(['Email: TestEmail@test.com already exists on line 1'])
   })
   it('Checks email address fails with invalid address', () => {
     const studentChecker = new StudentChecker()
     const emailMockArray = ["notAnEmail"]
-    StudentMockData.email = 'notanemail'
-    studentChecker.validateEmail(StudentMockData, emailMockArray)
+    studentMockData.email = 'notanemail'
+    studentChecker.validateEmail(studentMockData, emailMockArray)
     expect(studentChecker.errors).toEqual(['Email: notanemail is invalid on line 1'])
   })
   it('Checks background check comes back with no errors', () => {
     const studentChecker = new StudentChecker()
-    studentChecker.backgroundCheck(StudentMockData)
+    studentChecker.backgroundCheck(studentMockData)
     expect(studentChecker.errors).toEqual([])
   })
   it('Checks background check comes back with errors', () => {
     const studentChecker = new StudentChecker()
-    StudentMockData.background = 'Green'
-    studentChecker.backgroundCheck(StudentMockData)
+    studentMockData.background = 'Green'
+    studentChecker.backgroundCheck(studentMockData)
     expect(studentChecker.errors).toEqual(['You have entered an invalid or not yet included background: Green on line 1'])
   })
   it('Checks genderCheck passes with no errors', () => {
     const studentChecker = new StudentChecker()
-    studentChecker.genderCheck(StudentMockData)
+    studentChecker.genderCheck(studentMockData)
     expect(studentChecker.errors).toEqual([])
   })
   it('Checks genderCheck fails with invalid background', () => {
     const studentChecker = new StudentChecker()
-    StudentMockData.gender = 'Snake'
-    studentChecker.genderCheck(StudentMockData)
+    studentMockData.gender = 'Snake'
+    studentChecker.genderCheck(studentMockData)
     expect(studentChecker.errors).toEqual(['You have entered an invalid or not yet included gender: Snake on line 1'])
   })
 })
