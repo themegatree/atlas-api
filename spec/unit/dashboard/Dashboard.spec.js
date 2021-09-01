@@ -2,7 +2,7 @@ const truncateTables = require("../../../test/truncate-tables");
 const createCohorts = require("../../../test/ReportGroupTests/create-cohorts");
 const createStudents = require("../../../test/ReportGroupTests/create-students");
 const createModuleChallenges = require("../../../test/ReportGroupTests/create-module-challenges");
-
+const constants = require("../../../constants");
 const Dashboard = require("../../../src/dashboard/Dashboard");
 
 describe("Test Dashboard Class", () => {
@@ -29,8 +29,8 @@ describe("Test Dashboard Class", () => {
   it("creates genders array", async () => {
     expect(dashboardData.gender).toEqual(
       [
-        { type: "male", number: 1, percentage: "20.00" },
-        { type: "female", number: 4, percentage: "80.00" }
+        { type: constants.gender.male, number: 1, percentage: "20.00" },
+        { type: constants.gender.female, number: 4, percentage: "80.00" }
       ]
     );
   });
@@ -38,9 +38,9 @@ describe("Test Dashboard Class", () => {
   it("creates backgrounds array", async () => {
     expect(dashboardData.background).toEqual(
       [
-        { type: "White", number: 1, percentage: "20.00" },
-        { type: "Black", number: 2, percentage: "40.00" },
-        { type: "Other", number: 2, percentage: "40.00" }
+        { type: constants.background.white, number: 1, percentage: "20.00" },
+        { type: constants.background.black, number: 2, percentage: "40.00" },
+        { type: constants.background.other, number: 2, percentage: "40.00" }
       ]
     );
   });
@@ -48,8 +48,8 @@ describe("Test Dashboard Class", () => {
   it("creates challenges array", async () => {
     expect(dashboardData.challenges).toEqual(
       [
-        { type: "bank", percentage: "100.00" },
-        { type: "Chitter", percentage: "66.67" },
+        { type: constants.challenge.bank, percentage: "100.00" },
+        { type: constants.challenge.chitter, percentage: "66.67" },
       ]
     );
   });

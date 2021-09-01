@@ -1,5 +1,5 @@
 const { Student } = require("../../models");
-
+const constants = require("../../constants");
 const createStudents = async () => {
   console.log("creating student");
   await Student.bulkCreate( [{
@@ -8,10 +8,10 @@ const createStudents = async () => {
     lastName: "Student",
     githubUsername: "dummy-student1",
     email: "dummy1@student.com",
-    gender: "male",
+    gender: constants.gender.male,
     createdAt: new Date("2021-01-08"),
     updatedAt: new Date("2021-01-08"),
-    background: "White",
+    background: constants.background.white,
     CohortId: 1
   }, 
   {
@@ -20,10 +20,10 @@ const createStudents = async () => {
     lastName: "Student",
     githubUsername: "dummy-student2",
     email: "dummy2@student.com",
-    gender: "female",
+    gender: constants.gender.female,
     createdAt: new Date("2021-01-08"),
     updatedAt: new Date("2021-01-08"),
-    background: "Black",
+    background: constants.background.black,
     CohortId: 1
   },
   {
@@ -32,10 +32,10 @@ const createStudents = async () => {
     lastName: "Student",
     githubUsername: "dummy-student3",
     email: "dummy3@student.com",
-    gender: "female",
+    gender: constants.gender.female,
     createdAt: new Date("2021-01-08"),
     updatedAt: new Date("2021-01-08"),
-    background: "Black",
+    background: constants.background.black,
     CohortId: 1
   },
   {
@@ -44,10 +44,10 @@ const createStudents = async () => {
     lastName: "Student",
     githubUsername: "dummy-student4",
     email: "dummy4@student.com",
-    gender: "female",
+    gender: constants.gender.female,
     createdAt: new Date("2021-01-08"),
     updatedAt: new Date("2021-01-08"),
-    background: "Other",
+    background: constants.background.other,
     CohortId: 1
   },
   {
@@ -56,10 +56,10 @@ const createStudents = async () => {
     lastName: "Student",
     githubUsername: "dummy-student4",
     email: "dummy4@student.com",
-    gender: "female",
+    gender: constants.gender.female,
     createdAt: new Date("2021-01-08"),
     updatedAt: new Date("2021-01-08"),
-    background: "Other",
+    background: constants.background.other,
     CohortId: 2
   }]);
 };
