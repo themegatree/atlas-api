@@ -58,7 +58,6 @@ class StudentChecker {
     }
 
     const validEmail = this.isEmailUnique(obj.email, emails);
-    console.log(validEmail);
     if (!validEmail) {
       this.errors.push(`Email: ${obj.email} already exists on line ${obj.counter}`);
     }

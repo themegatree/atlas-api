@@ -1,4 +1,4 @@
-const { SelfAssessment, Student, ModuleChallenge } = require("../../models");
+const { SelfAssessment, Student, ModuleChallenge, UploadHistory } = require("../../models");
 const SelfAssessmentChecker = require("./selfAssessment.js");
 const ModuleChallengeChecker = require("./moduleChallenge.js");
 const StudentChecker = require("./students.js");
@@ -13,35 +13,32 @@ const fileTypes = {
 class FileUploader {
   constructor() {
     this.table = "";
-    this.history = "";  
+    this.history = "";
     this.data = "";
-    this.headers = ""; 
+    this.headers = "";
     this.errors = [];
+    this.status = "Success";
   }
 
-  async process(fileType, csvFile) {
-    this.history = fileType;
-    this.table = this.dbCheck(fileType);
+  async process(csvFile) {
     this.data = this.fileConvertor(csvFile);
-    this.data.map((dataObject, i) => dataObject.counter = i + 1);
-    const headerCheck = headerChecker(this.headers, fileType);
-        
+    const headerCheck = headerChecker(this.headers);
+    
     if (!headerCheck.validFile) {
       this.errors.push(headerCheck.errors);
+      this.status = "Failure";
+      await this.setHistory();
       return this.errors;
     }
 
+    this.data.map((dataObject, i) => dataObject.counter = i + 1);
+    this.table = this.dbCheck(headerCheck.fileType);
+    this.history = headerCheck.fileType;
     const checkData = new this.table.class();
     this.errors = await checkData.check(this.data);
-        
-    return await this.addToDatabase();
-  }
 
-  dbCheck(fileType) {
-    const assessmentClass = fileTypes[fileType];
-    if (assessmentClass === undefined) {
-      return "invalid table selected";
-    } else return assessmentClass;
+    return await this.addToDatabase();
+
   }
 
   fileConvertor(csvFile) {
@@ -50,7 +47,7 @@ class FileUploader {
       csvData.pop();
     }
     this.headers = csvData[0].split(",");
-      
+
     const arrayObj = [];
     for (let i = 1; i < csvData.length; i++) {
       const obj = {};
@@ -62,15 +59,34 @@ class FileUploader {
       arrayObj.push(obj);
     }
     return arrayObj;
-  }   
+  }
+
+  dbCheck(fileType) {
+    const assessmentClass = fileTypes[fileType];
+    if (assessmentClass === undefined) {
+      return "invalid table selected";
+    } else return assessmentClass;
+  }
 
   async addToDatabase () {
     if (this.errors.length === 0) {
       await this.table.model.bulkCreate(this.data);
+      this.status = "Success";
+      await this.setHistory();
       return ["Updated the database successfully."];
     } else {
+      this.status = "Failure";
+      await this.setHistory();
       return this.errors;
     }
+  }
+
+  async setHistory(){
+    await UploadHistory.create({
+      uploadType: this.history,
+      status: this.status,
+      errors: this.errors.join()
+    });
   }
 }
 

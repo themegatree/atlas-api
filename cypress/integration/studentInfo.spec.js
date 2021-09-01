@@ -33,7 +33,7 @@ describe("Retrieves module challenges data of students", function(){
       expect(chitterChallenge.submissionDate).to.contain("2021-01-08");
       expect(chitterChallenge.createdAt).to.contain("2021-01-08");
       expect(chitterChallenge.updatedAt).to.contain("2021-01-08");
-            
+
       expect(res.status).eq(200);
     });
   });

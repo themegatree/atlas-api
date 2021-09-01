@@ -1,37 +1,25 @@
 const { checkArraysAreEqual } = require("./utility.js");
-
 const correctHeaders = {
   selfAssessment: ["StudentId", "confidenceScore", "overallScore", "studentReason", "studentFeedback", "dueDate", "submissionDate"],
   moduleChallenge: ["StudentId", "challengeName", "language", "studentScore", "coachScore", "dueDate", "submissionDate"],
   student: ["firstName", "lastName", "githubUsername", "email", "gender", "background", "CohortId"]
 };
 
-module.exports = function headerChecker (headers, table) {
+const headerChecker = (headers) => {
   const headerCheck = { 
     validFile: true,
-    errors: ""
+    errors: "",
+    fileType: ""
   };
-  if (checkArraysAreEqual(headers, correctHeaders[table])){
-    return headerCheck;
-  }
-  else { 
+  const foundHeaders = Object.values(correctHeaders).find(correctSet => checkArraysAreEqual(correctSet, headers));
+  const fileType = Object.keys(correctHeaders).find(fileType => checkArraysAreEqual(correctHeaders[fileType], foundHeaders));
+  headerCheck.fileType = fileType || "";
+  if (fileType === undefined) {
     headerCheck.validFile = false;
-    headerCheck.errors = failedHeaderCheck(headers);
-    return headerCheck;
+    headerCheck.errors = `Headers: [${headers}] does not match any valid headers`;
   }
+  return headerCheck;
 };
 
-function failedHeaderCheck (headers) {
-  if (checkArraysAreEqual(headers, correctHeaders.moduleChallenge)) {
-    return "Looks like you've tried to upload a module challenge";
-  } 
-  else if (checkArraysAreEqual(headers, correctHeaders.student)) { 
-    return "Looks like you've tried to upload students";
-  }
-  else if (checkArraysAreEqual(headers, correctHeaders.selfAssessment)) { 
-    return "Looks like you've tried to upload a self assessment";
-  } 
-  else {
-    return `Headers: [${headers}] does not match any valid headers`;
-  }
-}
+
+module.exports = headerChecker;
