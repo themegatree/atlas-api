@@ -1,3 +1,4 @@
+const constants = require("../../constants");
 describe("Retrieves module challenges data of students", function(){
   beforeEach(() => {
     cy.task("taskTruncateTables").then(() => {
@@ -15,7 +16,7 @@ describe("Retrieves module challenges data of students", function(){
       const bankChallenge = res.body.student.ModuleChallenges[0];
       const chitterChallenge = res.body.student.ModuleChallenges[1];
 
-      expect(bankChallenge.challengeName).to.eq("bank");
+      expect(bankChallenge.challengeName).to.eq(constants.challenge.bank);
       expect(bankChallenge.language).to.eq("node");
       expect(bankChallenge.studentScore).to.eq("complete");
       expect(bankChallenge.coachScore).to.eq("complete");
@@ -24,7 +25,7 @@ describe("Retrieves module challenges data of students", function(){
       expect(bankChallenge.createdAt).to.contain("2021-01-08");
       expect(bankChallenge.updatedAt).to.contain("2021-01-08");
 
-      expect(chitterChallenge.challengeName).to.eq("Chitter");
+      expect(chitterChallenge.challengeName).to.eq(constants.challenge.chitter);
       expect(chitterChallenge.language).to.eq("node");
       expect(chitterChallenge.studentScore).to.eq("complete");
       expect(chitterChallenge.coachScore).to.eq("complete");
