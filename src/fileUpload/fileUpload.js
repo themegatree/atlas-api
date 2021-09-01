@@ -73,11 +73,9 @@ class FileUploader {
     if (this.result.errors.length === 0) {
       await this.table.model.bulkCreate(this.data);
       this.result.status = "success";
-      console.log(`erros at addtodatabase for success: ${this.result.errors}`);
       await this.setHistory();
     } else {
       this.result.status = "failure";
-      console.log(`erros at addtodatabase for failure: ${this.result.errors}`);
       await this.setHistory();
     }
     return this.result;
