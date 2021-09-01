@@ -1,14 +1,14 @@
-'use strict';
+"use strict";
 const {
   Model
-} = require('sequelize');
+} = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class SelfAssessment extends Model {
 
     static associate(models) {
-      this.Student = this.belongsTo(models.Student)
+      this.Student = this.belongsTo(models.Student);
     }
-  };
+  }
   SelfAssessment.init({
     StudentId: DataTypes.INTEGER,
     learningConfidence: DataTypes.INTEGER,
@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
     submissionDate: DataTypes.DATE
   }, {
     sequelize,
-    modelName: 'SelfAssessment',
+    modelName: "SelfAssessment",
   });
   return SelfAssessment;
 };
