@@ -4,6 +4,7 @@ const truncateTables = async () => {
   console.log("truncating tables");
   await db.Cohort.destroy({ truncate: true, cascade: true });
   await db.Student.destroy({ truncate: true, cascade: true });
+  await db.UploadHistory.destroy({truncate: true, cascade: true});
 };
 
 module.exports = truncateTables;
