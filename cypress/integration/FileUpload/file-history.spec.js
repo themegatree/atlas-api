@@ -20,7 +20,7 @@ describe("file history feature tests: ", function () {
       });
 
       cy.request({
-        method: "POST",
+        method: "GET",
         url: "api/fileUpload/history"
       }).should(res =>{
         expect(res.body.history[0].status).to.eq("Success");
@@ -42,7 +42,7 @@ describe("file history feature tests: ", function () {
       });
 
       cy.request({
-        method: "POST",
+        method: "GET",
         url: "api/fileUpload/history"
       }).should(res =>{
         expect(res.body.history[0].status).to.eq("Failure");
