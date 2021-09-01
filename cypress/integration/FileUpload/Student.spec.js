@@ -20,7 +20,8 @@ describe("Student upload feature tests : ", function () {
           const enc = new TextDecoder("utf-8");
           const text = enc.decode(res.body);
           const parsedData = JSON.parse(text);
-          expect(parsedData.response[0]).to.eq("Updated the database successfully.");
+          expect(parsedData.response.errors.length).to.eq(0);
+          expect(parsedData.response.status).to.eq("success");
         });
     });
   });
@@ -42,7 +43,8 @@ describe("Student upload feature tests : ", function () {
           const enc = new TextDecoder("utf-8");
           const text = enc.decode(res.body);
           const parsedData = JSON.parse(text);
-          expect(parsedData.response[0]).to.eq("Maximum number of students in file (50) exceeded");
+          expect(parsedData.response.status).to.eq("failure");
+          expect(parsedData.response.errors[0]).to.eq("Maximum number of students in file (50) exceeded");
         });
     });
   });
@@ -64,10 +66,11 @@ describe("Student upload feature tests : ", function () {
           const enc = new TextDecoder("utf-8");
           const text = enc.decode(res.body);
           const parsedData = JSON.parse(text);
-          expect(parsedData.response[0]).to.eq("You have entered an invalid or not yet included gender: Test on line 1");
-          expect(parsedData.response[1]).to.eq("You have entered an invalid or not yet included background: Test on line 2");
-          expect(parsedData.response[2]).to.eq("You have entered an invalid or not yet included background: Test on line 3");
-          expect(parsedData.response[3]).to.eq("You have entered an invalid or not yet included gender: Test on line 3");
+          expect(parsedData.response.status).to.eq("failure");
+          expect(parsedData.response.errors[0]).to.eq("You have entered an invalid or not yet included gender: Test on line 1");
+          expect(parsedData.response.errors[1]).to.eq("You have entered an invalid or not yet included background: Test on line 2");
+          expect(parsedData.response.errors[2]).to.eq("You have entered an invalid or not yet included background: Test on line 3");
+          expect(parsedData.response.errors[3]).to.eq("You have entered an invalid or not yet included gender: Test on line 3");
         });
     });
   });

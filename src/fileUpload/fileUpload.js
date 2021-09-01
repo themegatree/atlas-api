@@ -15,9 +15,11 @@ class FileUploader {
     this.table = "";
     this.history = "";
     this.data = "";
-    this.headers = "";
-    this.errors = [];
-    this.status = "Success";
+    this.headers = ""; 
+    this.result = {
+      errors: [],
+      status: "pending"
+    };
   }
 
   async process(csvFile) {
@@ -25,20 +27,19 @@ class FileUploader {
     const headerCheck = headerChecker(this.headers);
     
     if (!headerCheck.validFile) {
-      this.errors.push(headerCheck.errors);
-      this.status = "Failure";
+      this.result.errors.push(headerCheck.errors);
+      this.result.status = "failure";
       await this.setHistory();
-      return this.errors;
+      return this.result;
     }
 
     this.data.map((dataObject, i) => dataObject.counter = i + 1);
     this.table = this.dbCheck(headerCheck.fileType);
     this.history = headerCheck.fileType;
     const checkData = new this.table.class();
-    this.errors = await checkData.check(this.data);
-
+    this.result.status = "success";
+    this.result.errors = await checkData.check(this.data);
     return await this.addToDatabase();
-
   }
 
   fileConvertor(csvFile) {
@@ -69,23 +70,24 @@ class FileUploader {
   }
 
   async addToDatabase () {
-    if (this.errors.length === 0) {
+    if (this.result.errors.length === 0) {
       await this.table.model.bulkCreate(this.data);
-      this.status = "Success";
+      this.result.status = "success";
+      console.log(`erros at addtodatabase for success: ${this.result.errors}`);
       await this.setHistory();
-      return ["Updated the database successfully."];
     } else {
-      this.status = "Failure";
+      this.result.status = "failure";
+      console.log(`erros at addtodatabase for failure: ${this.result.errors}`);
       await this.setHistory();
-      return this.errors;
     }
+    return this.result;
   }
 
   async setHistory(){
     await UploadHistory.create({
       uploadType: this.history,
-      status: this.status,
-      errors: this.errors.join()
+      status: this.result.status,
+      errors: this.result.errors.join()
     });
   }
 }

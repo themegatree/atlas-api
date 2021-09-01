@@ -10,7 +10,6 @@ describe("Module Challenge upload feature tests : ", function () {
       const blob = new Blob([fileContent], { type: "text/csv" });
       const formData = new FormData();
       formData.append("myFile", blob, blob.name);
-      formData.append("assessmentType", "moduleChallenge");
       cy
         .request({
           method: "POST",
@@ -21,7 +20,8 @@ describe("Module Challenge upload feature tests : ", function () {
           const enc = new TextDecoder("utf-8");
           const text = enc.decode(res.body);
           const parsedData = JSON.parse(text);
-          expect(parsedData.response[0]).to.eq("Updated the database successfully.");
+          expect(parsedData.response.status).to.eq("success");
+          expect(parsedData.response.errors.length).to.eq(0);
         });
     });
   });
@@ -31,7 +31,6 @@ describe("Module Challenge upload feature tests : ", function () {
       const formData = new FormData();
 
       formData.append("myFile", blob, blob.name);
-      formData.append("assessmentType", "moduleChallenge");
 
       cy
         .request({
@@ -43,11 +42,12 @@ describe("Module Challenge upload feature tests : ", function () {
           const enc = new TextDecoder("utf-8");
           const text = enc.decode(res.body);
           const parsedData = JSON.parse(text);
-          expect(parsedData.response[0]).to.eq("Student id: 99 does not exist, on line 1");
-          expect(parsedData.response[1]).to.eq("You have entered an incorrect challenge name on line 2");
-          expect(parsedData.response[2]).to.eq("You have entered an incorrect language on line 3");
-          expect(parsedData.response[3]).to.eq("Due date: 08/17/35 14:35 is invalid, on line 4");
-          expect(parsedData.response[4]).to.eq("Submission date: 08/17/35 14:35 is invalid, on line 5");
+          expect(parsedData.response.status).to.eq("failure");
+          expect(parsedData.response.errors[0]).to.eq("Student id: 99 does not exist, on line 1");
+          expect(parsedData.response.errors[1]).to.eq("You have entered an incorrect challenge name on line 2");
+          expect(parsedData.response.errors[2]).to.eq("You have entered an incorrect language on line 3");
+          expect(parsedData.response.errors[3]).to.eq("Due date: 08/17/35 14:35 is invalid, on line 4");
+          expect(parsedData.response.errors[4]).to.eq("Submission date: 08/17/35 14:35 is invalid, on line 5");
         });
     });
   });
@@ -58,7 +58,6 @@ describe("Module Challenge upload feature tests : ", function () {
       const formData = new FormData();
 
       formData.append("myFile", blob, blob.name);
-      formData.append("assessmentType", "moduleChallenge");
 
       cy
         .request({
@@ -70,7 +69,8 @@ describe("Module Challenge upload feature tests : ", function () {
           const enc = new TextDecoder("utf-8");
           const text = enc.decode(res.body);
           const parsedData = JSON.parse(text);
-          expect(parsedData.response[0]).to.eq("Headers: [challengeName,language,studentScore,coachScore,dueDate] does not match any valid headers");
+          expect(parsedData.response.status).to.eq("failure");
+          expect(parsedData.response.errors[0]).to.eq("Headers: [challengeName,language,studentScore,coachScore,dueDate] does not match any valid headers");
         });
     });
   });
@@ -81,7 +81,6 @@ describe("Module Challenge upload feature tests : ", function () {
       const formData = new FormData();
 
       formData.append("myFile", blob, blob.name);
-      formData.append("assessmentType", "moduleChallenge");
 
       cy
         .request({
@@ -93,7 +92,8 @@ describe("Module Challenge upload feature tests : ", function () {
           const enc = new TextDecoder("utf-8");
           const text = enc.decode(res.body);
           const parsedData = JSON.parse(text);
-          expect(parsedData.response[0]).to.eq("Headers: [99,RPS,nodejs,extended,extended,08/17/21 14:35,08/17/21 14:35] does not match any valid headers");
+          expect(parsedData.response.status).to.eq("failure");
+          expect(parsedData.response.errors[0]).to.eq("Headers: [99,RPS,nodejs,extended,extended,08/17/21 14:35,08/17/21 14:35] does not match any valid headers");
         });
     });
   });

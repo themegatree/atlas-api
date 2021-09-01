@@ -12,16 +12,15 @@ describe("FileUploader feature testing", () => {
   it("Check the Process function works with no errors", async () => {
     const mockInput = "StudentId,confidenceScore,overallScore,studentReason,studentFeedback,dueDate,submissionDate\n1,1,2,No reason,No Feedback,08/17/21 14:35,08/17/21 14:35\n1,4,2,No reason,No Feedback,08/17/21 14:35,08/17/21 14:35";
     const fileUploader = new FileUploader();
-    spyOn(fileUploader, "addToDatabase").and.returnValue(["Updated the database successfully."]);
     const result = await fileUploader.process(mockInput);
-    expect(result).toEqual(["Updated the database successfully."]);
+    expect(result.status).toEqual("success");
+    expect(result.errors.length).toEqual(0);
   });
   it("Check the Process function works with errors", async () => {
     const mockInput = "StudentId,confidenceScore,overallScore,studentReason,studentFeedback,dueDate,submissionDate\n65,1,2,No reason,No Feedback,08/17/21 14:35,08/17/21 14:35\n55,4,2,No reason,No Feedback,08/17/21 14:35,08/17/21 14:35";
     const fileUploader = new FileUploader();
-    spyOn(fileUploader, "addToDatabase");
-    await fileUploader.process(mockInput);
-    const result = fileUploader.errors;
-    expect(result).toEqual(["Student id: 65 does not exist, on line 1","Student id: 55 does not exist, on line 2" ]);
+    const result = await fileUploader.process(mockInput);
+    expect(result.status).toEqual("failure");
+    expect(result.errors).toEqual(["Student id: 65 does not exist, on line 1","Student id: 55 does not exist, on line 2" ]);
   });
 });

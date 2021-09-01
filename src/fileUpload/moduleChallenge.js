@@ -23,7 +23,7 @@ class ModuleChallengeChecker {
       this.projectCheck(dataObject);
       this.errors = this.errors.concat(dateCheck(dataObject));
       this.scoreCheck(dataObject);
-    });
+    });    
     return this.errors;
   }
 
