@@ -20,13 +20,10 @@ class FileUploader {
     this.status = "Success";
   }
 
-  async process(fileType, csvFile) {
-    this.history = fileType;
-    this.table = this.dbCheck(fileType);
+  async process(csvFile) {
     this.data = this.fileConvertor(csvFile);
-    this.data.map((dataObject, i) => dataObject.counter = i + 1);
-    const headerCheck = headerChecker(this.headers, fileType);
-
+    const headerCheck = headerChecker(this.headers);
+    
     if (!headerCheck.validFile) {
       this.errors.push(headerCheck.errors);
       this.status = "Failure";
@@ -34,18 +31,14 @@ class FileUploader {
       return this.errors;
     }
 
+    this.data.map((dataObject, i) => dataObject.counter = i + 1);
+    this.table = this.dbCheck(headerCheck.fileType);
+    this.history = headerCheck.fileType;
     const checkData = new this.table.class();
     this.errors = await checkData.check(this.data);
 
     return await this.addToDatabase();
 
-  }
-
-  dbCheck(fileType) {
-    const assessmentClass = fileTypes[fileType];
-    if (assessmentClass === undefined) {
-      return "invalid table selected";
-    } else return assessmentClass;
   }
 
   fileConvertor(csvFile) {
@@ -66,6 +59,13 @@ class FileUploader {
       arrayObj.push(obj);
     }
     return arrayObj;
+  }
+
+  dbCheck(fileType) {
+    const assessmentClass = fileTypes[fileType];
+    if (assessmentClass === undefined) {
+      return "invalid table selected";
+    } else return assessmentClass;
   }
 
   async addToDatabase () {

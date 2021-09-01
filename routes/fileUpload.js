@@ -5,7 +5,7 @@ const {UploadHistory } = require("../models");
 
 router.post("/", async (req, res) => {
   const fileUploader = new FileUploader();
-  const errors = await fileUploader.process(req.body.assessmentType, req.files.myFile.data);
+  const errors = await fileUploader.process(req.files.myFile.data);
   res.json({ response: errors });
 });
 

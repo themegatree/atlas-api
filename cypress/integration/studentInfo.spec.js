@@ -16,7 +16,6 @@ describe("Retrieves module challenges data of students", function(){
       const bankChallenge = res.body.student.ModuleChallenges[0];
       const chitterChallenge = res.body.student.ModuleChallenges[1];
 
-
       expect(bankChallenge.challengeName).to.eq(constants.challenge.bank);
       expect(bankChallenge.language).to.eq("node");
       expect(bankChallenge.studentScore).to.eq("complete");

@@ -71,48 +71,4 @@ describe("Student upload feature tests : ", function () {
         });
     });
   });
-  it("Testing that the students has has error for self assessment", () => {
-    cy.fixture("/csv-files/Students/selfassessment.csv").then(fileContent => {
-      const blob = new Blob([fileContent], { type: "text/csv" });
-      const formData = new FormData();
-
-      formData.append("myFile", blob, blob.name);
-      formData.append("assessmentType", "student");
-
-      cy
-        .request({
-          method: "POST",
-          url: "api/fileUpload",
-          body: formData
-        })
-        .should(res => {
-          const enc = new TextDecoder("utf-8");
-          const text = enc.decode(res.body);
-          const parsedData = JSON.parse(text);
-          expect(parsedData.response[0]).to.eq("Looks like you've tried to upload a self assessment");
-        });
-    });
-  });
-  it("Testing that the students has has error for module challenge", () => {
-    cy.fixture("/csv-files/Students/modulechallenge.csv").then(fileContent => {
-      const blob = new Blob([fileContent], { type: "text/csv" });
-      const formData = new FormData();
-
-      formData.append("myFile", blob, blob.name);
-      formData.append("assessmentType", "student");
-
-      cy
-        .request({
-          method: "POST",
-          url: "api/fileUpload",
-          body: formData
-        })
-        .should(res => {
-          const enc = new TextDecoder("utf-8");
-          const text = enc.decode(res.body);
-          const parsedData = JSON.parse(text);
-          expect(parsedData.response[0]).to.eq("Looks like you've tried to upload a module challenge");
-        });
-    });
-  });
 });
