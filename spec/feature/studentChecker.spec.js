@@ -1,6 +1,6 @@
 const StudentChecker = require("../../src/fileUpload/students.js");
 
-describe("feature tests for student checker", () => {
+describe("Student Feature test ", () => {
   let studentMockData = [];
   let studentChecker;
   beforeEach(() => {

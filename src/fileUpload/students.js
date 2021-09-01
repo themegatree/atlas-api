@@ -52,6 +52,18 @@ class StudentChecker {
     }
   }
 
+  backgroundCheck (obj) {
+    if (!ethnicGroups.includes(obj.background)) {
+      this.errors.push(`You have entered an invalid or not yet included background: ${obj.background} on line ${obj.counter}`);
+    }
+  }
+
+  genderCheck (obj) {
+    if (!genders.includes(obj.gender)) {
+      this.errors.push(`You have entered an invalid or not yet included gender: ${obj.gender} on line ${obj.counter}`);
+    }
+  }
+
   validateEmail(obj, emails) {
     if (!this.isEmail(obj.email)) {
       this.errors.push(`Email: ${obj.email} is invalid on line ${obj.counter}`);
@@ -70,18 +82,6 @@ class StudentChecker {
   isEmailUnique(email, emails) {
     if (emails.includes(email)) { return false; }
     return true;
-  }
-
-  backgroundCheck (obj) {
-    if (!ethnicGroups.includes(obj.background)) {
-      this.errors.push(`You have entered an invalid or not yet included background: ${obj.background} on line ${obj.counter}`);
-    }
-  }
-
-  genderCheck (obj) {
-    if (!genders.includes(obj.gender)) {
-      this.errors.push(`You have entered an invalid or not yet included gender: ${obj.gender} on line ${obj.counter}`);
-    }
   }
 }
 
