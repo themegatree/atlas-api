@@ -1,5 +1,5 @@
 function checkArraysAreEqual (arr1, arr2) {
-  if (typeof arr2 !== "object") {
+  if (![arr1, arr2].every(array => Array.isArray(array))) {
     return false;
   }
   else if ( arr1.length !== arr2.length) {

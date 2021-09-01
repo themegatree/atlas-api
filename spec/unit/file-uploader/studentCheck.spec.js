@@ -1,6 +1,6 @@
 const StudentChecker = require("../../../src/fileUpload/students.js");
 
-describe("Student data check ", () => {
+describe("Student Unit test ", () => {
   let studentMockData = {};
   beforeEach(() => {
     studentMockData =

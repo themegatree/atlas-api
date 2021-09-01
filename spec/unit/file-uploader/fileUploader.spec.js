@@ -1,6 +1,6 @@
 const FileUploader = require("../../../src/fileUpload/fileUpload.js");
 
-describe("FileUploader testing", () => {
+describe("FileUploader unit test", () => {
   it("Testing the fileConvertor method", () => {
     const mockInput = "studentId,confidenceScore,overallScore,studentReason,studentFeedback,submissionsDate,dueDate\n65,1,2,No reason,No Feedback,08/17/21 14:35,08/17/21 14:35\n1,7,2,No reason,No Feedback,08/17/21 14:35,08/17/21 14:35";
     const fileUploader = new FileUploader();

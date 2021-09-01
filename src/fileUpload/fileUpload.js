@@ -62,6 +62,14 @@ class FileUploader {
     return arrayObj;
   }
 
+  async setHistory(){
+    await UploadHistory.create({
+      uploadType: this.history,
+      status: this.result.status,
+      errors: this.result.errors.join()
+    });
+  }
+
   dbCheck(fileType) {
     const assessmentClass = fileTypes[fileType];
     if (assessmentClass === undefined) {
@@ -79,14 +87,6 @@ class FileUploader {
       await this.setHistory();
     }
     return this.result;
-  }
-
-  async setHistory(){
-    await UploadHistory.create({
-      uploadType: this.history,
-      status: this.result.status,
-      errors: this.result.errors.join()
-    });
   }
 }
 

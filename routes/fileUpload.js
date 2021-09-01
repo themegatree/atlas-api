@@ -12,7 +12,6 @@ router.post("/", async (req, res) => {
 router.get("/history", async (req, res) => {
   const history = await UploadHistory.findAll({});
 
-
   res.json({history:history});
 });
 

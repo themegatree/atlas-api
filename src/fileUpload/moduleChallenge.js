@@ -20,10 +20,10 @@ class ModuleChallengeChecker {
       if (!(studentIds.includes(parseInt(dataObject.StudentId)))) {
         this.errors.push(`Student id: ${dataObject.StudentId} does not exist, on line ${dataObject.counter}`);
       }
-      this.projectCheck(dataObject);
       this.errors = this.errors.concat(dateCheck(dataObject));
       this.scoreCheck(dataObject);
-    });    
+      this.projectCheck(dataObject);
+    });
     return this.errors;
   }
 

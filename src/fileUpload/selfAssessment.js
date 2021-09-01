@@ -6,15 +6,6 @@ class SelfAssessmentChecker {
     this.errors = [];
   }
 
-  async findAllStudents () {
-    return await Student.findAll({
-      attributes: ["id"],
-      include: {
-        all: true
-      }
-    });
-  }
-
   async check (data) {
     const students = await this.findAllStudents();
 
@@ -29,6 +20,15 @@ class SelfAssessmentChecker {
       this.errors = this.errors.concat(dateCheck(dataObject));
     });
     return this.errors;
+  }
+
+  async findAllStudents () {
+    return await Student.findAll({
+      attributes: ["id"],
+      include: {
+        all: true
+      }
+    });
   }
 
   feedbackChecker (obj) {
