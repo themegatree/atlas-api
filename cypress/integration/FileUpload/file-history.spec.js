@@ -11,7 +11,6 @@ describe("file history feature tests: ", function () {
       const blob = new Blob([fileContent], { type: "text/csv" });
       const formData = new FormData();
       formData.append("myFile", blob, blob.name);
-      formData.append("assessmentType", "moduleChallenge");
 
       cy.request({
         method: "POST",
@@ -23,7 +22,7 @@ describe("file history feature tests: ", function () {
         method: "GET",
         url: "api/fileUpload/history"
       }).should(res =>{
-        expect(res.body.history[0].status).to.eq("Success");
+        expect(res.body.history[0].status).to.eq("success");
         expect(res.body.history[0].uploadType).to.eq("moduleChallenge");
       });
     });
@@ -33,7 +32,6 @@ describe("file history feature tests: ", function () {
       const blob = new Blob([fileContent], { type: "text/csv" });
       const formData = new FormData();
       formData.append("myFile", blob, blob.name);
-      formData.append("assessmentType", "moduleChallenge");
 
       cy.request({
         method: "POST",
@@ -45,7 +43,7 @@ describe("file history feature tests: ", function () {
         method: "GET",
         url: "api/fileUpload/history"
       }).should(res =>{
-        expect(res.body.history[0].status).to.eq("Failure");
+        expect(res.body.history[0].status).to.eq("failure");
         expect(res.body.history[0].uploadType).to.eq("moduleChallenge");
       });
     });

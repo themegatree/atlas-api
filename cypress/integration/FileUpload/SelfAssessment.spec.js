@@ -21,7 +21,8 @@ describe("Self Assessment upload feature tests : ", function () {
           const enc = new TextDecoder("utf-8");
           const text = enc.decode(res.body);
           const parsedData = JSON.parse(text);
-          expect(parsedData.response[0]).to.eq("Updated the database successfully.");
+          expect(parsedData.response.status).to.eq("success");
+          expect(parsedData.response.errors.length).to.eq(0);
         });
     });
   });
@@ -32,7 +33,6 @@ describe("Self Assessment upload feature tests : ", function () {
       const formData = new FormData();
 
       formData.append("myFile", blob, blob.name);
-      formData.append("assessmentType", "selfAssessment");
 
       cy
         .request({
@@ -44,13 +44,14 @@ describe("Self Assessment upload feature tests : ", function () {
           const enc = new TextDecoder("utf-8");
           const text = enc.decode(res.body);
           const parsedData = JSON.parse(text);
-          expect(parsedData.response[0]).to.eq("Student id: 65 does not exist, on line 1");
-          expect(parsedData.response[1]).to.eq("The score: 7 on line 2 does not exist or is not within the limits for confidence score.");
-          expect(parsedData.response[2]).to.eq("The score: 9 on line 3 does not exist or is not within the limits for overall score.");
-          expect(parsedData.response[3]).to.eq("The studentReason on line 4 exceeds character length 255.");
-          expect(parsedData.response[4]).to.eq("Submission date: 08/17/26 14:35 is invalid, on line 4");
-          expect(parsedData.response[5]).to.eq("The studentFeedback on line 5 exceeds character length 255.");
-          expect(parsedData.response[6]).to.eq("Due date: 08/17/26 14:35 is invalid, on line 5");
+          expect(parsedData.response.status).to.eq("failure");
+          expect(parsedData.response.errors[0]).to.eq("Student id: 65 does not exist, on line 1");
+          expect(parsedData.response.errors[1]).to.eq("The score: 7 on line 2 does not exist or is not within the limits for confidence score.");
+          expect(parsedData.response.errors[2]).to.eq("The score: 9 on line 3 does not exist or is not within the limits for overall score.");
+          expect(parsedData.response.errors[3]).to.eq("The studentReason on line 4 exceeds character length 255.");
+          expect(parsedData.response.errors[4]).to.eq("Submission date: 08/17/26 14:35 is invalid, on line 4");
+          expect(parsedData.response.errors[5]).to.eq("The studentFeedback on line 5 exceeds character length 255.");
+          expect(parsedData.response.errors[6]).to.eq("Due date: 08/17/26 14:35 is invalid, on line 5");
         });
     });
   });
@@ -60,7 +61,6 @@ describe("Self Assessment upload feature tests : ", function () {
       const formData = new FormData();
 
       formData.append("myFile", blob, blob.name);
-      formData.append("assessmentType", "selfAssessment");
 
       cy
         .request({
@@ -72,7 +72,8 @@ describe("Self Assessment upload feature tests : ", function () {
           const enc = new TextDecoder("utf-8");
           const text = enc.decode(res.body);
           const parsedData = JSON.parse(text);
-          expect(parsedData.response[0]).to.eq("Headers: [confidenceScore,overallScore,studentReason,studentFeedback,submissionsDate,dueDate] does not match any valid headers");
+          expect(parsedData.response.status).to.eq("failure");
+          expect(parsedData.response.errors[0]).to.eq("Headers: [confidenceScore,overallScore,studentReason,studentFeedback,submissionsDate,dueDate] does not match any valid headers");
         });
     });
   });
@@ -83,7 +84,6 @@ describe("Self Assessment upload feature tests : ", function () {
       const formData = new FormData();
 
       formData.append("myFile", blob, blob.name);
-      formData.append("assessmentType", "selfAssessment");
 
       cy
         .request({
@@ -95,7 +95,8 @@ describe("Self Assessment upload feature tests : ", function () {
           const enc = new TextDecoder("utf-8");
           const text = enc.decode(res.body);
           const parsedData = JSON.parse(text);
-          expect(parsedData.response[0]).to.eq("Headers: [65,1,2,No reason,No Feedback,08/17/21 14:35,08/17/21 14:35] does not match any valid headers");
+          expect(parsedData.response.status).to.eq("failure");
+          expect(parsedData.response.errors[0]).to.eq("Headers: [65,1,2,No reason,No Feedback,08/17/21 14:35,08/17/21 14:35] does not match any valid headers");
         });
     });
   });
