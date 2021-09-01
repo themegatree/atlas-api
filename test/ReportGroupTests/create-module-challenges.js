@@ -1,9 +1,10 @@
 const { ModuleChallenge } = require("../../models");
+const constants = require("../../constants");
 const createModuleChallenges = async () => {
   console.log("creating student");
   await ModuleChallenge.bulkCreate( [{
     StudentId: 1,
-    challengeName: "bank",
+    challengeName: constants.challenge.bank,
     language: "node",
     studentScore: "complete",
     coachScore: "complete",
@@ -14,7 +15,7 @@ const createModuleChallenges = async () => {
   },
   {
     StudentId: 1,
-    challengeName: "Chitter",
+    challengeName: constants.challenge.chitter,
     language: "node",
     studentScore: "complete",
     coachScore: "complete",
@@ -25,7 +26,7 @@ const createModuleChallenges = async () => {
   },
   {
     StudentId: 2,
-    challengeName: "bank",
+    challengeName: constants.challenge.bank,
     language: "node",
     studentScore: "complete",
     coachScore: "complete",
@@ -36,7 +37,7 @@ const createModuleChallenges = async () => {
   },
   {
     StudentId: 2,
-    challengeName: "Chitter",
+    challengeName: constants.challenge.chitter,
     language: "node",
     studentScore: "complete",
     coachScore: "complete",
@@ -47,7 +48,7 @@ const createModuleChallenges = async () => {
   },
   {
     StudentId: 3,
-    challengeName: "bank",
+    challengeName: constants.challenge.bank,
     language: "node",
     studentScore: "complete",
     coachScore: "complete",
@@ -58,7 +59,7 @@ const createModuleChallenges = async () => {
   },
   {
     StudentId: 3,
-    challengeName: "Chitter",
+    challengeName: constants.challenge.chitter,
     language: "node",
     studentScore: "incomplete",
     coachScore: "complete",

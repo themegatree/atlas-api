@@ -4,7 +4,7 @@ const createCohorts = require("../../../test/ReportGroupTests/create-cohorts");
 const createStudents = require("../../../test/ReportGroupTests/create-students");
 const createModuleChallenges = require("../../../test/ReportGroupTests/create-module-challenges");
 const challengeRatio = require("../../../src/dashboard/challengeRatio");
-
+const constants = require("../../../constants");
 describe("challenge ratio test", () => {
   let challengeArr;
 
@@ -17,11 +17,11 @@ describe("challenge ratio test", () => {
   });
 
   it("first challenge type is Bank", async () => {
-    expect(challengeArr[0].type).toBe("bank");
+    expect(challengeArr[0].type).toBe(constants.challenge.bank);
   });
    
   it("second challenge type is Chitter", async () => {
-    expect(challengeArr[1].type).toBe("Chitter");
+    expect(challengeArr[1].type).toBe(constants.challenge.chitter);
   });
 
   it("calculates chitter challenge completion percentage from challenge data", async () => {

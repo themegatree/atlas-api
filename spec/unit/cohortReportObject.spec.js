@@ -3,6 +3,7 @@ const createCohorts = require("../../test/ReportGroupTests/create-cohorts");
 const createStudents = require("../../test/ReportGroupTests/create-students");
 const createModuleChallenges = require("../../test/ReportGroupTests/create-module-challenges");
 const Report = require("../../src/reports/Report");
+const constants = require("../../constants");
 describe("Test Report Class", () => {
   let cohortId;
   let report;
@@ -18,21 +19,21 @@ describe("Test Report Class", () => {
   });
   it("can get genders", async () => {
     expect(completeReport.gender).toEqual([
-      { type: "male", number: 1, percentage: "25.00" },
-      { type: "female", number: 3, percentage: "75.00" }
+      { type: constants.gender.male, number: 1, percentage: "25.00" },
+      { type: constants.gender.female, number: 3, percentage: "75.00" }
     ]);
   });
   it("can get backgrounds", async () => {
     expect(completeReport.background).toEqual([
-      { type: "White", number: 1, percentage: "25.00" },
-      { type: "Black", number: 2, percentage: "50.00" },
-      { type: "Other", number: 1, percentage: "25.00" }
+      { type: constants.background.white, number: 1, percentage: "25.00" },
+      { type: constants.background.black, number: 2, percentage: "50.00" },
+      { type: constants.background.other, number: 1, percentage: "25.00" }
     ]);
   });
   it("can get challenges", async () => {
     expect(completeReport.challenges).toEqual([
-      { type: "bank", percentage: "100.00" },
-      { type: "Chitter", percentage: "66.67" },
+      { type: constants.challenge.bank, percentage: "100.00" },
+      { type: constants.challenge.chitter, percentage: "66.67" },
     ]);
   });
   it("can get the cohortId", async () => {

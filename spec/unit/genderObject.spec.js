@@ -4,6 +4,7 @@ const createCohorts = require("../../test/ReportGroupTests/create-cohorts");
 const createStudents = require("../../test/ReportGroupTests/create-students");
 const genderRatio = require("../../src/reports/genderRatio");
 const nodataStudents = require("../../test/ReportGroupTests/create-students-nodata");
+const constants = require("../../constants");
 describe("gender ratio test", () => {
   let cohortId, genders;
   beforeEach( async () => { 
@@ -14,7 +15,7 @@ describe("gender ratio test", () => {
     genders = await genderRatio(cohortId);
   });
   it("calculates gender ratio from gender data", async () => {
-    expect(genders[1].type).toEqual("female");
+    expect(genders[1].type).toEqual(constants.gender.female);
     expect(genders[1].number).toEqual(3);
     expect(genders[0].percentage).toEqual("25.00");
   });

@@ -15,7 +15,8 @@ const challengeRatio = async (cohortId) => {
       StudentId: studentIdList
     }
   });
-  const challengeRows = challengeQuery.rows;
+  let challengeRows = challengeQuery.rows;
+  challengeRows =  challengeRows.map(row => (row.studentScore === null) ? {challengeName: row.challengeName, studentScore : "incomplete"} : row);
   const challengeList = challengeQuery.rows.map(row => row.challengeName );
   const uniqueChallenges = challengeList.filter((challenge, index) => {
     return challengeList.indexOf(challenge) === index;
