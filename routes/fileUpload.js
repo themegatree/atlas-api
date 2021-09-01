@@ -9,7 +9,7 @@ router.post("/", async (req, res) => {
   res.json({ response: errors });
 });
 
-router.post("/history", async (req, res) => {
+router.get("/history", async (req, res) => {
   const history = await UploadHistory.findAll({});
 
 

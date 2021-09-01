@@ -29,6 +29,7 @@ class FileUploader {
 
     if (!headerCheck.validFile) {
       this.errors.push(headerCheck.errors);
+      this.status = "Failure";
       await this.setHistory();
       return this.errors;
     }
@@ -36,11 +37,8 @@ class FileUploader {
     const checkData = new this.table.class();
     this.errors = await checkData.check(this.data);
 
-    await this.addToDatabase();
+    return await this.addToDatabase();
 
-    await this.setHistory();
-
-    return this.errors;
   }
 
   dbCheck(fileType) {
@@ -73,20 +71,17 @@ class FileUploader {
   async addToDatabase () {
     if (this.errors.length === 0) {
       await this.table.model.bulkCreate(this.data);
-      this.errors.push("Updated the database successfully.");
-      return this.errors;
+      this.status = "Success";
+      await this.setHistory();
+      return ["Updated the database successfully."];
     } else {
+      this.status = "Failure";
+      await this.setHistory();
       return this.errors;
     }
   }
 
   async setHistory(){
-    if(this.errors[0] === "Updated the database successfully."){
-      this.status = "Success";
-    }
-    else{
-      this.status = "Failure";
-    }
     await UploadHistory.create({
       uploadType: this.history,
       status: this.status,
