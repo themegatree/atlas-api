@@ -4,7 +4,7 @@ const { Student } = require("../models");
 
 router.get("/", async function (req, res) {
   let students = await Student.findAll({ include: { all: true }});
-  students = students || {}
+  students = students || {};
   
   res.json({ students: students });
 });
@@ -15,7 +15,7 @@ router.get("/:id", async function (req, res) {
       id: req.params.id
     }
   });
-  student = student || {}
+  student = student || {};
 
   res.json({ student: student });
 });

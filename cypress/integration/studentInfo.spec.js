@@ -42,7 +42,7 @@ describe("Retrieves module challenges data of students", function(){
       method: "GET",
       url: "/api/students/9"
     }).should((res) => {
-      expect(res.body.student).to.be.empty
+      expect(res.body.student).to.be.empty;
       expect(res.status).eq(200);
     });
   });
