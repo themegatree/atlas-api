@@ -7,7 +7,7 @@ router.use(methodOverride("_method"));
 router.get("/", async function (req, res) {
   let students = await Student.findAll({ include: { all: true }});
   students = students || {};
-  
+
   res.json({ students: students });
 });
 
@@ -28,9 +28,10 @@ router.get("/:id", async function (req,res) {
 });
 
 const permittedParams = ["firstName", "lastName", "githubUsername", "email"];
-const response = {status:"failure",student:{},errors:""};
 router.put("/:id", async function (req,res) {
-  const student = await Student.findOne({where:{id:req.params.id}});
+  const response = { status: "failure", student: {}, errors: "" };
+  const student = await Student.findOne({ where:{ id:req.params.id }});
+  console.log(req.body)
   if (student === null) {
     response.errors = "missing record";
     res.json(response);
@@ -41,6 +42,7 @@ router.put("/:id", async function (req,res) {
     response.errors = "no input";
     res.json(response);
   } else {
+
     student.update(req.body)
       .then(student => {
         response.status = "success";
