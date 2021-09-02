@@ -15,7 +15,7 @@ class FileUploader {
     this.table = "";
     this.history = "";
     this.data = "";
-    this.headers = ""; 
+    this.headers = "";
     this.result = {
       errors: [],
       status: "pending"
@@ -25,7 +25,7 @@ class FileUploader {
   async process(csvFile) {
     this.data = this.fileConvertor(csvFile);
     const headerCheck = headerChecker(this.headers);
-    
+
     if (!headerCheck.validFile) {
       this.result.errors.push(headerCheck.errors);
       this.result.status = "failure";
@@ -39,6 +39,7 @@ class FileUploader {
     const checkData = new this.table.class();
     this.result.status = "success";
     this.result.errors = await checkData.check(this.data);
+
     return await this.addToDatabase();
   }
 
@@ -66,7 +67,7 @@ class FileUploader {
     await UploadHistory.create({
       uploadType: this.history,
       status: this.result.status,
-      errors: this.result.errors.join()
+      errors: this.result.errors.join("~~~")
     });
   }
 
@@ -81,11 +82,10 @@ class FileUploader {
     if (this.result.errors.length === 0) {
       await this.table.model.bulkCreate(this.data);
       this.result.status = "success";
-      await this.setHistory();
     } else {
       this.result.status = "failure";
-      await this.setHistory();
     }
+    await this.setHistory();
     return this.result;
   }
 }
