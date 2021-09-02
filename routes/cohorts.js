@@ -17,6 +17,16 @@ router.get("/", async function (req, res) {
   });
 });
 
+router.get("/:id", async function (req, res) {
+  const cohort = await Cohort.findOne({
+    include: [{ all: true }],
+    where: {
+      id: req.params.id},
+    order: [[Student, "firstName", "ASC"]],
+  });
+  res.json({ cohort: cohort });
+});
+
 router.get("/:id/reports", async function (req, res) {
   const report = new Report();
   const completeReport = await report.create(req.params.id);

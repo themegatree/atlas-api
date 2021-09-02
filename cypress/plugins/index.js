@@ -21,7 +21,8 @@ const createCohorts = require("../../test/ReportGroupTests/create-cohorts.js");
 const createStudents = require("../../test/ReportGroupTests/create-students.js");
 const createModuleChallenges = require("../../test/ReportGroupTests/create-module-challenges.js");
 const createStudent = require("../../test/StudentGroupTests/create-student.js");
-const createCohort = require("../../test/create-cohort.js");
+const createCohort = require("../../test/CohortGroupTests/create-cohort.js");
+const createStudentList = require("../../test/CohortGroupTests/create-studentList.js");
 
 module.exports = (on) => {
   // `on` is used to hook into various events Cypress emits
@@ -55,6 +56,11 @@ module.exports = (on) => {
     async taskCreateCohort() {
       console.log("running createStudents task");
       await createCohort();
+      return null;
+    },
+    async taskCreateStudentList() {
+      console.log("running createStudentList task");
+      await createStudentList();
       return null;
     }
   });
