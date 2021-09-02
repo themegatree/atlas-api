@@ -23,16 +23,17 @@ class ReportRefactored {
     transformData.build(cohortData.rows);
 
     //Do calculation
-    console.log(Object.keys(transformData));
-    Object.keys(transformData).forEach( key => {
-      console.log(key);
-      console.log(transformData[key]);
-      // Call a function to make each part of the data object 
-      // set the key value pair in the data object 
-    }
-    );
+    
+    //console.log(Object.keys(transformData));
+    // Object.keys(transformData).forEach( key => {
+      
+    //   // Call a function to make each part of the data object 
+    //   // set the key value pair in the data object 
+    // }
+    //);
     
   }
 }
+
 
 module.exports = ReportRefactored;

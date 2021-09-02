@@ -1,19 +1,31 @@
-class Challenges {
-  constructor(){
-    this.data = [];
-  }
+const constants = require("../../constants");
 
-  getUnique(challenges) {
-    return challenges.filter((challenge, index) => challenges.indexOf(challenge) === index);
+// For one challenge
+function ChallengePercentageCalculator(cohortData, challenge){
+  let SuccessfulCount = 0;
+  cohortData.forEach(Data => {
+    // console.log(Data["ModuleChallenges.challengeName"]) ;
+    // console.log(Data["ModuleChallenges.challengeName"] === challenge);
+    if (Data["ModuleChallenges.challengeName"] === challenge && Data["ModuleChallenges.studentScore"] !== "incomplete") {
+      SuccessfulCount += 1;
+    }
   }
-
-  build(names,scores) {
-    // Build the JS skeleton 
-    // Set type of each object in the data array to the challenge name
-    names.forEach(name => this.data.push({type: name}));
-    // Call the percentage method on the scores
-    // Set the percentage key in each data object to the percentage method in the scores
-  }
-
+  );
+  //console.log(SuccessfulCount);
+  return SuccessfulCount;
 }
-module.exports = Challenges;
+
+console.log(constants.challenge);
+console.log(Object.values(constants.challenge))
+const challengeNames = Object.values(constants.challenge);
+
+// For all the challenges
+function getChallengePercentages(cohortData) {
+  challengeNames.forEach(challenge => {ChallengePercentageCalculator(cohortData, challenge);
+    console.log(challenge);
+    console.log(ChallengePercentageCalculator(cohortData, challenge));
+  }
+  );
+}
+
+module.exports = getChallengePercentages;

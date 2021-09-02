@@ -1,52 +1,3 @@
-<<<<<<< HEAD
-require("dotenv").config();
-
-const truncateTables = require("../../../test/ReportGroupTests/truncate-tables"); 
-const createCohorts = require("../../../test/ReportGroupTests/create-cohorts");
-const createStudents = require("../../../test/ReportGroupTests/create-students");
-const createModuleChallenges = require("../../../test/ReportGroupTests/create-module-challenges");
-const { Student } = require("../../../models");
-
-const TransformData = require("../../../src/reports/transformData");
-
-describe("Test transformData:", () => {
-
-  let transformData;
-  let cohortData;
-
-  beforeEach( async () => {
-    await truncateTables();
-    await createCohorts();
-    await createStudents();
-    await createModuleChallenges();
-    cohortData = await Student.queryBy({CohortId: 1});
-    transformData = new TransformData();
-    transformData.build(cohortData.rows);
-  });
-
-  it("get unique student entries", () => {
-    expect(transformData.uniqueData.length).toEqual(4);
-    expect(transformData.uniqueData.map(student => student.id)).toEqual([1,2,3,4]);
-  });
-  
-  it("get student challenge names", async () => {
-    expect(transformData.challengeName).toEqual(["bank","Chitter","bank","Chitter","bank","Chitter",null]);
-  });
-
-  it("get student score", () => {
-    expect(transformData.studentScore).toEqual(["complete","complete","complete","complete","complete","incomplete",null]);
-  });
-
-  it("get student background", () => {
-    expect(transformData.background).toEqual(["White","Black","Black","Other"]);
-  });
-
-  it("get student gender", () => {
-    expect(transformData.gender).toEqual(["male","female","female","female"]);
-  });
-
-});
-=======
 require("dotenv").config();
 
 const truncateTables = require("../../../test/ReportGroupTests/truncate-tables"); 
@@ -104,4 +55,3 @@ describe("Test transformData:", () => {
   // });
 
 });
->>>>>>> 0bf1c04 (added challenge class, refactored existing tests)

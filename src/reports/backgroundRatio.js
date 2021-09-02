@@ -26,5 +26,5 @@ const backgroundRatio = async (cohortId) => {
   }
   return backgroundArr;
 };
-
+backgroundRatio(1);
 module.exports = backgroundRatio;
