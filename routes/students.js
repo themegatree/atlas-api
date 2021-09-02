@@ -31,7 +31,7 @@ const permittedParams = ["firstName", "lastName", "githubUsername", "email"];
 router.put("/:id", async function (req,res) {
   const response = { status: "failure", student: {}, errors: "" };
   const student = await Student.findOne({ where:{ id:req.params.id }});
-  console.log(req.body)
+  console.log(req.body);
   if (student === null) {
     response.errors = "missing record";
     res.json(response);
