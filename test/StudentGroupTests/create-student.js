@@ -3,6 +3,7 @@ const { Student } = require("../../models");
 const createStudent = async () => {
   console.log("creating students");
   await Student.bulkCreate([{
+    id: 1,
     firstName: "Zara",
     lastName: "Marshall",
     githubUsername: "zaramgit",
@@ -10,6 +11,7 @@ const createStudent = async () => {
     gender: "Female",
     background: "Black"
   }, {
+    id: 2,
     firstName: "Jeff",
     lastName: "Jefferson",
     githubUsername: "jjgit",
@@ -17,6 +19,7 @@ const createStudent = async () => {
     gender: "Male",
     background: "White"
   }, {
+    id: 3,
     firstName: "Alice",
     lastName: "Williams",
     githubUsername: "alicewilliamsgit",
@@ -24,6 +27,7 @@ const createStudent = async () => {
     gender: "Female",
     background: "Black"
   }, {
+    id: 4,
     firstName: "Clive",
     lastName: "Smith",
     githubUsername: "csmithgit",
