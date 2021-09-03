@@ -65,11 +65,10 @@ const createStudents = require("../../../test/ReportGroupTests/create-students")
 const createModuleChallenges = require("../../../test/ReportGroupTests/create-module-challenges");
 const { Student } = require("../../../models");
 
-const TransformData = require("../../../src/reports/transformData");
+const getUniqueStudentData = require("../../../src/reports/getUniqueStudentData.js");
 
-describe("Test transformData:", () => {
+describe("Test unique student data function:", () => {
 
-  let transformData;
   let cohortData;
 
   beforeEach( async () => {
@@ -78,12 +77,10 @@ describe("Test transformData:", () => {
     await createStudents();
     await createModuleChallenges();
     cohortData = await Student.queryBy({CohortId: 1});
-    transformData = new TransformData();
-    transformData.build(cohortData.rows);
   });
 
   it("get unique student entries", () => {
-    const uniqueData = transformData.getUnique(cohortData.rows);
+    const uniqueData = getUniqueStudentData(cohortData.rows);
     expect(uniqueData.length).toEqual(4);
     expect(uniqueData.map(student => student.id)).toEqual([1,2,3,4]);
   });

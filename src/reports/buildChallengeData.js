@@ -12,15 +12,6 @@ function getChallengePercentage(cohortData, challenge){
       totalCount += 1;
     }
   }
-<<<<<<< HEAD
-);
-if(totalCount === 0){
-  percentage = 0
-}else{
-  percentage = 100*(successfulCount/totalCount).toFixed(2);
-}
-   return percentage 
-=======
   );
   if(totalCount === 0){
     percentage = 0;
@@ -28,7 +19,6 @@ if(totalCount === 0){
     percentage = Math.round(100*successfulCount/totalCount).toFixed(2);
   }
   return percentage; 
->>>>>>> 672593a (created challenge JS object)
 }
 
 function buildChallengeData(cohortData,key) {
