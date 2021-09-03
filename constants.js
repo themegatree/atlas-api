@@ -19,5 +19,9 @@ module.exports = {
     airport: "Airport",
     scrabble: "Scrabble",
     news: "News Summary Challenge"
+  },
+  fileUploadTypes: {
+    selfAssessment: "Self Assessment",
+    moduleChallenge: "Module Challenges"
   }
 };
