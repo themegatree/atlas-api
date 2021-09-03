@@ -19,10 +19,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.VIRTUAL,
       get() {
         if (this.Students === undefined) {
-          return undefined
+          return undefined;
         }
         return this.Students.length;
-  }}
+      }}
   }, {
     sequelize,
     modelName: "Cohort",
