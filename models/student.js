@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
 
     }
   }
+  
   Student.init({
     firstName: DataTypes.STRING,
     lastName: DataTypes.STRING,
@@ -25,5 +26,6 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: "Student",
   });
+
   return Student;
 };

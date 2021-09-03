@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { Cohort } = require("../models");
+const { Cohort, Student } = require("../models");
 const Report = require("../src/reports/Report.js");
 
 
@@ -24,7 +24,7 @@ router.get("/:id", async function (req, res) {
       id: req.params.id},
     order: [[Student, "firstName", "ASC"]],
   });
-  res.json({ cohort: cohort });
+  res.json({ cohort: cohort,});
 });
 
 router.get("/:id/reports", async function (req, res) {

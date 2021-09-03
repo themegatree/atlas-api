@@ -18,8 +18,12 @@ module.exports = (sequelize, DataTypes) => {
     cohortSize: {
       type: DataTypes.VIRTUAL,
       get() {
-        return `${this.Students.length}`;
-  }}}, {
+        if (this.Students === undefined) {
+          return undefined
+        }
+        return this.Students.length;
+  }}
+  }, {
     sequelize,
     modelName: "Cohort",
   });

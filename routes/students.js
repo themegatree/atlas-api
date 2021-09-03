@@ -7,7 +7,6 @@ router.use(methodOverride("_method"));
 router.get("/", async function (req, res) {
   let students = await Student.findAll({ include: { all: true }});
   students = students || {};
-
   res.json({ students: students });
 });
 
