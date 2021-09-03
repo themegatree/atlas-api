@@ -6,6 +6,7 @@ describe("Dashboard Router Test", () => {
     cy.task("taskCreateCohorts");
     cy.task("taskCreateStudents");
     cy.task("taskCreateModuleChallenges");
+    cy.task("taskCreateUploadHistory");
   });
 
 
@@ -67,6 +68,10 @@ describe("Dashboard Router Test", () => {
     });
   });
 
-
-  
+  it("returns correct fileUploads array", () => {
+    cy.request("GET", "/api/dashboard").then((res) => {
+      expect(res.body.dashboard.fileUploads[0]).to.deep.eq({type: "Self Assessment", uploads: [1,1,1,2,1,1,0]});
+      expect(res.body.dashboard.fileUploads[1]).to.deep.eq({type: "Module Challenges", uploads: [0,1,1,0,0,0,0]});
+    });
+  });
 });
