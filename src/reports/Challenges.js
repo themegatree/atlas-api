@@ -10,16 +10,16 @@ function ChallengePercentageCalculator(cohortData, challenge){
       successfulCount += 1;
     }
     if (Data["ModuleChallenges.challengeName"] === challenge ){
-      totalCount += 1
+      totalCount += 1;
     }
   }
-);
-if(totalCount === 0){
-  percentage = 0
-}else{
-  percentage = 100*(successfulCount/totalCount).toFixed(2);
-}
-   return percentage 
+  );
+  if(totalCount === 0){
+    percentage = 0;
+  }else{
+    percentage = 100*(successfulCount/totalCount).toFixed(2);
+  }
+  return percentage; 
 }
 const challengeNames = Object.values(constants.challenge);
 function getChallengePercentages(cohortData) {

@@ -1,13 +1,22 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 672593a (created challenge JS object)
 class TransformData {
   constructor() {
     this.gender = [];
     this.background = [];
+<<<<<<< HEAD
   };
+=======
+    this.uniqueData = [];
+  }
+>>>>>>> 672593a (created challenge JS object)
 
   selectByKey(data, key) {
     const values = data.map(obj => obj[key]);
     return values;
+<<<<<<< HEAD
   };
 
   // pickKeys (obj, keys) {
@@ -22,6 +31,9 @@ class TransformData {
   // simplifyData (data, keys) {
   //   return data.map(obj => this.pickKeys(obj,keys));
   // }
+=======
+  }
+>>>>>>> 672593a (created challenge JS object)
 
   getUnique(cohortData) {
     const uniqueData = [cohortData[0]];
@@ -36,6 +48,7 @@ class TransformData {
 
   build(cohortData) { 
     const uniqueData = this.getUnique(cohortData);
+<<<<<<< HEAD
     this.gender = this.selectByKey(uniqueData,"gender");
     this.background = this.selectByKey(uniqueData,"background");
   
@@ -77,3 +90,12 @@ class TransformData {
 }
 module.exports = TransformData;
 >>>>>>> c148f0b (working on genderAndBackgroundPercentage.js)
+=======
+    this.uniqueData = uniqueData;
+    this.gender = this.selectByKey(uniqueData,"gender");
+    this.background = this.selectByKey(uniqueData,"background");
+  }
+
+}
+module.exports = TransformData;
+>>>>>>> 672593a (created challenge JS object)
