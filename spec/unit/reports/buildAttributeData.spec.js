@@ -44,4 +44,4 @@ describe("test challenge class:", () => {
   });
   
 
-})
+});

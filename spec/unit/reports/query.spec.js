@@ -5,17 +5,15 @@ const createStudents = require("../../../test/ReportGroupTests/create-students")
 const createModuleChallenges = require("../../../test/ReportGroupTests/create-module-challenges");
 const { Student } = require("../../../models");
 
-const constants = require('../../../constants');
+const constants = require("../../../constants");
 
 describe("information we get back from query is correct", function() {
-  let cohortId;
   let rawQuery;
   beforeEach( async () => {
     await truncateTables();
     await createCohorts();
     await createStudents();
     await createModuleChallenges();
-    cohortId = 1;
     rawQuery = await Student.queryBy({CohortId: 1});
   });
 

@@ -1,8 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { Cohort } = require("../models");
-const Report = require("../src/reports/Report.js");
-
+const buildReportFor = require("../src/reports/buildReportFor");
 
 router.get("/", async function (req, res) {
   const sort = req.query.sort || "startDate";
@@ -18,8 +17,7 @@ router.get("/", async function (req, res) {
 });
 
 router.get("/:id/reports", async function (req, res) {
-  const report = new Report();
-  const completeReport = await report.create(req.params.id);
+  const completeReport = await buildReportFor(req.params.id);
   res.json({ report:  completeReport});
 });
 

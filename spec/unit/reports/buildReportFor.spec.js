@@ -7,7 +7,7 @@ const createModuleChallenges = require("../../../test/ReportGroupTests/create-mo
 
 const buildReportFor = require("../../../src/reports/buildReportFor");
 
-describe('test report data can be built:', () => {
+describe("test report data can be built:", () => {
   let reportData, cohortId;
 
   beforeEach( async () => {
@@ -17,6 +17,14 @@ describe('test report data can be built:', () => {
     await createModuleChallenges();
     cohortId = 1;
     reportData = await buildReportFor(cohortId);
+  });
+
+  it("returns correct cohort name", function () {
+    expect(reportData.cohortName).toEqual("Dummy Cohort 1");
+  });
+
+  it("returns correct cohort size", function () {
+    expect(reportData.cohortSize).toEqual(4);
   });
 
   it("returns correct gender data", function(){ 
