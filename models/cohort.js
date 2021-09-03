@@ -13,7 +13,16 @@ module.exports = (sequelize, DataTypes) => {
   }
   Cohort.init({
     name: DataTypes.STRING,
-    startDate: DataTypes.DATE
+    startDate: DataTypes.DATE,
+    leadCoach: DataTypes.STRING,
+    cohortSize: {
+      type: DataTypes.VIRTUAL,
+      get() {
+        if (this.Students === undefined) {
+          return undefined;
+        }
+        return this.Students.length;
+      }}
   }, {
     sequelize,
     modelName: "Cohort",

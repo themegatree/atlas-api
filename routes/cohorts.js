@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { Cohort } = require("../models");
+const { Cohort, Student } = require("../models");
 const Report = require("../src/reports/Report.js");
 
 
@@ -15,6 +15,16 @@ router.get("/", async function (req, res) {
   }).catch(() => {
     res.json({ errors: ["Sorry invalid query parameters"] });
   });
+});
+
+router.get("/:id", async function (req, res) {
+  const cohort = await Cohort.findOne({
+    include: [{ all: true }],
+    where: {
+      id: req.params.id},
+    order: [[Student, "firstName", "ASC"]],
+  });
+  res.json({ cohort: cohort,});
 });
 
 router.get("/:id/reports", async function (req, res) {
