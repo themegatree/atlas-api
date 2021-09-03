@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 class TransformData {
   constructor() {
     this.gender = [];
@@ -42,3 +43,37 @@ class TransformData {
 
 }
 module.exports = TransformData;
+=======
+class TransformData {
+  constructor() {
+    this.gender = [];
+    this.background = [];
+    this.uniqueData = [];
+  };
+
+  selectByKey(data, key) {
+    const values = data.map(obj => obj[key]);
+    return values;
+  };
+
+  getUnique(cohortData) {
+    const uniqueData = [cohortData[0]];
+    cohortData.forEach(data => {
+      if (uniqueData[uniqueData.length - 1].id !== data.id) {
+        uniqueData.push(data);
+      }
+    }
+    );
+    return uniqueData;
+  }
+
+  build(cohortData) { 
+    const uniqueData = this.getUnique(cohortData);
+    this.uniqueData = uniqueData
+    this.gender = this.selectByKey(uniqueData,"gender");
+    this.background = this.selectByKey(uniqueData,"background");
+  };
+
+}
+module.exports = TransformData;
+>>>>>>> c148f0b (working on genderAndBackgroundPercentage.js)

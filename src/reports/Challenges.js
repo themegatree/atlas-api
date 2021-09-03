@@ -2,24 +2,26 @@ const constants = require("../../constants");
 
 // For one challenge
 function ChallengePercentageCalculator(cohortData, challenge){
-  let SuccessfulCount = 0;
+  let successfulCount = 0;
+  let totalCount = 0;
+  let percentage = 0;
   cohortData.forEach(Data => {
-    // console.log(Data["ModuleChallenges.challengeName"]) ;
-    // console.log(Data["ModuleChallenges.challengeName"] === challenge);
     if (Data["ModuleChallenges.challengeName"] === challenge && Data["ModuleChallenges.studentScore"] !== "incomplete") {
-      SuccessfulCount += 1;
+      successfulCount += 1;
+    }
+    if (Data["ModuleChallenges.challengeName"] === challenge ){
+      totalCount += 1
     }
   }
-  );
-  //console.log(SuccessfulCount);
-  return SuccessfulCount;
+);
+if(totalCount === 0){
+  percentage = 0
+}else{
+  percentage = 100*(successfulCount/totalCount).toFixed(2);
 }
-
-console.log(constants.challenge);
-console.log(Object.values(constants.challenge))
+   return percentage 
+}
 const challengeNames = Object.values(constants.challenge);
-
-// For all the challenges
 function getChallengePercentages(cohortData) {
   challengeNames.forEach(challenge => {ChallengePercentageCalculator(cohortData, challenge);
     console.log(challenge);
@@ -29,3 +31,4 @@ function getChallengePercentages(cohortData) {
 }
 
 module.exports = getChallengePercentages;
+
